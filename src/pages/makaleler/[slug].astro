@@ -1,0 +1,54 @@
+---
+import ContentLayout from '../../layouts/ContentLayout.astro';
+import { getCollection } from 'astro:content';
+import { getArticleSlug } from '../../utils/content';
+import {
+  parseMarkdownBody,
+  buildArticleSchema,
+} from '../../utils/markdown';
+
+export async function getStaticPaths() {
+  const articles = await getCollection('articles');
+  return articles.map((article) => {
+    const slug = getArticleSlug(article);
+    return {
+      params: { slug },
+      props: { article },
+    };
+  });
+}
+
+const { article } = Astro.props;
+const slug = getArticleSlug(article);
+const path = `/makaleler/${slug}/`;
+const { html, relatedLinks, schemas } = parseMarkdownBody(article.body ?? '');
+
+const articleSchema = buildArticleSchema({
+  title: article.data.title,
+  description: article.data.description,
+  slug,
+  date: article.data.date,
+  author: article.data.author,
+});
+
+const pageSchemas = schemas.length > 0 ? schemas : [articleSchema];
+const breadcrumbs = [
+  { label: 'Makaleler', href: '/makaleler/' },
+  { label: article.data.title },
+];
+---
+
+<ContentLayout
+  title={article.data.title}
+  description={article.data.description}
+  path={path}
+  breadcrumbs={breadcrumbs}
+  html={html}
+  relatedLinks={relatedLinks}
+  schemas={pageSchemas}
+  ogType="article"
+  category={article.data.category}
+  focusKeyword={article.data.focusKeyword}
+  secondaryKeywords={article.data.secondaryKeywords}
+  author={article.data.author}
+/>

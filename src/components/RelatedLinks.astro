@@ -1,0 +1,24 @@
+---
+import type { RelatedLink } from '../utils/markdown';
+
+interface Props {
+  links: RelatedLink[];
+}
+
+const { links } = Astro.props;
+---
+
+{
+  links.length > 0 && (
+    <section class="related-section">
+      <h2>İlgili İçerikler</h2>
+      <ul>
+        {links.map((link) => (
+          <li>
+            <a href={link.href}>{link.title}</a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )
+}

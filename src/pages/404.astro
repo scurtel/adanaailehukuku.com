@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Sayfa Bulunamadı"
+  description="Aradığınız sayfa bulunamadı."
+  path="/404/"
+>
+  <div class="container error-page content-card">
+    <h1>404 — Sayfa Bulunamadı</h1>
+    <p>Aradığınız sayfa taşınmış veya kaldırılmış olabilir.</p>
+    <p>
+      <a class="btn btn-primary" href="/">Ana Sayfaya Dön</a>
+      <a class="btn btn-secondary" href="/makaleler/">Makalelere Git</a>
+    </p>
+  </div>
+</BaseLayout>

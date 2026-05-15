@@ -1,0 +1,37 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import { getArticlesSorted, getArticleSlug } from '../../utils/content';
+
+const articles = await getArticlesSorted();
+---
+
+<BaseLayout
+  title="Makaleler | Adana Aile Hukuku"
+  description="Adana aile hukuku, boşanma, velayet, nafaka ve mal paylaşımı hakkında bilgilendirici makaleler."
+  path="/makaleler/"
+>
+  <div class="container">
+    <Breadcrumb items={[{ label: 'Makaleler' }]} />
+    <h1 class="section-title">Makaleler</h1>
+    <p>Adana aile hukuku süreçleri hakkında bilgilendirici yazılar.</p>
+    <div class="grid-2" style="margin-top: 1.25rem;">
+      {
+        articles.map((article) => {
+          const slug = getArticleSlug(article);
+          return (
+            <ArticleCard
+              title={article.data.title}
+              description={article.data.description}
+              href={`/makaleler/${slug}/`}
+              category={article.data.category}
+              focusKeyword={article.data.focusKeyword}
+              date={article.data.date}
+            />
+          );
+        })
+      }
+    </div>
+  </div>
+</BaseLayout>

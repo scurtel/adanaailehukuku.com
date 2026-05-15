@@ -1,0 +1,55 @@
+---
+import ContentLayout from '../layouts/ContentLayout.astro';
+import { getCollection } from 'astro:content';
+import { getPageSlug, getPagePath } from '../utils/content';
+import {
+  parseMarkdownBody,
+  buildLegalServiceSchema,
+} from '../utils/markdown';
+
+export async function getStaticPaths() {
+  const pages = await getCollection('pages');
+  return pages
+    .filter((page) => !page.id.replace(/\.md$/, '').includes('ana-sayfa'))
+    .map((page) => {
+      const slug = getPageSlug(page);
+      return { slug, page };
+    })
+    .filter((item) => item.slug.length > 0)
+    .map(({ slug, page }) => ({
+      params: { slug },
+      props: { page },
+    }));
+}
+
+const { page } = Astro.props;
+const path = getPagePath(page);
+const { html, relatedLinks, schemas } = parseMarkdownBody(page.body ?? '');
+
+const pageSchemas =
+  schemas.length > 0
+    ? schemas
+    : [
+        buildLegalServiceSchema({
+          title: page.data.title,
+          description: page.data.description,
+          path,
+        }),
+      ];
+
+const breadcrumbs = [{ label: page.data.title }];
+---
+
+<ContentLayout
+  title={page.data.title}
+  description={page.data.description}
+  path={path}
+  breadcrumbs={breadcrumbs}
+  html={html}
+  relatedLinks={relatedLinks}
+  schemas={pageSchemas}
+  category={page.data.category}
+  focusKeyword={page.data.focusKeyword}
+  secondaryKeywords={page.data.secondaryKeywords}
+  author={page.data.author}
+/>

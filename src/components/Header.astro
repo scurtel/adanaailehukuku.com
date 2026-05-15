@@ -1,0 +1,41 @@
+---
+import { NAV_ITEMS, SITE_NAME, SITE_TAGLINE } from '../consts';
+
+const pathname = Astro.url.pathname;
+---
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="/">
+      {SITE_NAME}
+      <small>{SITE_TAGLINE}</small>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" id="nav-toggle">
+      Menü
+    </button>
+    <nav class="site-nav" id="site-nav" aria-label="Ana menü">
+      {
+        NAV_ITEMS.map((item) => {
+          const active =
+            item.href === '/'
+              ? pathname === '/' || pathname === ''
+              : pathname.startsWith(item.href);
+          return (
+            <a href={item.href} aria-current={active ? 'page' : undefined}>
+              {item.label}
+            </a>
+          );
+        })
+      }
+    </nav>
+  </div>
+</header>
+
+<script>
+  const toggle = document.getElementById('nav-toggle');
+  const nav = document.getElementById('site-nav');
+  toggle?.addEventListener('click', () => {
+    const open = nav?.classList.toggle('is-open');
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+</script>

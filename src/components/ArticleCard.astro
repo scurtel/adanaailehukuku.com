@@ -1,0 +1,52 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  href: string;
+  category?: string;
+  focusKeyword?: string;
+  date?: Date;
+}
+
+const { title, description, href, category, focusKeyword, date } = Astro.props;
+
+const formattedDate =
+  date &&
+  date.toLocaleDateString('tr-TR', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+---
+
+<article class="card">
+  <div class="card-meta">
+    {category && <span class="badge">{category}</span>}
+    {formattedDate && <time datetime={date?.toISOString()}>{formattedDate}</time>}
+  </div>
+  <h3><a href={href}>{title}</a></h3>
+  <p>{description}</p>
+  {focusKeyword && <p class="card-keyword"><small>Odak: {focusKeyword}</small></p>}
+  <a class="card-link" href={href}>Devamını oku →</a>
+</article>
+
+<style>
+  .card-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+    align-items: center;
+    margin-bottom: 0.35rem;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+
+  .card-keyword {
+    margin: 0 0 0.5rem;
+  }
+
+  .card-link {
+    font-weight: 600;
+    text-decoration: none;
+  }
+</style>

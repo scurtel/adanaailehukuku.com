@@ -1,0 +1,99 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import CTA from '../components/CTA.astro';
+import AttorneyBox from '../components/AttorneyBox.astro';
+import RelatedLinks from '../components/RelatedLinks.astro';
+import type { RelatedLink } from '../utils/markdown';
+
+interface Crumb {
+  label: string;
+  href?: string;
+}
+
+interface Props {
+  title: string;
+  description: string;
+  path: string;
+  breadcrumbs: Crumb[];
+  html: string;
+  relatedLinks?: RelatedLink[];
+  schemas?: Record<string, unknown>[];
+  ogType?: string;
+  showAttorneyBox?: boolean;
+  showHero?: boolean;
+  heroTitle?: string;
+  heroSubtitle?: string;
+  category?: string;
+  focusKeyword?: string;
+  secondaryKeywords?: string[] | string;
+  author?: string;
+}
+
+const {
+  title,
+  description,
+  path,
+  breadcrumbs,
+  html,
+  relatedLinks = [],
+  schemas = [],
+  ogType = 'website',
+  showAttorneyBox = true,
+  showHero = false,
+  heroTitle,
+  heroSubtitle,
+  category,
+  focusKeyword,
+  secondaryKeywords,
+  author,
+} = Astro.props;
+
+const keywordsList = Array.isArray(secondaryKeywords)
+  ? secondaryKeywords
+  : secondaryKeywords
+    ? [secondaryKeywords]
+    : [];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  path={path}
+  schemas={schemas}
+  ogType={ogType}
+  keywords={keywordsList}
+>
+  {
+    showHero && (
+      <section class="hero">
+        <div class="container">
+          <h1>{heroTitle ?? title}</h1>
+          {heroSubtitle && <p>{heroSubtitle}</p>}
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="/iletisim/">Hukuki Danışmanlık Al</a>
+            <a class="btn btn-secondary" href="/makaleler/">Makaleleri İncele</a>
+          </div>
+        </div>
+      </section>
+    )
+  }
+  <div class="container">
+    {!showHero && <Breadcrumb items={breadcrumbs} />}
+    <article class="content-card">
+      {
+        (category || focusKeyword || author) && (
+          <div class="meta-row">
+            {category && <span class="badge">{category}</span>}
+            {focusKeyword && <span>Odak: {focusKeyword}</span>}
+            {author && <span>{author}</span>}
+          </div>
+        )
+      }
+      <div class="prose" set:html={html} />
+      <RelatedLinks links={relatedLinks} />
+      {showAttorneyBox && <AttorneyBox />}
+      <CTA />
+    </article>
+  </div>
+</BaseLayout>
