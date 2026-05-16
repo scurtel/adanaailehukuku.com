@@ -53,6 +53,25 @@ Hostinger panelinde **Node.js Web App** oluşturun ve GitHub reposunu bağlayın
 - `.env` dosyası repoya **eklenmez** (`.gitignore`).
 - Üretim sitesi URL’si: `https://adanaailehukuku.com` (`astro.config.mjs` içinde `site`).
 
+## Hizmet sayfası içerik üretimi (Gemini)
+
+```bash
+# Tüm hizmet sayfalarını güncelle (.env içinde GEMINI_API_KEY gerekli)
+set FORCE=1
+python scripts/generate-services-content.py
+
+# QC: schema, URL düzeltme, yasak ifadeler
+python scripts/fix-services-qc.py
+
+# Tek sayfa
+set ONLY_SLUG=adana-bosanma-avukati
+set FORCE=1
+python scripts/generate-services-content.py
+python scripts/fix-services-qc.py
+```
+
+`.env.example` dosyasına bakın; gerçek anahtar `.env` içinde kalır.
+
 ## İçerik yapısı
 
 | Klasör | Açıklama |
