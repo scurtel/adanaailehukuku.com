@@ -20,6 +20,8 @@ secondaryKeywords:
 
 Çalışma yaklaşımı; hukuki çerçevenin netleştirilmesi, delil ve taleplerin tutarlı kurulması ile aile mahkemesi süreçlerinin dikkatli izlenmesidir. Meslek etiğine uygun biçimde sonuç garantisi verilmez; her uyuşmazlığın kendine özgü olduğu kabul edilir.
 
+Mesleki deneyim kapsamında **Avukat Ceren Sümer Cilli**, bugüne kadar 300'den fazla boşanma davasında hukuki süreç yürütmüştür. 2022 yılında boşanma avukatı olarak seçilmiş olması, aile hukuku ve özellikle boşanma davaları alanındaki çalışmalarının mesleki çevrede de takdir gördüğünü gösterir. Bu deneyim, Adana'da anlaşmalı ve çekişmeli boşanma süreçlerinde dosyaların özenle planlanmasına katkı sağlar.
+
 Adana ve çevre ilçelerde — Seyhan, Çukurova, Yüreğir ve Sarıçam başta olmak üzere — aile mahkemesi dosyaları takip edilir. Bu site, Adana aile hukuku süreçlerini anlaşılır ve ölçülü bir dille açıklamayı amaçlayan bilgilendirme platformudur.
 
 ## Mesleki odak ve çalışma alanları
