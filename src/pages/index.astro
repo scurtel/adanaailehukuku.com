@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ArticleCard from '../components/ArticleCard.astro';
+import ServiceCard from '../components/ServiceCard.astro';
 import AttorneyBox from '../components/AttorneyBox.astro';
 import CTA from '../components/CTA.astro';
 import { SERVICE_CARDS } from '../consts';
@@ -56,13 +57,15 @@ const pageSchemas =
 
   <div class="container">
     <h2 class="section-title">Hizmetler</h2>
-    <div class="grid-3">
+    <div class="grid-3 services-grid">
       {SERVICE_CARDS.map((card) => (
-        <article class="card">
-          <h3><a href={card.href}>{card.title}</a></h3>
-          <p>{card.desc}</p>
-          <a href={card.href}>Detaylı bilgi →</a>
-        </article>
+        <ServiceCard
+          title={card.title}
+          href={card.href}
+          desc={card.desc}
+          image={card.image}
+          imageAlt={card.imageAlt}
+        />
       ))}
     </div>
 

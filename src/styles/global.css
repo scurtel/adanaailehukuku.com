@@ -271,6 +271,79 @@ main {
   text-decoration: none;
 }
 
+.service-card {
+  padding: 0;
+  overflow: hidden;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+.service-card:hover {
+  border-color: var(--gold);
+  box-shadow: 0 12px 32px rgba(26, 39, 68, 0.12);
+  transform: translateY(-2px);
+}
+
+.service-card__media {
+  height: 200px;
+  overflow: hidden;
+  background: var(--navy-dark);
+  border-bottom: 2px solid var(--gold);
+}
+
+.service-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.service-card__body {
+  padding: 1rem 1.1rem 1.15rem;
+}
+
+.service-card__body h3 {
+  margin: 0 0 0.4rem;
+}
+
+.service-card__body p {
+  margin: 0 0 0.75rem;
+}
+
+.service-card__link {
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--navy);
+}
+
+.service-card__link:hover {
+  color: var(--gold-dark);
+}
+
+.services-grid .service-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.services-grid .service-card__body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.services-grid .service-card__link {
+  margin-top: auto;
+}
+
+@media (max-width: 600px) {
+  .service-card__media {
+    height: 180px;
+  }
+}
+
 .section-title {
   margin: 0 0 1rem;
   color: var(--navy);
