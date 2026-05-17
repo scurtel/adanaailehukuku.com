@@ -43,7 +43,7 @@ export const NAV_ITEMS = [
 ] as const;
 
 const unsplash = (id: string) =>
-  `https://images.unsplash.com/${id}?auto=format&fit=crop&w=800&q=75`;
+  `https://images.unsplash.com/${id}?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=75`;
 
 export const SERVICE_CARDS = [
   {
@@ -71,21 +71,21 @@ export const SERVICE_CARDS = [
     title: 'Çekişmeli Boşanma',
     href: '/adana-cekismeli-bosanma-avukati/',
     desc: "Sebep, delil ve fer'iler",
-    image: unsplash('photo-1505663694776-a7e4ef6ae560'),
+    image: unsplash('photo-1589395547768-097fc64cb4c4'),
     imageAlt: 'Çekişmeli boşanma davası — mahkeme ve hukuki süreç',
   },
   {
     title: 'Velayet Davaları',
     href: '/adana-velayet-davasi-avukati/',
     desc: 'Çocuğun üstün yararı',
-    image: unsplash('photo-1589395590378-f402dc2e54a2'),
+    image: unsplash('photo-1486312338211-ce68d2c6f44d'),
     imageAlt: 'Velayet davası — aile hukuku dosyası ve danışmanlık',
   },
   {
     title: 'Nafaka Davaları',
     href: '/adana-nafaka-davasi-avukati/',
     desc: 'İştirak ve yoksulluk nafakası',
-    image: unsplash('photo-1554224311-9f0439705569'),
+    image: unsplash('photo-1554224154-2603291200a8'),
     imageAlt: 'Nafaka davası — hesaplama ve hukuki evrak',
   },
   {
@@ -99,21 +99,21 @@ export const SERVICE_CARDS = [
     title: 'Ziynet Alacağı',
     href: '/adana-ziynet-alacagi-avukati/',
     desc: 'İspat ve talep süreci',
-    image: unsplash('photo-1605100804763-247dfe55bf93'),
+    image: unsplash('photo-1617038263447-10b0c271bbae'),
     imageAlt: 'Ziynet alacağı davası — mücevher ve hukuki değerlendirme',
   },
   {
     title: 'Aile Konutu Şerhi',
     href: '/aile-konutu-serhi-avukati/',
     desc: 'TMK 194 koruması',
-    image: unsplash('photo-1568998036143-e77d90941dbb'),
+    image: unsplash('photo-1564013799919-ab6080271e24'),
     imageAlt: 'Aile konutu şerhi — konut ve tapu hukuku teması',
   },
   {
     title: 'Uzaklaştırma Kararı',
     href: '/uzaklastirma-karari-avukati/',
     desc: '6284 koruma tedbirleri',
-    image: unsplash('photo-1589998055851-e9e8f4b5c082'),
+    image: unsplash('photo-1589994965851-a41384c0f192'),
     imageAlt: 'Uzaklaştırma kararı — koruma tedbiri ve hukuk kütüphanesi',
   },
 ] as const;
