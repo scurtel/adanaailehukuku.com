@@ -12,7 +12,11 @@ CONSTS = ROOT / "src" / "consts.ts"
 
 def main() -> int:
     text = CONSTS.read_text(encoding="utf-8")
-    urls = re.findall(r"https://images\.unsplash\.com/[^\s\"']+", text)
+    ids = re.findall(r"unsplash\('(photo-[^']+)'\)", text)
+    urls = [
+        f"https://images.unsplash.com/{pid}?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=75"
+        for pid in ids
+    ]
     failed = []
     for url in urls:
         req = urllib.request.Request(url, method="HEAD", headers={"User-Agent": "Mozilla/5.0"})
