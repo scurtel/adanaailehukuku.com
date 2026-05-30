@@ -141,6 +141,8 @@ export function buildLegalServiceSchema(input: {
       { '@type': 'City', name: 'Adana' },
       { '@type': 'Place', name: 'Seyhan' },
       { '@type': 'Place', name: 'Çukurova' },
+      { '@type': 'Place', name: 'Yüreğir' },
+      { '@type': 'Place', name: 'Sarıçam' },
     ],
     serviceType: 'Aile Hukuku',
     description: input.description,
@@ -149,6 +151,73 @@ export function buildLegalServiceSchema(input: {
       name: 'Avukat Ceren Sümer Cilli',
     },
   };
+}
+
+export function buildLocalBusinessSchema() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'LegalService',
+    '@id': `${SITE_URL}/#organization`,
+    name: 'Avukat Ceren Sümer Cilli',
+    url: SITE_URL,
+    image: `${SITE_URL}/favicon.svg`,
+    description:
+      "Adana'da aile hukuku, boşanma, velayet, nafaka ve mal paylaşımı alanında avukatlık ve hukuki danışmanlık.",
+    areaServed: { '@type': 'City', name: 'Adana' },
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Adana',
+      addressRegion: 'Adana',
+      addressCountry: 'TR',
+    },
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: 37.0017,
+      longitude: 35.3289,
+    },
+    sameAs: [
+      'https://www.cerensumer.av.tr/adana-bosanma-avukati-ceren-sumer-cilli-kimdir/',
+      'https://www.google.com/maps/search/?api=1&query=Avukat+Ceren+S%C3%BCmer+Cilli+Adana',
+      'https://www.linkedin.com/in/avukat-ceren-s%C3%BCmer-cilli-375873b0/',
+      'https://www.instagram.com/av.cerensumercilli/',
+      'https://www.facebook.com/cerensumercilli/',
+    ],
+  };
+}
+
+export function buildBreadcrumbSchema(items: { name: string; url: string }[]) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: items.map((item, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: item.name,
+      item: item.url,
+    })),
+  };
+}
+
+export function mergeSchemas(...groups: Record<string, unknown>[][]): Record<string, unknown>[] {
+  const seen = new Set<string>();
+  const result: Record<string, unknown>[] = [];
+  for (const group of groups) {
+    for (const schema of group) {
+      const key = `${String(schema['@type'] ?? '')}:${String(schema['@id'] ?? schema.name ?? result.length)}`;
+      if (seen.has(key)) continue;
+      seen.add(key);
+      result.push(schema);
+    }
+  }
+  return result;
+}
+
+export function stripHomeDisplaySections(raw: string): string {
+  return raw
+    .replace(/^## Hero[\s\S]*?(?=^## )/m, '')
+    .replace(/^## Hizmetler[\s\S]*?(?=^## )/m, '')
+    .replace(/^## Son makaleler[\s\S]*?(?=^## )/m, '')
+    .replace(/^## Footer[\s\S]*?(?=^## SEO)/m, '');
 }
 
 export function canonicalUrl(path: string): string {

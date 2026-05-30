@@ -5,7 +5,10 @@ import { getArticleSlug } from '../../utils/content';
 import {
   parseMarkdownBody,
   buildArticleSchema,
+  buildBreadcrumbSchema,
+  mergeSchemas,
 } from '../../utils/markdown';
+import { SITE_URL } from '../../consts';
 
 export async function getStaticPaths() {
   const articles = await getCollection('articles');
@@ -31,7 +34,16 @@ const articleSchema = buildArticleSchema({
   author: article.data.author,
 });
 
-const pageSchemas = schemas.length > 0 ? schemas : [articleSchema];
+const pageSchemas = mergeSchemas(
+  schemas.length > 0 ? schemas : [articleSchema],
+  [
+    buildBreadcrumbSchema([
+      { name: 'Ana Sayfa', url: `${SITE_URL}/` },
+      { name: 'Makaleler', url: `${SITE_URL}/makaleler/` },
+      { name: article.data.title, url: `${SITE_URL}${path}` },
+    ]),
+  ],
+);
 const breadcrumbs = [
   { label: 'Makaleler', href: '/makaleler/' },
   { label: article.data.title },

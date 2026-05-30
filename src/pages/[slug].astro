@@ -5,7 +5,10 @@ import { getPageSlug, getPagePath } from '../utils/content';
 import {
   parseMarkdownBody,
   buildLegalServiceSchema,
+  buildBreadcrumbSchema,
+  mergeSchemas,
 } from '../utils/markdown';
+import { SITE_URL } from '../consts';
 
 export async function getStaticPaths() {
   const pages = await getCollection('pages');
@@ -26,7 +29,7 @@ const { page } = Astro.props;
 const path = getPagePath(page);
 const { html, relatedLinks, schemas } = parseMarkdownBody(page.body ?? '');
 
-const pageSchemas =
+const pageSchemas = mergeSchemas(
   schemas.length > 0
     ? schemas
     : [
@@ -35,7 +38,14 @@ const pageSchemas =
           description: page.data.description,
           path,
         }),
-      ];
+      ],
+  [
+    buildBreadcrumbSchema([
+      { name: 'Ana Sayfa', url: `${SITE_URL}/` },
+      { name: page.data.title, url: `${SITE_URL}${path}` },
+    ]),
+  ],
+);
 
 const breadcrumbs = [{ label: page.data.title }];
 ---

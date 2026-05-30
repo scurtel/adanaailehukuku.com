@@ -2,7 +2,7 @@
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { SITE_NAME } from '../consts';
+import { SITE_NAME, SITE_URL } from '../consts';
 import { canonicalUrl } from '../utils/markdown';
 
 interface Props {
@@ -12,9 +12,20 @@ interface Props {
   schemas?: Record<string, unknown>[];
   ogType?: string;
   keywords?: string[];
+  noindex?: boolean;
+  ogImage?: string;
 }
 
-const { title, description, path, schemas = [], ogType = 'website', keywords = [] } = Astro.props;
+const {
+  title,
+  description,
+  path,
+  schemas = [],
+  ogType = 'website',
+  keywords = [],
+  noindex = false,
+  ogImage = `${SITE_URL}/favicon.svg`,
+} = Astro.props;
 const canonical = canonicalUrl(path);
 const fullTitle = path === '/' ? title : `${title} | ${SITE_NAME}`;
 ---
@@ -27,14 +38,16 @@ const fullTitle = path === '/' ? title : `${title} | ${SITE_NAME}`;
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <meta name="author" content="Av. Ceren Sümer Cilli" />
-    <meta name="robots" content="index, follow" />
+    <meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow'} />
+    <meta name="googlebot" content={noindex ? 'noindex, follow' : 'index, follow'} />
     {keywords.length > 0 && <meta name="keywords" content={keywords.join(', ')} />}
-    <link rel="canonical" href={canonical} />
+    {!noindex && <link rel="canonical" href={canonical} />}
     <meta property="og:type" content={ogType} />
     <meta property="og:site_name" content={SITE_NAME} />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
     <meta property="og:locale" content="tr_TR" />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content={fullTitle} />

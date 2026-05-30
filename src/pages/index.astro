@@ -6,7 +6,8 @@ import AttorneyBox from '../components/AttorneyBox.astro';
 import CTA from '../components/CTA.astro';
 import { SERVICE_CARDS } from '../consts';
 import { getHomePage, getArticlesSorted } from '../utils/content';
-import { parseMarkdownBody, buildLegalServiceSchema } from '../utils/markdown';
+import { parseMarkdownBody, buildLegalServiceSchema, buildLocalBusinessSchema, buildBreadcrumbSchema, mergeSchemas, stripHomeDisplaySections } from '../utils/markdown';
+import { SITE_URL } from '../consts';
 
 const home = await getHomePage();
 if (!home) throw new Error('ana-sayfa.md bulunamadı');
@@ -14,28 +15,34 @@ if (!home) throw new Error('ana-sayfa.md bulunamadı');
 const articles = await getArticlesSorted();
 const recentArticles = articles.slice(0, 6);
 
-let rawBody = home.body ?? '';
-rawBody = rawBody.replace(/^## Hero[\s\S]*?(?=^## )/m, '');
-rawBody = rawBody.replace(/^## Hizmetler[\s\S]*?(?=^## )/m, '');
-rawBody = rawBody.replace(/^## Son makaleler[\s\S]*?(?=^## )/m, '');
+const rawBody = home.body ?? '';
+const bodyForMeta = stripHomeDisplaySections(rawBody);
 
-const faqSplit = rawBody.split(/^## Sık Sorulan Sorular\s*$/m);
-const mainContent = faqSplit[0] ?? rawBody;
+const faqSplit = bodyForMeta.split(/^## Sık Sorulan Sorular\s*$/m);
+const mainContent = faqSplit[0] ?? bodyForMeta;
 const faqContent = faqSplit[1]?.split(/^## /m)[0]?.trim() ?? '';
 
-const { html: mainHtml, relatedLinks, schemas } = parseMarkdownBody(mainContent);
+const { html: mainHtml } = parseMarkdownBody(mainContent);
 const { html: faqHtml } = faqContent ? parseMarkdownBody(`## Sık Sorulan Sorular\n\n${faqContent}`) : { html: '' };
+const { relatedLinks, schemas: contentSchemas } = parseMarkdownBody(bodyForMeta);
 
-const pageSchemas =
-  schemas.length > 0
-    ? schemas
+const pageSchemas = mergeSchemas(
+  [buildLocalBusinessSchema()],
+  contentSchemas.length > 0
+    ? contentSchemas
     : [
         buildLegalServiceSchema({
           title: 'Adana Aile Hukuku Avukatı',
           description: home.data.description,
           path: '/',
         }),
-      ];
+      ],
+  [
+    buildBreadcrumbSchema([
+      { name: 'Ana Sayfa', url: `${SITE_URL}/` },
+    ]),
+  ],
+);
 ---
 
 <BaseLayout
@@ -87,6 +94,20 @@ const pageSchemas =
     </div>
 
     <AttorneyBox />
+
+    <section class="content-card section-spaced">
+      <h2 class="section-title">Adana Boşanma ve Aile Hukuku Hizmetleri</h2>
+      <p>
+        Adana'da boşanma ve fer'î talepler için ayrıntılı bilgi alabileceğiniz hizmet sayfaları:
+        <a href="/adana-bosanma-avukati/">Adana boşanma avukatı</a>,
+        <a href="/adana-anlasmali-bosanma-avukati/">anlaşmalı boşanma süreci</a>,
+        <a href="/adana-cekismeli-bosanma-avukati/">çekişmeli boşanma davası</a>,
+        <a href="/adana-velayet-davasi-avukati/">velayet davası</a>,
+        <a href="/adana-nafaka-davasi-avukati/">nafaka talepleri</a>,
+        <a href="/adana-mal-paylasimi-avukati/">mal paylaşımı</a>
+        ve <a href="/iletisim/">danışmanlık / iletişim</a>.
+      </p>
+    </section>
 
     <article class="content-card section-spaced">
       <div class="prose" set:html={mainHtml} />
