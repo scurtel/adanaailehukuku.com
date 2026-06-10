@@ -14,6 +14,7 @@ export const ARTICLE_SLUGS = [
   'aile-konutu-serhi-bosanma',
   'ziynet-alacagi-davasi',
   'uludag-sozluk-pazar-degeri-eksi-sozluk',
+  'aym-suresiz-nafaka-duzenlemesini-iptal-etti',
 ] as const;
 
 export const PAGE_SLUGS = [
