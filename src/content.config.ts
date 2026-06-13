@@ -7,8 +7,11 @@ const frontmatterSchema = z.object({
   slug: z.string().optional(),
   date: z.coerce.date().optional(),
   author: z.string().optional(),
+  reviewer: z.string().optional(),
   category: z.string().optional(),
   focusKeyword: z.string().optional(),
+  practiceArea: z.union([z.array(z.string()), z.string()]).optional(),
+  location: z.string().optional(),
   secondaryKeywords: z.union([z.array(z.string()), z.string()]).optional(),
 });
 
