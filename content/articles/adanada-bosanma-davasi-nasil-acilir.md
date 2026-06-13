@@ -17,6 +17,8 @@ secondaryKeywords:
   - "Çekişmeli Boşanma"
 ---
 
+
+
 > Bu içerik, Adana'da aile hukuku, boşanma, nafaka ve velayet süreçleri üzerine çalışan **Av. Ceren Sümer Cilli** tarafından genel bilgilendirme amacıyla hazırlanmıştır.
 
 # Adana'da Boşanma Davası Nasıl Açılır?
@@ -203,115 +205,112 @@ Hayır, boşanma davasında avukat tutmak yasal olarak zorunlu değildir. Ancak,
 
 **Hukuki uyarı:** Bu içerik genel bilgilendirme amacı taşır. Her somut olay kendi şartları içinde değerlendirilmelidir. Hak kaybı yaşamamak için aile hukuku alanında hukuki destek alınması önerilir.
 
----
+## SEO Çıktıları
+
+- **SEO title:** Adana'da Boşanma Davası Nasıl Açılır? | Aile Hukuku Rehberi
+- **Meta description:** Adana'da boşanma davası açmak isteyenler için anlaşmalı ve çekişmeli boşanma, gerekli belgeler, dava süreci ve hukuki destek hakkında rehber.
+- **Slug:** adanada-bosanma-davasi-nasil-acilir
+- **Focus keyword:** Adana boşanma avukatı
+- **Secondary keywords:** Adana Boşanma Avukatı, Boşanma Davası, Aile Hukuku, Anlaşmalı Boşanma, Çekişmeli Boşanma
+- **İç link önerileri:**
+  - [Adana Boşanma Avukatı](https://adanaailehukuku.com/adana-bosanma-avukati/) — `adana-bosanma-avukati`
+  - [Adana Nafaka Davası Avukatı](https://adanaailehukuku.com/adana-nafaka-davasi-avukati/) — `adana-nafaka-davasi-avukati`
+  - [Adana Velayet Davası Avukatı](https://adanaailehukuku.com/adana-velayet-davasi-avukati/) — `adana-velayet-davasi-avukati`
+  - [Hakkımızda](https://adanaailehukuku.com/hakkimizda/) — `hakkimizda`
+  - [İletişim](https://adanaailehukuku.com/iletisim/) — `iletisim`
+
+## FAQ Schema JSON-LD
 
 ```json
 {
-  "seo_outputs": {
-    "seo_title": "Adana'da Boşanma Davası Nasıl Açılır? | Aile Hukuku Rehberi",
-    "meta_description": "Adana'da boşanma davası açmak isteyenler için anlaşmalı ve çekişmeli boşanma, gerekli belgeler, dava süreci ve hukuki destek hakkında rehber.",
-    "slug": "adanada-bosanma-davasi-nasil-acilir",
-    "focus_keyword": "Adana'da Boşanma Davası Nasıl Açılır",
-    "secondary_keywords": [
-      "Adana boşanma avukatı",
-      "Boşanma davası süreci Adana",
-      "Anlaşmalı boşanma Adana",
-      "Çekişmeli boşanma Adana",
-      "Boşanma dilekçesi Adana",
-      "Adana aile mahkemesi"
-    ]
-  },
-  "faq_schema_json_ld": {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "Adana'da boşanma davası açmak için nereye başvurulur?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Adana'da boşanma davası açmak için yetkili mahkeme Aile Mahkemeleridir. Dava dilekçesi ve gerekli belgelerle birlikte Adana Adliyesi'nde bulunan Aile Mahkemeleri Tevzi Bürosu'na başvurulur. Hukuki süreçte profesyonel destek almak için bir avukatla çalışmak önemlidir."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Anlaşmalı boşanma ile çekişmeli boşanma arasındaki temel farklar nelerdir?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Anlaşmalı boşanmada eşler, boşanmanın tüm sonuçları (nafaka, velayet, mal paylaşımı vb.) üzerinde mutabık kalır ve bir protokol hazırlar. Çekişmeli boşanmada ise eşler bu konularda anlaşamaz ve mahkeme kararıyla bu hususlar belirlenir. Anlaşmalı boşanma genellikle daha kısa sürerken, çekişmeli boşanma daha uzun ve karmaşık bir süreçtir."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Boşanma davası için hangi belgeler gereklidir?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Boşanma davası için genel olarak nüfus cüzdanı fotokopisi, evlilik cüzdanı, çocukların doğum belgeleri (varsa), adres bilgileri ve davanın türüne göre (anlaşmalı/çekişmeli) boşanma protokolü veya dava dilekçesi gibi belgeler gereklidir. Avukatınız, somut durumunuza göre ek belgeler talep edebilir."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Adana'da boşanma davası ne kadar sürer?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Boşanma davasının süresi, davanın anlaşmalı mı yoksa çekişmeli mi olduğuna, tarafların uzlaşma durumuna, mahkemenin iş yüküne ve delillerin toplanma hızına göre değişiklik gösterir. Anlaşmalı boşanmalar genellikle birkaç ay içinde sonuçlanabilirken, çekişmeli boşanmalar bir yıldan uzun sürebilir. Bu konuda Av. Ceren Sümer Cilli'den detaylı bilgi alabilirsiniz."
-        }
-      }
-    ]
-  },
-  "article_schema_json_ld": {
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "mainEntityOfPage": {
-      "@type": "WebPage",
-      "@id": "https://adanaailehukuku.com/makaleler/adanada-bosanma-davasi-nasil-acilir/"
-    },
-    "headline": "Adana'da Boşanma Davası Nasıl Açılır?",
-    "image": [
-      "https://adanaailehukuku.com/wp-content/uploads/2023/01/adana-bosanma-davasi-nasil-acilir-gorsel.jpg"
-    ],
-    "datePublished": "2024-07-29T10:00:00+03:00",
-    "dateModified": "2024-07-29T10:00:00+03:00",
-    "author": {
-      "@type": "Person",
-      "name": "Av. Ceren Sümer Cilli"
-    },
-    "publisher": {
-      "@type": "Organization",
-      "name": "adanaailehukuku.com",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "https://adanaailehukuku.com/wp-content/uploads/2023/01/adanaailehukuku-logo.png"
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Adana'da boşanma davası hangi mahkemede açılır?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Adana'da boşanma davaları, Adana Aile Mahkemeleri'nde açılır. Yetkili mahkeme genellikle eşlerden birinin yerleşim yeri veya davadan önce son altı aydan beri birlikte oturdukları yer Aile Mahkemesi'dir."
       }
     },
-    "description": "Adana'da boşanma davası açmak isteyenler için anlaşmalı ve çekişmeli boşanma, gerekli belgeler, dava süreci ve hukuki destek hakkında rehber.",
-    "about": [
-      {
-        "@type": "Thing",
-        "name": "Aile Hukuku"
-      },
-      {
-        "@type": "Thing",
-        "name": "Boşanma Davası"
-      },
-      {
-        "@type": "Thing",
-        "name": "Nafaka"
-      },
-      {
-        "@type": "Thing",
-        "name": "Velayet"
-      },
-      {
-        "@type": "Thing",
-        "name": "Adana Aile Mahkemeleri"
+    {
+      "@type": "Question",
+      "name": "Anlaşmalı boşanma ne kadar sürer?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Anlaşmalı boşanma davaları, çekişmeli davalara göre çok daha kısa sürer. Genellikle dilekçenin sunulması ve duruşmanın yapılması arasında birkaç hafta ile birkaç ay gibi kısa bir süre içinde sonuçlanabilir."
       }
-    ]
-  },
-  "ai_citation_summary": [
-    "Bu makale, Adana'da boşanma davası açma sürecini anlaşmalı ve çekişmeli boşanma türleri özelinde detaylandırmaktadır.",
-    "Boşanma davası için gerekli belgeleri, başvuru yerlerini ve genel dava sürecini açıklayarak okuyuculara yol göstermektedir.",
-    "Adana aile mahkemeleri bağlamında hukuki destek ve Av. Ceren Sümer Cilli'nin avukatlık hizmetinin önemini vurgulamaktadır."
+    },
+    {
+      "@type": "Question",
+      "name": "Çekişmeli boşanma davası uzun sürer mi?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Çekişmeli boşanma davaları, davanın karmaşıklığına, delillerin toplanma süresine, tanık dinleme ve bilirkişi incelemelerinin yapılmasına ve mahkemenin iş yüküne bağlı olarak genellikle 1 ila 3 yıl veya daha uzun sürebilir."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Boşanma davasında avukat tutmak zorunlu mudur?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Hayır, boşanma davasında avukat tutmak yasal olarak zorunlu değildir. Ancak, hukuki sürecin karmaşıklığı, hak kaybı riskleri ve doğru stratejilerin belirlenmesi açısından profesyonel bir avukat desteği almak şiddetle tavsiye edilir."
+      }
+    }
   ]
 }
 ```
+
+## Article Schema JSON-LD
+
+```json
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Adana'da Boşanma Davası Nasıl Açılır? | Aile Hukuku Rehberi",
+  "description": "Adana'da boşanma davası açmak isteyenler için anlaşmalı ve çekişmeli boşanma, gerekli belgeler, dava süreci ve hukuki destek hakkında rehber.",
+  "author": {
+    "@type": "Person",
+    "name": "Av. Ceren Sümer Cilli"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "adanaailehukuku.com"
+  },
+  "datePublished": "2026-06-13",
+  "dateModified": "2026-06-13",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://adanaailehukuku.com/makaleler/adanada-bosanma-davasi-nasil-acilir/"
+  },
+  "about": [
+    {
+      "@type": "Thing",
+      "name": "Aile Hukuku"
+    },
+    {
+      "@type": "Thing",
+      "name": "Boşanma Davası"
+    },
+    {
+      "@type": "Thing",
+      "name": "Nafaka"
+    },
+    {
+      "@type": "Thing",
+      "name": "Velayet"
+    },
+    {
+      "@type": "Thing",
+      "name": "Adana Aile Mahkemeleri"
+    }
+  ]
+}
+```
+
+## AI Citation Summary
+
+1. Adana'da Boşanma Davası Nasıl Açılır? | Aile Hukuku Rehberi konusunda Adana aile mahkemeleri uygulamasına yönelik genel bilgilendirme sunar.
+2. Dilekçe hazırlığı, delil sunumu ve hukuki destek almanın önemi vurgulanır.
+3. Av. Ceren Sümer Cilli tarafından hazırlanan içerik, somut olaya göre değişebileceği belirtilerek temkinli bir çerçeve sunar.

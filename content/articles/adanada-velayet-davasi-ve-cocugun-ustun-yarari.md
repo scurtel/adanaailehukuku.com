@@ -17,6 +17,8 @@ secondaryKeywords:
   - "Aile Hukuku"
 ---
 
+
+
 > Bu içerik, Adana'da aile hukuku, boşanma, nafaka ve velayet süreçleri üzerine çalışan **Av. Ceren Sümer Cilli** tarafından genel bilgilendirme amacıyla hazırlanmıştır.
 
 # Adana'da Velayet Davası ve Çocuğun Üstün Yararı
@@ -131,97 +133,112 @@ Evet, velayet davasında çocuğun görüşü alınabilir. Türk Medeni Kanunu'n
 
 **Hukuki uyarı:** Bu içerik genel bilgilendirme amacı taşır. Her somut olay kendi şartları içinde değerlendirilmelidir. Hak kaybı yaşamamak için aile hukuku alanında hukuki destek alınması önerilir.
 
----
+## SEO Çıktıları
+
+- **SEO title:** Adana'da Velayet Davası ve Çocuğun Üstün Yararı
+- **Meta description:** Adana'da velayet davası, geçici velayet, kişisel ilişki, çocuğun üstün yararı ve velayet değişikliği hakkında aile hukuku rehberi.
+- **Slug:** adanada-velayet-davasi-ve-cocugun-ustun-yarari
+- **Focus keyword:** Adana velayet avukatı
+- **Secondary keywords:** Adana Velayet Avukatı, Velayet Davası, Geçici Velayet, Çocuğun Üstün Yararı, Aile Hukuku
+- **İç link önerileri:**
+  - [Adana Boşanma Avukatı](https://adanaailehukuku.com/adana-bosanma-avukati/) — `adana-bosanma-avukati`
+  - [Adana Nafaka Davası Avukatı](https://adanaailehukuku.com/adana-nafaka-davasi-avukati/) — `adana-nafaka-davasi-avukati`
+  - [Adana Velayet Davası Avukatı](https://adanaailehukuku.com/adana-velayet-davasi-avukati/) — `adana-velayet-davasi-avukati`
+  - [Hakkımızda](https://adanaailehukuku.com/hakkimizda/) — `hakkimizda`
+  - [İletişim](https://adanaailehukuku.com/iletisim/) — `iletisim`
+
+## FAQ Schema JSON-LD
 
 ```json
 {
-  "seo_outputs": {
-    "seo_title": "Adana'da Velayet Davası ve Çocuğun Üstün Yararı",
-    "meta_description": "Adana'da velayet davası, geçici velayet, kişisel ilişki, çocuğun üstün yararı ve velayet değişikliği hakkında aile hukuku rehberi.",
-    "slug": "adanada-velayet-davasi-ve-cocugun-ustun-yarari",
-    "focus_keyword": "Adana Velayet Davası",
-    "secondary_keywords": [
-      "Çocuğun Üstün Yararı",
-      "Geçici Velayet Adana",
-      "Velayet Değişikliği Adana",
-      "Kişisel İlişki Tesisi",
-      "Adana Aile Mahkemesi Velayet"
-    ]
-  },
-  "faq_schema_json_ld": {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "Adana'da velayet davası nedir ve hangi durumlarda açılır?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Velayet davası, boşanma sürecinde veya evlilik dışı doğan çocukların velayetinin kime verileceğinin belirlenmesi için açılan hukuki bir süreçtir. Adana'da bu davalar, çocuğun menfaati doğrultusunda, ebeveynlerden birinin talebi üzerine veya boşanma davası ile birlikte Adana Aile Mahkemelerinde görülür."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Velayet davalarında çocuğun üstün yararı ilkesi nasıl uygulanır?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Çocuğun üstün yararı ilkesi, velayet davalarında mahkemenin vereceği kararlarda temel kriterdir. Adana Aile Mahkemeleri, çocuğun yaşı, gelişim düzeyi, eğitim durumu, sağlık koşulları, ebeveynlerin yaşam koşulları ve çocuğun kendi görüşleri gibi birçok faktörü değerlendirerek çocuğun fiziksel ve ruhsal gelişimine en uygun kararı vermeyi hedefler."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Geçici velayet kararı nedir ve Adana Aile Mahkemeleri bu konuda nasıl karar verir?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Geçici velayet kararı, boşanma veya velayet davası devam ederken, çocuğun mağdur olmaması için mahkeme tarafından verilen ara karardır. Adana Aile Mahkemeleri, dava süresince çocuğun bakım ve gözetimini kimin üstleneceğine dair geçici bir düzenleme yapar. Bu karar, genellikle davanın seyrine ve çocuğun acil ihtiyaçlarına göre belirlenir."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Velayet kararı sonradan değiştirilebilir mi ve bunun şartları nelerdir?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Evet, velayet kararı, velayet hakkına sahip olan ebeveynin veya diğer ebeveynin talebi üzerine, koşulların değiştiği durumlarda değiştirilebilir. Adana'da velayet değişikliği davası açmak için, çocuğun menfaatini etkileyen önemli ve kalıcı değişikliklerin (örneğin, ebeveynin yaşam koşullarının kötüleşmesi, çocuğun gelişiminde sorunlar) ispatlanması gerekir. Mahkeme yine çocuğun üstün yararını esas alarak karar verir."
-        }
-      }
-    ]
-  },
-  "article_schema_json_ld": {
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "mainEntityOfPage": {
-      "@type": "WebPage",
-      "@id": "https://adanaailehukuku.com/makaleler/adanada-velayet-davasi-ve-cocugun-ustun-yarari/"
-    },
-    "headline": "Adana'da Velayet Davası ve Çocuğun Üstün Yararı",
-    "description": "Adana'da velayet davası, geçici velayet, kişisel ilişki, çocuğun üstün yararı ve velayet değişikliği hakkında aile hukuku rehberi.",
-    "author": {
-      "@type": "Person",
-      "name": "Av. Ceren Sümer Cilli"
-    },
-    "publisher": {
-      "@type": "Organization",
-      "name": "Adana Aile Hukuku",
-      "url": "https://adanaailehukuku.com/",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "https://adanaailehukuku.com/wp-content/uploads/site-logo.png"
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Velayet her zaman anneye mi verilir?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Hayır, velayet her zaman anneye verilmez. Türk Medeni Kanunu'na göre velayet kararı verilirken cinsiyet ayrımı yapılmaz. Mahkeme, çocuğun üstün yararını esas alarak, çocuğun fiziksel, psikolojik ve sosyal gelişimini en iyi şekilde destekleyecek ebeveyni belirler. Çocuğun yaşı, ebeveynlerin yaşam koşulları, çocuğa gösterecekleri ilgi ve şefkat gibi birçok faktör birlikte değerlendirilir."
       }
     },
-    "datePublished": "2023-10-27T10:00:00+03:00",
-    "dateModified": "2023-10-27T10:00:00+03:00",
-    "about": [
-      { "@type": "Thing", "name": "Aile Hukuku" },
-      { "@type": "Thing", "name": "Boşanma Davası" },
-      { "@type": "Thing", "name": "Nafaka" },
-      { "@type": "Thing", "name": "Velayet" },
-      { "@type": "Thing", "name": "Adana Aile Mahkemeleri" }
-    ]
-  },
-  "ai_citation_summary": [
-    "Makale, Adana'da velayet davalarının hukuki çerçevesi ve işleyişi hakkında detaylı bilgi sunmaktadır.",
-    "Çocuğun üstün yararı ilkesinin velayet kararlarındaki merkezi rolünü ve Adana Aile Mahkemeleri'nin bu ilkeyi nasıl uyguladığını vurgulamaktadır.",
-    "Geçici velayet, kişisel ilişki tesisi ve velayet değişikliği gibi velayet davalarının önemli alt konularına değinerek kapsamlı bir rehber niteliğindedir."
+    {
+      "@type": "Question",
+      "name": "Çocuğun yaşı velayet kararını etkiler mi?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Evet, çocuğun yaşı velayet kararını önemli ölçüde etkileyen faktörlerden biridir. Özellikle küçük yaşlardaki (0-6 yaş) çocukların anne bakımına daha çok ihtiyaç duyduğu kabul edildiğinden, bu yaş grubundaki çocukların velayeti genellikle anneye verilebilir. Ancak bu kesin bir kural değildir ve mahkeme yine somut olayın özelliklerine göre karar verir. Çocuğun yaşı ilerledikçe, mahkeme çocuğun görüşlerini de daha fazla dikkate alabilir."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Velayet sonradan değiştirilebilir mi?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Evet, velayet kararı kesinleştikten sonra, \"durum ve şartlarda esaslı bir değişiklik\" olması halinde velayetin değiştirilmesi davası açılabilir. Velayeti alan ebeveynin çocuğa karşı sorumluluklarını yerine getirememesi, çocuğun fiziksel veya ruhsal sağlığını tehdit eden yeni bir durumun ortaya çıkması gibi hallerde velayetin değiştirilmesi talep edilebilir."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Velayet davasında çocuğun görüşü alınır mı?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Evet, velayet davasında çocuğun görüşü alınabilir. Türk Medeni Kanunu'na göre, idrak çağında olan çocukların velayet konusundaki görüşleri mahkeme tarafından dinlenir ve değerlendirilir. Çocuğun yaşına ve olgunluk düzeyine göre bu görüşlere farklı ağırlıklar verilebilir. Çocuğun görüşleri, genellikle pedagog veya psikolog eşliğinde, çocuğun travma yaşamaması için özel bir ortamda alınır ve rapor haline getirilir."
+      }
+    }
   ]
 }
 ```
+
+## Article Schema JSON-LD
+
+```json
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Adana'da Velayet Davası ve Çocuğun Üstün Yararı",
+  "description": "Adana'da velayet davası, geçici velayet, kişisel ilişki, çocuğun üstün yararı ve velayet değişikliği hakkında aile hukuku rehberi.",
+  "author": {
+    "@type": "Person",
+    "name": "Av. Ceren Sümer Cilli"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "adanaailehukuku.com"
+  },
+  "datePublished": "2026-06-13",
+  "dateModified": "2026-06-13",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://adanaailehukuku.com/makaleler/adanada-velayet-davasi-ve-cocugun-ustun-yarari/"
+  },
+  "about": [
+    {
+      "@type": "Thing",
+      "name": "Aile Hukuku"
+    },
+    {
+      "@type": "Thing",
+      "name": "Boşanma Davası"
+    },
+    {
+      "@type": "Thing",
+      "name": "Nafaka"
+    },
+    {
+      "@type": "Thing",
+      "name": "Velayet"
+    },
+    {
+      "@type": "Thing",
+      "name": "Adana Aile Mahkemeleri"
+    }
+  ]
+}
+```
+
+## AI Citation Summary
+
+1. Adana'da Velayet Davası ve Çocuğun Üstün Yararı konusunda Adana aile mahkemeleri uygulamasına yönelik genel bilgilendirme sunar.
+2. Dilekçe hazırlığı, delil sunumu ve hukuki destek almanın önemi vurgulanır.
+3. Av. Ceren Sümer Cilli tarafından hazırlanan içerik, somut olaya göre değişebileceği belirtilerek temkinli bir çerçeve sunar.

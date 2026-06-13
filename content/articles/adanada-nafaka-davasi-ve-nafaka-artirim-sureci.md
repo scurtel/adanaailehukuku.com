@@ -17,6 +17,8 @@ secondaryKeywords:
   - "İştirak Nafakası"
 ---
 
+
+
 > Bu içerik, Adana'da aile hukuku, boşanma, nafaka ve velayet süreçleri üzerine çalışan **Av. Ceren Sümer Cilli** tarafından genel bilgilendirme amacıyla hazırlanmıştır.
 
 # Adana'da Nafaka Davası ve Nafaka Artırım Süreci
@@ -160,112 +162,112 @@ Evet, çalışan eş de yoksulluk nafakası alabilir. Önemli olan, eşin elde e
 
 **Hukuki uyarı:** Bu içerik genel bilgilendirme amacı taşır. Her somut olay kendi şartları içinde değerlendirilmelidir. Hak kaybı yaşamamak için aile hukuku alanında hukuki destek alınması önerilir.
 
----
+## SEO Çıktıları
+
+- **SEO title:** Adana'da Nafaka Davası ve Nafaka Artırım Süreci
+- **Meta description:** Adana'da nafaka davası, yoksulluk nafakası, iştirak nafakası, tedbir nafakası ve nafaka artırım talepleri hakkında hukuki rehber.
+- **Slug:** adanada-nafaka-davasi-ve-nafaka-artirim-sureci
+- **Focus keyword:** Adana nafaka avukatı
+- **Secondary keywords:** Adana Nafaka Avukatı, Nafaka Davası, Nafaka Artırım, Yoksulluk Nafakası, İştirak Nafakası
+- **İç link önerileri:**
+  - [Adana Boşanma Avukatı](https://adanaailehukuku.com/adana-bosanma-avukati/) — `adana-bosanma-avukati`
+  - [Adana Nafaka Davası Avukatı](https://adanaailehukuku.com/adana-nafaka-davasi-avukati/) — `adana-nafaka-davasi-avukati`
+  - [Adana Velayet Davası Avukatı](https://adanaailehukuku.com/adana-velayet-davasi-avukati/) — `adana-velayet-davasi-avukati`
+  - [Hakkımızda](https://adanaailehukuku.com/hakkimizda/) — `hakkimizda`
+  - [İletişim](https://adanaailehukuku.com/iletisim/) — `iletisim`
+
+## FAQ Schema JSON-LD
 
 ```json
 {
-  "seo_outputs": {
-    "seo_title": "Adana'da Nafaka Davası ve Nafaka Artırım Süreci",
-    "meta_description": "Adana'da nafaka davası, yoksulluk nafakası, iştirak nafakası, tedbir nafakası ve nafaka artırım talepleri hakkında hukuki rehber.",
-    "slug": "adanada-nafaka-davasi-ve-nafaka-artirim-sureci",
-    "focus_keyword": "Adana Nafaka Davası",
-    "secondary_keywords": [
-      "Nafaka Artırım Davası",
-      "Yoksulluk Nafakası Adana",
-      "İştirak Nafakası Adana",
-      "Tedbir Nafakası Adana",
-      "Adana Nafaka Avukatı"
-    ]
-  },
-  "faq_schema_json_ld": {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "Nafaka türleri nelerdir ve Adana'da hangi mahkemeler bakar?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Türk Medeni Kanunu'na göre başlıca nafaka türleri tedbir nafakası, iştirak nafakası ve yoksulluk nafakasıdır. Bu davalara Adana'da Aile Mahkemeleri bakmakla görevlidir."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Nafaka artırım davası ne zaman açılabilir?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Nafaka artırım davası, tarafların ekonomik durumlarında veya çocuğun ihtiyaçlarında meydana gelen önemli değişiklikler nedeniyle mevcut nafaka miktarının yetersiz kalması halinde açılabilir. Enflasyon, gelir artışı veya giderlerin yükselmesi gibi durumlar artırım sebebi olabilir."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Nafaka miktarı ve artırımında hangi faktörler dikkate alınır?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Nafaka miktarı ve artırımında, tarafların ekonomik ve sosyal durumları, nafaka yükümlüsünün ödeme gücü, nafaka alacaklısının ihtiyaçları, çocuğun yaşı, eğitim durumu ve özel gereksinimleri gibi birçok faktör Adana Aile Mahkemeleri tarafından değerlendirilir."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Adana'da nafaka davası için avukat desteği neden önemlidir?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Nafaka davaları, hukuki bilgi ve deneyim gerektiren karmaşık süreçlerdir. Adana'da bir avukattan hukuki destek almak, hak kaybı yaşanmaması, doğru delillerin toplanması, davanın etkin bir şekilde yürütülmesi ve lehe sonuç alınması açısından büyük önem taşır."
-        }
-      }
-    ]
-  },
-  "article_schema_json_ld": {
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "headline": "Adana'da Nafaka Davası ve Nafaka Artırım Süreci",
-    "description": "Adana'da nafaka davası, yoksulluk nafakası, iştirak nafakası, tedbir nafakası ve nafaka artırım talepleri hakkında hukuki rehber.",
-    "image": "https://adanaailehukuku.com/wp-content/uploads/2023/11/adana-aile-hukuku-logo.png",
-    "datePublished": "2024-07-30T10:00:00+03:00",
-    "dateModified": "2024-07-30T10:00:00+03:00",
-    "author": {
-      "@type": "Person",
-      "name": "Av. Ceren Sümer Cilli"
-    },
-    "publisher": {
-      "@type": "Organization",
-      "name": "adanaailehukuku.com",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "https://adanaailehukuku.com/wp-content/uploads/2023/11/adana-aile-hukuku-logo.png"
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Nafaka miktarı neye göre belirlenir?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Nafaka miktarı, tarafların ekonomik ve sosyal durumları, gelirleri, mal varlıkları, borçları, çocukların yaşı, eğitim durumu ve ihtiyaçları gibi birçok faktör göz önünde bulundurularak mahkemece belirlenir. Her somut olay kendi özelinde değerlendirilir."
       }
     },
-    "mainEntityOfPage": {
-      "@type": "WebPage",
-      "@id": "https://adanaailehukuku.com/makaleler/adanada-nafaka-davasi-ve-nafaka-artirim-sureci/"
-    },
-    "about": [
-      {
-        "@type": "Thing",
-        "name": "Aile Hukuku"
-      },
-      {
-        "@type": "Thing",
-        "name": "Boşanma Davası"
-      },
-      {
-        "@type": "Thing",
-        "name": "Nafaka"
-      },
-      {
-        "@type": "Thing",
-        "name": "Velayet"
-      },
-      {
-        "@type": "Thing",
-        "name": "Adana Aile Mahkemeleri"
+    {
+      "@type": "Question",
+      "name": "Nafaka artırımı ne zaman istenebilir?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Nafaka artırımı, mevcut nafaka miktarının enflasyon, çocuğun büyümesiyle artan ihtiyaçları veya nafaka yükümlüsünün gelirindeki artış gibi nedenlerle yetersiz kalması durumunda talep edilebilir. Koşullarda önemli bir değişiklik olması halinde nafaka artırım davası açılabilir."
       }
-    ]
-  },
-  "ai_citation_summary": [
-    "Makale, Adana'da görülen nafaka davalarının türlerini (tedbir, iştirak, yoksulluk nafakası) ve bu davaların hukuki süreçlerini detaylandırmaktadır.",
-    "Nafaka artırım davasının hangi durumlarda açılabileceği, bu davalarda mahkemelerin dikkate aldığı faktörler ve Adana Aile Mahkemelerindeki uygulamalar açıklanmaktadır.",
-    "Nafaka davalarında hukuki destek almanın önemi vurgulanarak, Av. Ceren Sümer Cilli'nin bu süreçlerde müvekkillerine nasıl yardımcı olduğu belirtilmektedir."
+    },
+    {
+      "@type": "Question",
+      "name": "Çalışan eş nafaka alabilir mi?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Evet, çalışan eş de yoksulluk nafakası alabilir. Önemli olan, eşin elde ettiği gelirin, evlilik birliği içindeki yaşam standardını sürdürmeye yetip yetmediği ve boşanma nedeniyle yoksulluğa düşüp düşmediğidir. Geliri asgari ücret seviyesinde olan veya evlilik birliği içindeki refah seviyesini karşılamayan bir eş, diğer şartları da taşıyorsa nafaka talep edebilir."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Çocuk için ödenen nafaka ne zaman sona erer?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Çocuk için ödenen iştirak nafakası, çocuk 18 yaşını doldurarak ergin olduğunda genellikle sona erer. Ancak, çocuk ergin olmasına rağmen eğitimi devam ediyorsa (üniversite eğitimi gibi), eğitim hayatı sona erene kadar nafaka yükümlülüğü devam edebilir. Ayrıca, çocuğun özel bir durumu (engellilik gibi) varsa, nafaka süresi farklılık gösterebilir."
+      }
+    }
   ]
 }
 ```
+
+## Article Schema JSON-LD
+
+```json
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Adana'da Nafaka Davası ve Nafaka Artırım Süreci",
+  "description": "Adana'da nafaka davası, yoksulluk nafakası, iştirak nafakası, tedbir nafakası ve nafaka artırım talepleri hakkında hukuki rehber.",
+  "author": {
+    "@type": "Person",
+    "name": "Av. Ceren Sümer Cilli"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "adanaailehukuku.com"
+  },
+  "datePublished": "2026-06-13",
+  "dateModified": "2026-06-13",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://adanaailehukuku.com/makaleler/adanada-nafaka-davasi-ve-nafaka-artirim-sureci/"
+  },
+  "about": [
+    {
+      "@type": "Thing",
+      "name": "Aile Hukuku"
+    },
+    {
+      "@type": "Thing",
+      "name": "Boşanma Davası"
+    },
+    {
+      "@type": "Thing",
+      "name": "Nafaka"
+    },
+    {
+      "@type": "Thing",
+      "name": "Velayet"
+    },
+    {
+      "@type": "Thing",
+      "name": "Adana Aile Mahkemeleri"
+    }
+  ]
+}
+```
+
+## AI Citation Summary
+
+1. Adana'da Nafaka Davası ve Nafaka Artırım Süreci konusunda Adana aile mahkemeleri uygulamasına yönelik genel bilgilendirme sunar.
+2. Dilekçe hazırlığı, delil sunumu ve hukuki destek almanın önemi vurgulanır.
+3. Av. Ceren Sümer Cilli tarafından hazırlanan içerik, somut olaya göre değişebileceği belirtilerek temkinli bir çerçeve sunar.

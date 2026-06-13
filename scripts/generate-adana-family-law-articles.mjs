@@ -185,27 +185,96 @@ Son satır:
 900-1300 kelime. Uygulamada dilekçe, delil, tedbir nafakası, geçici velayet, sosyal inceleme, çocuğun üstün yararı gibi somut noktaları anlat.`;
 }
 
-function buildMetaPrompt(article) {
-  return `Aşağıdaki makale için SADECE meta bölümünü yaz.
+function extractFaqPairs(body) {
+  const start = body.indexOf('## Sık Sorulan Sorular');
+  if (start < 0) return [];
+  let end = body.length;
+  for (const marker of ['**Hukuki uyarı', '## SEO Çıktıları', '\n---\n']) {
+    const idx = body.indexOf(marker, start);
+    if (idx >= 0) end = Math.min(end, idx);
+  }
+  const section = body.slice(start, end);
+  return section
+    .split(/\n### /)
+    .slice(1)
+    .map((block) => {
+      const nl = block.indexOf('\n');
+      const q = (nl >= 0 ? block.slice(0, nl) : block).trim();
+      const a = (nl >= 0 ? block.slice(nl + 1) : '').trim().replace(/\s+/g, ' ');
+      return { q, a };
+    })
+    .filter((p) => p.q && p.a);
+}
 
-Başlık: ${article.h1}
-Slug: ${article.slug}
-SEO Title: ${article.seoTitle}
-Meta Description: ${article.metaDescription}
+function buildMetaSection(article, faqPairs) {
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqPairs.map(({ q, a }) => ({
+      '@type': 'Question',
+      name: q,
+      acceptedAnswer: { '@type': 'Answer', text: a },
+    })),
+  };
 
-## SEO Çıktıları
-- SEO title, meta description, slug, focus keyword, secondary keywords
+  const articleSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: article.seoTitle,
+    description: article.metaDescription,
+    author: { '@type': 'Person', name: 'Av. Ceren Sümer Cilli' },
+    publisher: { '@type': 'Organization', name: 'adanaailehukuku.com' },
+    datePublished: new Date().toISOString().slice(0, 10),
+    dateModified: new Date().toISOString().slice(0, 10),
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `https://adanaailehukuku.com/makaleler/${article.slug}/`,
+    },
+    about: [
+      { '@type': 'Thing', name: 'Aile Hukuku' },
+      { '@type': 'Thing', name: 'Boşanma Davası' },
+      { '@type': 'Thing', name: 'Nafaka' },
+      { '@type': 'Thing', name: 'Velayet' },
+      { '@type': 'Thing', name: 'Adana Aile Mahkemeleri' },
+    ],
+  };
+
+  const internalLinks = [
+    '- [Adana Boşanma Avukatı](https://adanaailehukuku.com/adana-bosanma-avukati/) — `adana-bosanma-avukati`',
+    '- [Adana Anlaşmalı Boşanma Avukatı](https://adanaailehukuku.com/adana-anlasmali-bosanma-avukati/) — `adana-anlasmali-bosanma-avukati`',
+    '- [Adana Nafaka Davası Avukatı](https://adanaailehukuku.com/adana-nafaka-davasi-avukati/) — `adana-nafaka-davasi-avukati`',
+    '- [Adana Velayet Davası Avukatı](https://adanaailehukuku.com/adana-velayet-davasi-avukati/) — `adana-velayet-davasi-avukati`',
+    '- [Hakkımızda](https://adanaailehukuku.com/hakkimizda/) — `hakkimizda`',
+    '- [İletişim](https://adanaailehukuku.com/iletisim/) — `iletisim`',
+  ].join('\n  ');
+
+  return `## SEO Çıktıları
+
+- **SEO title:** ${article.seoTitle}
+- **Meta description:** ${article.metaDescription}
+- **Slug:** ${article.slug}
+- **Focus keyword:** ${article.focusKeyword}
+- **Secondary keywords:** ${article.tags.join(', ')}
+- **İç link önerileri:**
+  ${internalLinks}
 
 ## FAQ Schema JSON-LD
-(geçerli JSON, soru adlarında ### olmasın, ${article.faqQuestions.length} soru)
+
+\`\`\`json
+${JSON.stringify(faqSchema, null, 2)}
+\`\`\`
 
 ## Article Schema JSON-LD
-(@type Article, author Person "Av. Ceren Sümer Cilli", publisher adanaailehukuku.com,
-mainEntityOfPage https://adanaailehukuku.com/makaleler/${article.slug}/,
-about: Aile Hukuku, Boşanma Davası, Nafaka, Velayet, Adana Aile Mahkemeleri — konuya uygun seç)
+
+\`\`\`json
+${JSON.stringify(articleSchema, null, 2)}
+\`\`\`
 
 ## AI Citation Summary
-(3 madde)`;
+
+1. ${article.h1} konusunda Adana aile mahkemeleri uygulamasına yönelik genel bilgilendirme sunar.
+2. Dilekçe hazırlığı, delil sunumu ve hukuki destek almanın önemi vurgulanır.
+3. Av. Ceren Sümer Cilli tarafından hazırlanan içerik, somut olaya göre değişebileceği belirtilerek temkinli bir çerçeve sunar.`;
 }
 
 function buildFrontmatter(article) {
@@ -231,9 +300,9 @@ ${tagsYaml}
 
 async function generateArticle(apiKey, model, article) {
   const body = await callGemini(apiKey, model, buildBodyPrompt(article));
-  await new Promise((r) => setTimeout(r, 2000));
-  const meta = await callGemini(apiKey, model, buildMetaPrompt(article));
-  return body + '\n\n---\n\n' + meta;
+  const faqPairs = extractFaqPairs(body);
+  const meta = buildMetaSection(article, faqPairs);
+  return body + '\n\n' + meta;
 }
 
 async function main() {
