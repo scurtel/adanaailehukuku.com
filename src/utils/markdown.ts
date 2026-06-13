@@ -8,6 +8,13 @@ export interface RelatedLink {
 
 const META_START = /^## (SEO Çıktıları|FAQ Schema JSON-LD|Schema JSON-LD|Article Schema JSON-LD|AI Citation Summary)/m;
 const RELATED_HEADING = /^## İlgili (makaleler|yazılar)\s*$/m;
+const GEMINI_JSON_BLOCK =
+  /\n---\n\n```json\s*[\s\S]*?```|\n```json\s*\{[\s\S]*?"(?:seo_outputs|faq_schema_json_ld|article_schema_json_ld)"[\s\S]*?```/g;
+
+/** Remove raw Gemini meta JSON accidentally left in article body (not valid schema blocks). */
+export function stripVisibleJsonArtifacts(raw: string): string {
+  return raw.replace(GEMINI_JSON_BLOCK, '\n').replace(/\n{3,}/g, '\n\n').trimEnd();
+}
 
 const articleSlugSet = new Set<string>(ARTICLE_SLUGS);
 const pageSlugSet = new Set<string>(PAGE_SLUGS);
@@ -59,9 +66,10 @@ function extractJsonLdBlocks(text: string): Record<string, unknown>[] {
 }
 
 export function parseMarkdownBody(raw: string) {
-  const metaIndex = raw.search(META_START);
-  const bodyWithMaybeRelated = metaIndex >= 0 ? raw.slice(0, metaIndex) : raw;
-  const metaTail = metaIndex >= 0 ? raw.slice(metaIndex) : '';
+  const sanitized = stripVisibleJsonArtifacts(raw);
+  const metaIndex = sanitized.search(META_START);
+  const bodyWithMaybeRelated = metaIndex >= 0 ? sanitized.slice(0, metaIndex) : sanitized;
+  const metaTail = metaIndex >= 0 ? sanitized.slice(metaIndex) : '';
 
   let mainBody = bodyWithMaybeRelated;
   let relatedLinks: RelatedLink[] = [];

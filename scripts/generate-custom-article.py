@@ -117,7 +117,7 @@ def main() -> int:
     a = ARTICLE
     body = call_gemini(api_key, model, SYSTEM, BODY_PROMPT.format(**a))
     meta = call_gemini(api_key, model, SYSTEM, META_PROMPT.format(**a))
-    content = body + "\n\n---\n\n" + meta
+    content = body + "\n\n" + meta
 
     out = ROOT / "content" / "articles" / f"{a['slug']}.md"
     fm = (

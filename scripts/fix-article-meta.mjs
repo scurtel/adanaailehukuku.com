@@ -13,6 +13,8 @@ const ROOT = join(__dirname, '..');
 const ARTICLES_DIR = join(ROOT, 'content', 'articles');
 
 const SLUGS = [
+  'uludag-sozluk-pazar-degeri-eksi-sozluk',
+  'aym-suresiz-nafaka-duzenlemesini-iptal-etti',
   'adanada-bosanma-davasi-nasil-acilir',
   'adanada-nafaka-davasi-ve-nafaka-artirim-sureci',
   'adanada-velayet-davasi-ve-cocugun-ustun-yarari',
@@ -40,22 +42,20 @@ function extractFaqPairs(body) {
 }
 
 function parseFrontmatter(raw) {
-  const match = raw.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
+  const normalized = raw.replace(/\r\n/g, '\n');
+  const match = normalized.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
   if (!match) throw new Error('Frontmatter bulunamadı');
-  const fm = {};
-  for (const line of match[1].split('\n')) {
-    const kv = line.match(/^(\w+):\s*"?(.+?)"?\s*$/);
-    if (kv) fm[kv[1]] = kv[2];
-  }
   return { frontmatter: match[1], body: match[2] };
 }
 
 function stripBadMeta(body) {
-  const idx = body.search(/\n---\n\n```json/);
-  if (idx >= 0) return body.slice(0, idx).trimEnd();
-  const metaIdx = body.search(/^## SEO Çıktıları/m);
-  if (metaIdx >= 0) return body.slice(0, metaIdx).trimEnd();
-  return body.trimEnd();
+  let cleaned = body.replace(/\n---\n\n```json[\s\S]*?"seo_outputs"[\s\S]*?```/g, '');
+  cleaned = cleaned.replace(/\n```json[\s\S]*?"seo_outputs"[\s\S]*?```/g, '');
+  const idx = cleaned.search(/\n---\n\n```json/);
+  if (idx >= 0) cleaned = cleaned.slice(0, idx);
+  const metaIdx = cleaned.search(/^## SEO Çıktıları/m);
+  if (metaIdx >= 0) cleaned = cleaned.slice(0, metaIdx);
+  return cleaned.trimEnd();
 }
 
 function buildMetaSection(article, faqPairs) {

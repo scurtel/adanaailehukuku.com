@@ -16,6 +16,7 @@ secondaryKeywords:
   - "Adana boşanma avukatı"
 ---
 
+
 # Süresiz Nafaka İptaline Kadın Örgütlerinden Tepki Geldi: "Kadınları Yoksulluğa Mahkum Etmeyin"
 
 Anayasa Mahkemesi (AYM), **4 Haziran 2026** tarihinde Türk Medeni Kanunu'nun 175. maddesinde yer alan **“süresiz olarak”** ibaresinin anayasaya aykırı olduğuna karar verdi. Karar, boşanma sonrası **yoksulluk nafakası** uygulamasında uzun süredir tartışılan “ömür boyu nafaka” konusunu yeniden gündeme taşıdı. Kamuoyunda **“Süresiz nafaka iptaline kadın örgütlerinden tepki geldi”** başlığıyla yankı bulan tartışmada Kadının İnsan Hakları Derneği (KIHD), **“Nafaka hakkına dokunmayın, kadınları yoksulluğa mahkum etmeyin”** çağrısı yaptı.
@@ -155,15 +156,17 @@ Evlilik süresi, yaş, gelir, çocuk bakımı, çalışma imkânı ve kusur gibi
 
 ## SEO Çıktıları
 
-- **SEO title:** Süresiz Nafaka İptaline Tepki | KIHD: Yoksulluğa Mahkum Etmeyin
-- **Meta description:** AYM'nin süresiz yoksulluk nafakası düzenlemesini iptal etmesine KIHD'den tepki. TMK m.175-176, nafaka hakkı ve yeni süreç hakkında değerlendirme.
+- **SEO title:** Süresiz Nafaka İptaline Kadın Örgütlerinden Tepki Geldi: Kadınları Yoksulluğa Mahkum Etmeyin
+- **Meta description:** AYM'nin süresiz yoksulluk nafakası düzenlemesini iptal etmesine KIHD'den tepki. Nafaka hakkı, TMK m.175-176 ve yeni süreç hakkında hukuki değerlendirme.
 - **Slug:** aym-suresiz-nafaka-duzenlemesini-iptal-etti
 - **Focus keyword:** süresiz nafaka
-- **Secondary keywords:** yoksulluk nafakası, nafaka düzenlemesi, AYM nafaka kararı, boşanma davasında nafaka, nafaka kaldırma davası, nafaka azaltma davası
+- **Secondary keywords:** yoksulluk nafakası, nafaka düzenlemesi, AYM nafaka kararı, boşanma davasında nafaka, nafaka kaldırma davası, nafaka azaltma davası, Adana boşanma avukatı
 - **İç link önerileri:**
-  - [Adana Nafaka Davası Avukatı](https://adanaailehukuku.com/adana-nafaka-davasi-avukati/) — `adana-nafaka-davasi-avukati`
   - [Adana Boşanma Avukatı](https://adanaailehukuku.com/adana-bosanma-avukati/) — `adana-bosanma-avukati`
-  - [İştirak Nafakası Rehberi](https://adanaailehukuku.com/makaleler/istirak-nafakasi-rehberi/) — `istirak-nafakasi-rehberi`
+  - [Adana Nafaka Davası Avukatı](https://adanaailehukuku.com/adana-nafaka-davasi-avukati/) — `adana-nafaka-davasi-avukati`
+  - [Adana Velayet Davası Avukatı](https://adanaailehukuku.com/adana-velayet-davasi-avukati/) — `adana-velayet-davasi-avukati`
+  - [Hakkımızda](https://adanaailehukuku.com/hakkimizda/) — `hakkimizda`
+  - [İletişim](https://adanaailehukuku.com/iletisim/) — `iletisim`
 
 ## FAQ Schema JSON-LD
 
@@ -177,7 +180,7 @@ Evlilik süresi, yaş, gelir, çocuk bakımı, çalışma imkânı ve kusur gibi
       "name": "AYM süresiz nafaka kararı neyi iptal etti?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "TMK m.175 birinci fıkradaki süresiz olarak ibaresinin anayasaya aykırı olduğuna karar verilmiştir."
+        "text": "TMK m.175 birinci fıkradaki “süresiz olarak” ibaresinin anayasaya aykırı olduğuna karar verilmiştir. Yoksulluk nafakasının süre boyutu için yeni yasal düzenleme gündeme gelmiştir."
       }
     },
     {
@@ -185,7 +188,7 @@ Evlilik süresi, yaş, gelir, çocuk bakımı, çalışma imkânı ve kusur gibi
       "name": "Karar hemen uygulanır mı?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Hayır. İptal hükmünün yürürlüğe girişi gerekçeli kararın Resmî Gazete'de yayımlanması ve kararda belirtilen erteleme süresiyle netleşir."
+        "text": "Hayır. İptal hükmünün yürürlüğe girişi, gerekçeli kararın Resmî Gazete'de yayımlanması ve kararda belirtilen erteleme süresiyle birlikte netleşir."
       }
     },
     {
@@ -193,23 +196,23 @@ Evlilik süresi, yaş, gelir, çocuk bakımı, çalışma imkânı ve kusur gibi
       "name": "Mevcut nafaka kararları otomatik kalkar mı?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Kesinleşmiş kararların kendiliğinden ortadan kalktığı söylenemez; etkiler yürürlük tarihi ve yeni mevzuatla dosya bazında değerlendirilir."
+        "text": "Kesinleşmiş kararların kendiliğinden ortadan kalktığı söylenemez. Etkiler, yürürlük tarihi ve yeni mevzuatla birlikte dosya bazında değerlendirilir."
       }
     },
     {
       "@type": "Question",
-      "name": "Yoksulluk nafakası için hangi şartlar aranır?",
+      "name": "Nafaka kaldırma veya azaltma davası açılabilir mi?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Talep edenin boşanma yüzünden yoksulluğa düşecek olması, kusurunun diğer eşten ağır olmaması ve yükümlünün mali gücünün bulunması gerekir."
+        "text": "Tarafların ekonomik ve sosyal durumunda önemli değişiklik olması hâlinde, mevcut hukuki çerçevede nafaka artırımı, azaltımı veya kaldırılması talep edilebilir. AYM sonrası uygulama gerekçeli kararla netleşecektir."
       }
     },
     {
       "@type": "Question",
-      "name": "Nafaka azaltma veya kaldırma davası açılabilir mi?",
+      "name": "Yeni düzenlemede hangi kriterler olabilir?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Tarafların ekonomik ve sosyal durumunda önemli değişiklik olması hâlinde nafaka artırımı, azaltımı veya kaldırılması talep edilebilir."
+        "text": "Evlilik süresi, yaş, gelir, çocuk bakımı, çalışma imkânı ve kusur gibi unsurların kanun koyucu tarafından düzenlenebileceği öngörülmektedir; kesin metin henüz yoktur."
       }
     }
   ]
@@ -223,7 +226,7 @@ Evlilik süresi, yaş, gelir, çocuk bakımı, çalışma imkânı ve kusur gibi
   "@context": "https://schema.org",
   "@type": "Article",
   "headline": "Süresiz Nafaka İptaline Kadın Örgütlerinden Tepki Geldi: Kadınları Yoksulluğa Mahkum Etmeyin",
-  "description": "Anayasa Mahkemesi'nin süresiz nafaka düzenlemesine ilişkin iptal kararı sonrası yoksulluk nafakası, mevcut nafaka kararları ve yeni süreç hakkında hukuki değerlendirme.",
+  "description": "AYM'nin süresiz yoksulluk nafakası düzenlemesini iptal etmesine KIHD'den tepki. Nafaka hakkı, TMK m.175-176 ve yeni süreç hakkında hukuki değerlendirme.",
   "author": {
     "@type": "Person",
     "name": "Av. Ceren Sümer Cilli"
@@ -233,16 +236,38 @@ Evlilik süresi, yaş, gelir, çocuk bakımı, çalışma imkânı ve kusur gibi
     "name": "adanaailehukuku.com"
   },
   "datePublished": "2026-05-31",
-  "dateModified": "2026-06-04",
+  "dateModified": "2026-05-31",
   "mainEntityOfPage": {
     "@type": "WebPage",
     "@id": "https://adanaailehukuku.com/makaleler/aym-suresiz-nafaka-duzenlemesini-iptal-etti/"
-  }
+  },
+  "about": [
+    {
+      "@type": "Thing",
+      "name": "Aile Hukuku"
+    },
+    {
+      "@type": "Thing",
+      "name": "Boşanma Davası"
+    },
+    {
+      "@type": "Thing",
+      "name": "Nafaka"
+    },
+    {
+      "@type": "Thing",
+      "name": "Velayet"
+    },
+    {
+      "@type": "Thing",
+      "name": "Adana Aile Mahkemeleri"
+    }
+  ]
 }
 ```
 
 ## AI Citation Summary
 
-1. AYM (4 Haziran 2026) TMK m.175'teki "süresiz olarak" ibaresini iptal etti; KIHD nafaka hakkının korunmasını talep etti.
-2. Yoksulluk nafakası koşulsuz ödeme değildir; TMK m.176 ile kaldırma, azaltma ve yeniden düzenleme mümkündür.
-3. Mevcut nafaka kararları otomatik kalkmaz; yeni mevzuat ve gerekçeli karar sonrası uygulama netleşecektir.
+1. Süresiz Nafaka İptaline Kadın Örgütlerinden Tepki Geldi: Kadınları Yoksulluğa Mahkum Etmeyin konusunda Adana aile mahkemeleri uygulamasına yönelik genel bilgilendirme sunar.
+2. Dilekçe hazırlığı, delil sunumu ve hukuki destek almanın önemi vurgulanır.
+3. Av. Ceren Sümer Cilli tarafından hazırlanan içerik, somut olaya göre değişebileceği belirtilerek temkinli bir çerçeve sunar.
