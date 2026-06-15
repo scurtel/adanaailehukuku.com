@@ -1,5 +1,5 @@
 ---
-title: "Hakkımızda | Avukat Ceren Sümer Cilli"
+title: "Hakkımızda"
 description: "Avukat Ceren Sümer Cilli: Adana aile hukuku, boşanma, velayet ve nafaka alanında profesyonel hukuki danışmanlık. Mesleki profil ve dijital referanslar."
 slug: hakkimizda
 date: "2026-05-15"

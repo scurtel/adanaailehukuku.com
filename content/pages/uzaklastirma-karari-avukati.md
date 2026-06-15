@@ -1,6 +1,6 @@
 ---
 title: "Adana Uzaklaştırma Kararı Avukatı"
-description: "Adana'da uzaklaştırma kararı avukatı arayışınızda Avukat Ceren Sümer Cilli, 6284 sayılı Kanun kapsamında hukuki destek sunar. Şiddete karşı korunma hakkınızı ku"
+description: "Adana'da uzaklaştırma kararı ve 6284 sayılı Kanun kapsamında koruma tedbirleri hakkında hukuki bilgilendirme ve danışmanlık süreci."
 slug: uzaklastirma-karari-avukati
 date: "2026-05-15"
 author: "Av. Ceren Sümer Cilli"

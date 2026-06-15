@@ -6,14 +6,17 @@ import AttorneyBox from '../components/AttorneyBox.astro';
 import CTA from '../components/CTA.astro';
 import { SERVICE_CARDS } from '../consts';
 import { getHomePage, getArticlesSorted } from '../utils/content';
-import { parseMarkdownBody, buildLegalServiceSchema, buildLocalBusinessSchema, buildBreadcrumbSchema, mergeSchemas, stripHomeDisplaySections } from '../utils/markdown';
-import { SITE_URL } from '../consts';
+import { parseMarkdownBody, buildLegalServiceSchema, buildLocalBusinessSchema, buildBreadcrumbSchema, buildPersonSchema, mergeSchemas, stripHomeDisplaySections } from '../utils/markdown';
+import { NOINDEX_ARTICLE_SLUGS, SITE_URL } from '../consts';
+import { getArticleSlug } from '../utils/content';
 
 const home = await getHomePage();
 if (!home) throw new Error('ana-sayfa.md bulunamadı');
 
 const articles = await getArticlesSorted();
-const recentArticles = articles.slice(0, 6);
+const recentArticles = articles
+  .filter((a) => !NOINDEX_ARTICLE_SLUGS.has(getArticleSlug(a)))
+  .slice(0, 6);
 
 const rawBody = home.body ?? '';
 const bodyForMeta = stripHomeDisplaySections(rawBody);
@@ -27,7 +30,7 @@ const { html: faqHtml } = faqContent ? parseMarkdownBody(`## Sık Sorulan Sorula
 const { relatedLinks, schemas: contentSchemas } = parseMarkdownBody(bodyForMeta);
 
 const pageSchemas = mergeSchemas(
-  [buildLocalBusinessSchema()],
+  [buildLocalBusinessSchema(), buildPersonSchema()],
   contentSchemas.length > 0
     ? contentSchemas
     : [

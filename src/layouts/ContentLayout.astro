@@ -4,7 +4,10 @@ import Breadcrumb from '../components/Breadcrumb.astro';
 import CTA from '../components/CTA.astro';
 import AttorneyBox from '../components/AttorneyBox.astro';
 import RelatedLinks from '../components/RelatedLinks.astro';
+import ContactNap from '../components/ContactNap.astro';
 import type { RelatedLink } from '../utils/markdown';
+import { OG_IMAGE_URL } from '../consts';
+import { articleOgImage } from '../utils/seo';
 
 interface Crumb {
   label: string;
@@ -28,6 +31,15 @@ interface Props {
   focusKeyword?: string;
   secondaryKeywords?: string[] | string;
   author?: string;
+  reviewer?: string;
+  practiceArea?: string | string[];
+  location?: string;
+  publishedDate?: Date;
+  noindex?: boolean;
+  canonicalPath?: string;
+  ogImage?: string;
+  showContactNap?: boolean;
+  canonicalNotice?: { label: string; href: string };
 }
 
 const {
@@ -47,13 +59,35 @@ const {
   focusKeyword,
   secondaryKeywords,
   author,
+  reviewer,
+  practiceArea,
+  location,
+  publishedDate,
+  noindex = false,
+  canonicalPath,
+  ogImage = ogType === 'article' ? articleOgImage() : OG_IMAGE_URL,
+  showContactNap = false,
+  canonicalNotice,
 } = Astro.props;
 
-const keywordsList = Array.isArray(secondaryKeywords)
-  ? secondaryKeywords
-  : secondaryKeywords
-    ? [secondaryKeywords]
-    : [];
+const keywordsList = [
+  ...(focusKeyword ? [focusKeyword] : []),
+  ...(Array.isArray(secondaryKeywords)
+    ? secondaryKeywords
+    : secondaryKeywords
+      ? [secondaryKeywords]
+      : []),
+].filter((k, i, arr) => arr.indexOf(k) === i);
+
+const practiceLabel = Array.isArray(practiceArea) ? practiceArea.join(', ') : practiceArea;
+
+const formattedDate =
+  publishedDate &&
+  publishedDate.toLocaleDateString('tr-TR', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
 ---
 
 <BaseLayout
@@ -63,6 +97,12 @@ const keywordsList = Array.isArray(secondaryKeywords)
   schemas={schemas}
   ogType={ogType}
   keywords={keywordsList}
+  noindex={noindex}
+  canonicalPath={canonicalPath}
+  ogImage={ogImage}
+  articlePublishedTime={publishedDate}
+  articleModifiedTime={publishedDate}
+  articleAuthor={author}
 >
   {
     showHero && (
@@ -82,18 +122,44 @@ const keywordsList = Array.isArray(secondaryKeywords)
     {!showHero && <Breadcrumb items={breadcrumbs} />}
     <article class="content-card">
       {
-        (category || focusKeyword || author) && (
+        (category || formattedDate || author || reviewer || practiceLabel || location) && (
           <div class="meta-row">
             {category && <span class="badge">{category}</span>}
-            {focusKeyword && <span>Odak: {focusKeyword}</span>}
+            {formattedDate && (
+              <time datetime={publishedDate?.toISOString()}>{formattedDate}</time>
+            )}
             {author && <span>{author}</span>}
+            {reviewer && reviewer !== author && <span>İnceleyen: {reviewer}</span>}
+            {practiceLabel && <span>{practiceLabel}</span>}
+            {location && <span>{location}</span>}
           </div>
         )
       }
+      {
+        canonicalNotice && (
+          <p class="canonical-notice">
+            Bu içerik güncellenmiştir. Güncel rehber için
+            <a href={canonicalNotice.href}>{canonicalNotice.label}</a>
+            sayfasını inceleyebilirsiniz.
+          </p>
+        )
+      }
       <div class="prose" set:html={html} />
+      {showContactNap && <ContactNap />}
       <RelatedLinks links={relatedLinks} />
       {showAttorneyBox && <AttorneyBox />}
       <CTA />
     </article>
   </div>
 </BaseLayout>
+
+<style>
+  .canonical-notice {
+    margin: 0 0 1.25rem;
+    padding: 0.75rem 1rem;
+    background: #fff8e6;
+    border-left: 4px solid #c9a227;
+    border-radius: 4px;
+    font-size: 0.95rem;
+  }
+</style>

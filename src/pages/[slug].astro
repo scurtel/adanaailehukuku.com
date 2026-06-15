@@ -6,6 +6,7 @@ import {
   parseMarkdownBody,
   buildLegalServiceSchema,
   buildBreadcrumbSchema,
+  buildPersonSchema,
   mergeSchemas,
 } from '../utils/markdown';
 import { SITE_URL } from '../consts';
@@ -27,6 +28,7 @@ export async function getStaticPaths() {
 
 const { page } = Astro.props;
 const path = getPagePath(page);
+const slug = getPageSlug(page);
 const { html, relatedLinks, schemas } = parseMarkdownBody(page.body ?? '');
 
 const pageSchemas = mergeSchemas(
@@ -39,6 +41,7 @@ const pageSchemas = mergeSchemas(
           path,
         }),
       ],
+  slug === 'hakkimizda' ? [buildPersonSchema()] : [],
   [
     buildBreadcrumbSchema([
       { name: 'Ana Sayfa', url: `${SITE_URL}/` },
@@ -62,4 +65,5 @@ const breadcrumbs = [{ label: page.data.title }];
   focusKeyword={page.data.focusKeyword}
   secondaryKeywords={page.data.secondaryKeywords}
   author={page.data.author}
+  showContactNap={slug === 'iletisim'}
 />

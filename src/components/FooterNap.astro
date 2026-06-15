@@ -1,0 +1,34 @@
+---
+import { BUSINESS_NAP } from '../consts';
+---
+
+<div class="footer-nap">
+  <p class="footer-nap__name">{BUSINESS_NAP.name}</p>
+  <p>
+    <a href={`tel:${BUSINESS_NAP.telephone}`}>{BUSINESS_NAP.telephoneDisplay}</a>
+    ·
+    <a href={`mailto:${BUSINESS_NAP.email}`}>{BUSINESS_NAP.email}</a>
+  </p>
+  <p>
+    {BUSINESS_NAP.streetAddress}, {BUSINESS_NAP.postalCode} {BUSINESS_NAP.addressLocality}/{BUSINESS_NAP.addressRegion}
+  </p>
+</div>
+
+<style>
+  .footer-nap {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: var(--text-muted, #5a6b7d);
+    line-height: 1.5;
+  }
+
+  .footer-nap__name {
+    font-weight: 600;
+    color: inherit;
+    margin: 0 0 0.35rem;
+  }
+
+  .footer-nap p {
+    margin: 0 0 0.35rem;
+  }
+</style>

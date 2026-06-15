@@ -1,5 +1,5 @@
 ---
-title: "İletişim | Avukat Ceren Sümer Cilli"
+title: "İletişim"
 description: "Adana aile hukuku için danışmanlık ve randevu talebi. İletişim bilgileri ve başvuru süreci."
 slug: iletisim
 date: "2026-05-15"

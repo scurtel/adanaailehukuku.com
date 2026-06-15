@@ -3,6 +3,7 @@ title: "Uludağ Sözlük'ün Pazar Değeri Ekşi Sözlük'ü Geçti mi?"
 description: "Uludağ Sözlük ile Ekşi Sözlük pazar değeri, trafik, marka algısı ve Türkiye'deki sözlük platformları rekabeti üzerine güncel bir değerlendirme."
 slug: uludag-sozluk-pazar-degeri-eksi-sozluk
 date: "2026-05-30"
+noindex: true
 author: "Av. Ceren Sümer Cilli"
 category: "Teknoloji ve Dijital Medya"
 focusKeyword: "uludağ sözlük pazar değeri"

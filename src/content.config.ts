@@ -13,6 +13,7 @@ const frontmatterSchema = z.object({
   practiceArea: z.union([z.array(z.string()), z.string()]).optional(),
   location: z.string().optional(),
   secondaryKeywords: z.union([z.array(z.string()), z.string()]).optional(),
+  noindex: z.boolean().optional(),
 });
 
 export const collections = {

@@ -1,5 +1,13 @@
 import { marked } from 'marked';
-import { ARTICLE_SLUGS, PAGE_SLUGS, SITE_URL } from '../consts';
+import {
+  ARTICLE_SLUGS,
+  BUSINESS_NAP,
+  OG_IMAGE_URL,
+  PAGE_SLUGS,
+  SITE_NAME,
+  SITE_TAGLINE,
+  SITE_URL,
+} from '../consts';
 
 export interface RelatedLink {
   title: string;
@@ -50,6 +58,18 @@ function extractRelatedSection(section: string): RelatedLink[] {
   return links;
 }
 
+function normalizeExtractedSchema(schema: Record<string, unknown>): Record<string, unknown> {
+  const mep = schema.mainEntityOfPage as Record<string, unknown> | undefined;
+  if (mep?.['@id'] && typeof mep['@id'] === 'string') {
+    const id = mep['@id'] as string;
+    const slugMatch = id.match(/adanaailehukuku\.com\/([^/]+)\/?$/);
+    if (slugMatch && articleSlugSet.has(slugMatch[1]) && !id.includes('/makaleler/')) {
+      mep['@id'] = `${SITE_URL}/makaleler/${slugMatch[1]}/`;
+    }
+  }
+  return schema;
+}
+
 function extractJsonLdBlocks(text: string): Record<string, unknown>[] {
   const schemas: Record<string, unknown>[] = [];
   const re = /```json\s*([\s\S]*?)```/g;
@@ -57,7 +77,7 @@ function extractJsonLdBlocks(text: string): Record<string, unknown>[] {
   while ((match = re.exec(text)) !== null) {
     try {
       const parsed = JSON.parse(match[1].trim()) as Record<string, unknown>;
-      if (parsed['@type']) schemas.push(parsed);
+      if (parsed['@type']) schemas.push(normalizeExtractedSchema(parsed));
     } catch {
       /* skip invalid json */
     }
@@ -112,22 +132,27 @@ export function buildArticleSchema(input: {
   slug: string;
   date?: Date;
   author?: string;
+  image?: string;
 }) {
+  const iso = input.date?.toISOString().slice(0, 10) ?? '2026-05-15';
   return {
     '@context': 'https://schema.org',
     '@type': 'Article',
     headline: input.title,
     description: input.description,
+    image: input.image ?? `${SITE_URL}/og/article-default.svg`,
     author: {
       '@type': 'Person',
+      '@id': `${SITE_URL}/hakkimizda/#person`,
       name: input.author ?? 'Av. Ceren Sümer Cilli',
     },
     publisher: {
       '@type': 'Organization',
-      name: SITE_URL.replace('https://', ''),
+      '@id': `${SITE_URL}/#organization`,
+      name: SITE_NAME,
     },
-    datePublished: input.date?.toISOString().slice(0, 10) ?? '2026-05-15',
-    dateModified: input.date?.toISOString().slice(0, 10) ?? '2026-05-15',
+    datePublished: iso,
+    dateModified: iso,
     mainEntityOfPage: {
       '@type': 'WebPage',
       '@id': `${SITE_URL}/makaleler/${input.slug}/`,
@@ -143,8 +168,9 @@ export function buildLegalServiceSchema(input: {
   return {
     '@context': 'https://schema.org',
     '@type': 'LegalService',
-    name: `Avukat Ceren Sümer Cilli - ${input.title}`,
+    name: `${SITE_NAME} - ${input.title}`,
     url: `${SITE_URL}${input.path}`,
+    telephone: BUSINESS_NAP.telephone,
     areaServed: [
       { '@type': 'City', name: 'Adana' },
       { '@type': 'Place', name: 'Seyhan' },
@@ -156,8 +182,38 @@ export function buildLegalServiceSchema(input: {
     description: input.description,
     provider: {
       '@type': 'Person',
-      name: 'Avukat Ceren Sümer Cilli',
+      '@id': `${SITE_URL}/hakkimizda/#person`,
+      name: SITE_NAME,
     },
+  };
+}
+
+export function buildPersonSchema() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    '@id': `${SITE_URL}/hakkimizda/#person`,
+    name: BUSINESS_NAP.name,
+    jobTitle: 'Avukat',
+    worksFor: {
+      '@type': 'LegalService',
+      '@id': `${SITE_URL}/#organization`,
+      name: `${BUSINESS_NAP.name} - ${SITE_TAGLINE}`,
+    },
+    knowsAbout: [
+      'Adana aile hukuku',
+      'boşanma davaları',
+      'velayet davaları',
+      'nafaka davaları',
+      'mal paylaşımı',
+    ],
+    sameAs: [
+      'https://www.cerensumer.av.tr/adana-bosanma-avukati-ceren-sumer-cilli-kimdir/',
+      BUSINESS_NAP.mapsPlaceUrl,
+      'https://www.linkedin.com/in/avukat-ceren-s%C3%BCmer-cilli-375873b0/',
+      'https://www.instagram.com/av.cerensumercilli/',
+      'https://www.facebook.com/cerensumercilli/',
+    ],
   };
 }
 
@@ -166,26 +222,37 @@ export function buildLocalBusinessSchema() {
     '@context': 'https://schema.org',
     '@type': 'LegalService',
     '@id': `${SITE_URL}/#organization`,
-    name: 'Avukat Ceren Sümer Cilli',
+    name: BUSINESS_NAP.name,
     url: SITE_URL,
-    image: `${SITE_URL}/favicon.svg`,
+    image: OG_IMAGE_URL,
+    telephone: BUSINESS_NAP.telephone,
+    email: BUSINESS_NAP.email,
     description:
       "Adana'da aile hukuku, boşanma, velayet, nafaka ve mal paylaşımı alanında avukatlık ve hukuki danışmanlık.",
-    areaServed: { '@type': 'City', name: 'Adana' },
+    areaServed: [
+      { '@type': 'City', name: 'Adana' },
+      { '@type': 'Place', name: 'Seyhan' },
+      { '@type': 'Place', name: 'Çukurova' },
+      { '@type': 'Place', name: 'Yüreğir' },
+      { '@type': 'Place', name: 'Sarıçam' },
+    ],
     address: {
       '@type': 'PostalAddress',
-      addressLocality: 'Adana',
-      addressRegion: 'Adana',
-      addressCountry: 'TR',
+      streetAddress: BUSINESS_NAP.streetAddress,
+      addressLocality: BUSINESS_NAP.addressLocality,
+      addressRegion: BUSINESS_NAP.addressRegion,
+      postalCode: BUSINESS_NAP.postalCode,
+      addressCountry: BUSINESS_NAP.addressCountry,
     },
     geo: {
       '@type': 'GeoCoordinates',
-      latitude: 37.0017,
-      longitude: 35.3289,
+      latitude: BUSINESS_NAP.latitude,
+      longitude: BUSINESS_NAP.longitude,
     },
+    openingHours: BUSINESS_NAP.openingHours,
     sameAs: [
       'https://www.cerensumer.av.tr/adana-bosanma-avukati-ceren-sumer-cilli-kimdir/',
-      'https://www.google.com/maps/search/?api=1&query=Avukat+Ceren+S%C3%BCmer+Cilli+Adana',
+      BUSINESS_NAP.mapsPlaceUrl,
       'https://www.linkedin.com/in/avukat-ceren-s%C3%BCmer-cilli-375873b0/',
       'https://www.instagram.com/av.cerensumercilli/',
       'https://www.facebook.com/cerensumercilli/',

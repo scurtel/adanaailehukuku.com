@@ -8,7 +8,11 @@ import {
   buildBreadcrumbSchema,
   mergeSchemas,
 } from '../../utils/markdown';
-import { SITE_URL } from '../../consts';
+import {
+  CANONICAL_ARTICLE_REPLACEMENTS,
+  NOINDEX_ARTICLE_SLUGS,
+  SITE_URL,
+} from '../../consts';
 
 export async function getStaticPaths() {
   const articles = await getCollection('articles');
@@ -24,6 +28,9 @@ export async function getStaticPaths() {
 const { article } = Astro.props;
 const slug = getArticleSlug(article);
 const path = `/makaleler/${slug}/`;
+const noindex = NOINDEX_ARTICLE_SLUGS.has(slug);
+const replacementSlug = CANONICAL_ARTICLE_REPLACEMENTS[slug];
+const canonicalPath = replacementSlug ? `/makaleler/${replacementSlug}/` : undefined;
 const { html, relatedLinks, schemas } = parseMarkdownBody(article.body ?? '');
 
 const articleSchema = buildArticleSchema({
@@ -44,10 +51,18 @@ const pageSchemas = mergeSchemas(
     ]),
   ],
 );
+
 const breadcrumbs = [
   { label: 'Makaleler', href: '/makaleler/' },
   { label: article.data.title },
 ];
+
+const canonicalNotice = replacementSlug
+  ? {
+      label: 'güncel makale',
+      href: `/makaleler/${replacementSlug}/`,
+    }
+  : undefined;
 ---
 
 <ContentLayout
@@ -63,4 +78,11 @@ const breadcrumbs = [
   focusKeyword={article.data.focusKeyword}
   secondaryKeywords={article.data.secondaryKeywords}
   author={article.data.author}
+  reviewer={article.data.reviewer}
+  practiceArea={article.data.practiceArea}
+  location={article.data.location}
+  publishedDate={article.data.date}
+  noindex={noindex}
+  canonicalPath={canonicalPath}
+  canonicalNotice={canonicalNotice}
 />

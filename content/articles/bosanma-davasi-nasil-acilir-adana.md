@@ -8,8 +8,8 @@ category: "Aile Hukuku"
 focusKeyword: "boşanma davası nasıl açılır"
 secondaryKeywords:
   - "adana boşanma davası"
-  - "[anlaşmalı boşanma](https://adanaailehukuku.com/adana-anlasmali-bosanma/)"
-  - "[çekişmeli boşanma](https://adanaailehukuku.com/cekismeli-bosanma-sebepleri/)"
+  - "anlaşmalı boşanma"
+  - "çekişmeli boşanma"
   - "boşanma dilekçesi"
   - "adana aile mahkemesi"
 ---

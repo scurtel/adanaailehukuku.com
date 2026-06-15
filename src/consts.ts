@@ -1,6 +1,46 @@
 export const SITE_URL = 'https://adanaailehukuku.com';
 export const SITE_NAME = 'Avukat Ceren Sümer Cilli';
 export const SITE_TAGLINE = 'Adana Aile Hukuku';
+export const OG_IMAGE_URL = `${SITE_URL}/og-default.svg`;
+
+export const BUSINESS_NAP = {
+  name: 'Avukat Ceren Sümer Cilli',
+  legalName: 'Sümer Hukuk Bürosu',
+  telephone: '+905336342425',
+  telephoneDisplay: '0533 634 24 25',
+  email: 'info@cerensumer.av.tr',
+  streetAddress: 'Gazipaşa Mah. Ordu Cad. No:7 Dinçkan Apt. A Blok Daire:3',
+  addressLocality: 'Seyhan',
+  addressRegion: 'Adana',
+  postalCode: '01010',
+  addressCountry: 'TR',
+  openingHours: 'Mo-Fr 09:00-18:00',
+  mapsPlaceUrl:
+    'https://www.google.com/maps/place/Adana+Avukat+Ceren+S%C3%BCmer+Cilli+%7C+Adana+Bo%C5%9Fanma+Avukat%C4%B1/@36.9917146,35.3294433,17z',
+  mapsEmbedUrl:
+    'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3186.790573458734!2d35.326853976424765!3d36.99093187219341!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x15288f6f3764072f%3A0x51c862d3a8658c0d!2sAdana%20Avukat%20Ceren%20S%C3%BCmer%20Cilli!5e0!3m2!1str!2str',
+  latitude: 36.9917146,
+  longitude: 35.3294433,
+} as const;
+
+export const ADANA_DISTRICTS = [
+  { name: 'Seyhan', slug: 'seyhan' },
+  { name: 'Çukurova', slug: 'cukurova' },
+  { name: 'Yüreğir', slug: 'yuregir' },
+  { name: 'Sarıçam', slug: 'saricam' },
+] as const;
+
+/** Legacy articles superseded by newer URLs — excluded from sitemap, noindex at render. */
+export const NOINDEX_ARTICLE_SLUGS = new Set([
+  'uludag-sozluk-pazar-degeri-eksi-sozluk',
+  'bosanma-davasi-nasil-acilir-adana',
+  'velayet-davasi-mahkeme-kriterleri',
+]);
+
+export const CANONICAL_ARTICLE_REPLACEMENTS: Record<string, string> = {
+  'bosanma-davasi-nasil-acilir-adana': 'adanada-bosanma-davasi-nasil-acilir',
+  'velayet-davasi-mahkeme-kriterleri': 'adanada-velayet-davasi-ve-cocugun-ustun-yarari',
+};
 
 export const ARTICLE_SLUGS = [
   'adana-aile-hukuku-rehberi',
@@ -13,7 +53,6 @@ export const ARTICLE_SLUGS = [
   'cekismeli-bosanma-sebepleri',
   'aile-konutu-serhi-bosanma',
   'ziynet-alacagi-davasi',
-  'uludag-sozluk-pazar-degeri-eksi-sozluk',
   'aym-suresiz-nafaka-duzenlemesini-iptal-etti',
   'adanada-bosanma-davasi-nasil-acilir',
   'adanada-nafaka-davasi-ve-nafaka-artirim-sureci',
@@ -31,6 +70,7 @@ export const PAGE_SLUGS = [
   'adana-ziynet-alacagi-avukati',
   'aile-konutu-serhi-avukati',
   'uzaklastirma-karari-avukati',
+  'adana-ilce-aile-hukuku-avukati',
   'hakkimizda',
   'iletisim',
 ] as const;

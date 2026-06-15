@@ -4,9 +4,11 @@ import ArticleCard from '../../components/ArticleCard.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import { getArticlesSorted, getArticleSlug } from '../../utils/content';
 import { buildBreadcrumbSchema } from '../../utils/markdown';
-import { SITE_URL } from '../../consts';
+import { NOINDEX_ARTICLE_SLUGS, SITE_URL } from '../../consts';
 
-const articles = await getArticlesSorted();
+const articles = (await getArticlesSorted()).filter(
+  (a) => !NOINDEX_ARTICLE_SLUGS.has(getArticleSlug(a)),
+);
 const schemas = [
   buildBreadcrumbSchema([
     { name: 'Ana Sayfa', url: `${SITE_URL}/` },
@@ -16,7 +18,7 @@ const schemas = [
 ---
 
 <BaseLayout
-  title="Makaleler | Adana Aile Hukuku"
+  title="Makaleler"
   description="Adana aile hukuku, boşanma, velayet, nafaka ve mal paylaşımı hakkında bilgilendirici makaleler."
   path="/makaleler/"
   schemas={schemas}
@@ -31,7 +33,8 @@ const schemas = [
       <a href="/adana-cekismeli-bosanma-avukati/">çekişmeli boşanma</a>,
       <a href="/adana-velayet-davasi-avukati/">velayet</a>,
       <a href="/adana-nafaka-davasi-avukati/">nafaka</a>,
-      <a href="/adana-mal-paylasimi-avukati/">mal paylaşımı</a>.
+      <a href="/adana-mal-paylasimi-avukati/">mal paylaşımı</a>,
+      <a href="/adana-ilce-aile-hukuku-avukati/">ilçe rehberi</a>.
     </p>
     <div class="grid-2" style="margin-top: 1.25rem;">
       {

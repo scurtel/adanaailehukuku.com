@@ -1,0 +1,68 @@
+---
+import { BUSINESS_NAP } from '../consts';
+---
+
+<aside class="contact-nap" aria-label="İletişim bilgileri">
+  <h2>İletişim Bilgileri</h2>
+  <ul class="contact-nap__list">
+    <li>
+      <strong>Telefon:</strong>
+      <a href={`tel:${BUSINESS_NAP.telephone}`}>{BUSINESS_NAP.telephoneDisplay}</a>
+    </li>
+    <li>
+      <strong>E-posta:</strong>
+      <a href={`mailto:${BUSINESS_NAP.email}`}>{BUSINESS_NAP.email}</a>
+    </li>
+    <li>
+      <strong>Adres:</strong>
+      {BUSINESS_NAP.streetAddress}, {BUSINESS_NAP.postalCode} {BUSINESS_NAP.addressLocality}/{BUSINESS_NAP.addressRegion}
+    </li>
+    <li>
+      <strong>Çalışma saatleri:</strong> Pazartesi–Cuma 09:00–18:00
+    </li>
+    <li>
+      <a href={BUSINESS_NAP.mapsPlaceUrl} target="_blank" rel="noopener noreferrer">Google Haritalar'da konumu görüntüle</a>
+    </li>
+  </ul>
+  <div class="contact-nap__map">
+    <iframe
+      title="Avukat Ceren Sümer Cilli ofis konumu - Adana Seyhan"
+      src={BUSINESS_NAP.mapsEmbedUrl}
+      width="100%"
+      height="320"
+      style="border:0;"
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+      allowfullscreen></iframe>
+  </div>
+</aside>
+
+<style>
+  .contact-nap {
+    margin: 2rem 0 1.5rem;
+    padding: 1.25rem 1.5rem;
+    background: var(--surface-muted, #f4f7fa);
+    border-radius: 8px;
+    border: 1px solid var(--border, #dde4ec);
+  }
+
+  .contact-nap h2 {
+    margin: 0 0 1rem;
+    font-size: 1.25rem;
+  }
+
+  .contact-nap__list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.25rem;
+  }
+
+  .contact-nap__list li {
+    margin-bottom: 0.5rem;
+  }
+
+  .contact-nap__map {
+    border-radius: 6px;
+    overflow: hidden;
+  }
+</style>

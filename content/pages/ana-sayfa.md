@@ -1,5 +1,5 @@
 ---
-title: "Adana Aile Hukuku Avukatı | Avukat Ceren Sümer Cilli"
+title: "Adana Aile Hukuku ve Boşanma Avukatı"
 description: "Adana'da boşanma, velayet, nafaka ve mal paylaşımı alanında hukuki danışmanlık ve dava takibi. Aile mahkemesi süreçleri hakkında bilgi."
 slug: ""
 date: "2026-05-15"
