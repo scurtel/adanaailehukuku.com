@@ -1,5 +1,6 @@
 ---
 import { NAV_ITEMS, SITE_NAME } from '../consts';
+import FooterNap from './FooterNap.astro';
 ---
 
 <footer class="site-footer">
@@ -7,17 +8,22 @@ import { NAV_ITEMS, SITE_NAME } from '../consts';
     <div>
       <h3>{SITE_NAME}</h3>
       <p>Adana'da aile hukuku, boşanma, velayet, nafaka ve mal paylaşımı alanında hukuki danışmanlık.</p>
+      <FooterNap />
     </div>
     <div>
       <h3>Hizmetler</h3>
       <ul>
         <li><a href="/adana-aile-hukuku-avukati/">Aile Hukuku</a></li>
         <li><a href="/adana-bosanma-avukati/">Adana boşanma avukatı</a></li>
-        <li><a href="/adana-anlasmali-bosanma-avukati/">Anlaşmalı boşanma süreci</a></li>
-        <li><a href="/adana-cekismeli-bosanma-avukati/">Çekişmeli boşanma davası</a></li>
+        <li><a href="/adana-anlasmali-bosanma-avukati/">Anlaşmalı boşanma</a></li>
+        <li><a href="/adana-cekismeli-bosanma-avukati/">Çekişmeli boşanma</a></li>
         <li><a href="/adana-velayet-davasi-avukati/">Velayet davası</a></li>
         <li><a href="/adana-nafaka-davasi-avukati/">Nafaka talepleri</a></li>
         <li><a href="/adana-mal-paylasimi-avukati/">Mal paylaşımı</a></li>
+        <li><a href="/adana-ziynet-alacagi-avukati/">Ziynet alacağı</a></li>
+        <li><a href="/aile-konutu-serhi-avukati/">Aile konutu şerhi</a></li>
+        <li><a href="/uzaklastirma-karari-avukati/">Uzaklaştırma kararı</a></li>
+        <li><a href="/adana-ilce-aile-hukuku-avukati/">Adana ilçeleri</a></li>
         <li><a href="/iletisim/">İletişim</a></li>
       </ul>
     </div>
@@ -29,6 +35,7 @@ import { NAV_ITEMS, SITE_NAME } from '../consts';
             <a href={item.href}>{item.label}</a>
           </li>
         ))}
+        <li><a href="/adana-ilce-aile-hukuku-avukati/">İlçe rehberi</a></li>
       </ul>
     </div>
   </div>
