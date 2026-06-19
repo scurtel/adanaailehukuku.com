@@ -57,6 +57,10 @@ export const ARTICLE_SLUGS = [
   'adanada-bosanma-davasi-nasil-acilir',
   'adanada-nafaka-davasi-ve-nafaka-artirim-sureci',
   'adanada-velayet-davasi-ve-cocugun-ustun-yarari',
+  'cekismeli-bosanma-davasi-ne-kadar-surer',
+  'aldatma-nedeniyle-bosanma-davasi',
+  'velayet-davasinda-hakim-neye-dikkat-eder',
+  'nafaka-nasil-hesaplanir',
 ] as const;
 
 export const PAGE_SLUGS = [
