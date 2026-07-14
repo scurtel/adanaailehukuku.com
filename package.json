@@ -12,7 +12,8 @@
     "postbuild": "node scripts/copy-sitemap.mjs",
     "preview": "astro preview --host 0.0.0.0",
     "start": "node scripts/start.mjs",
-    "generate:articles": "node scripts/generate-adana-family-law-articles.mjs"
+    "generate:articles": "node scripts/generate-adana-family-law-articles.mjs",
+    "generate:auto-article": "node scripts/generate-article.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.3.1",
