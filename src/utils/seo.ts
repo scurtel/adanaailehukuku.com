@@ -8,7 +8,19 @@ export function formatPageTitle(title: string, path: string): string {
     .replace(new RegExp(`\\s*\\|\\s*${siteNamePattern}\\s*$`, 'i'), '')
     .replace(new RegExp(`^${siteNamePattern}\\s*\\|\\s*`, 'i'), '')
     .trim();
-  if (path === '/') return stripped;
+
+  if (path === '/' || path === '/hakkimizda/' || path === '/hakkimizda') {
+    // Hakkımızda: "Avukat Ceren Sümer Cilli | Aile Hukuku Çalışmaları"
+    if (path.startsWith('/hakkimizda')) {
+      return title.includes(SITE_NAME) ? title.trim() : `${SITE_NAME} | ${stripped}`;
+    }
+    return title.trim() || stripped;
+  }
+
+  if (new RegExp(siteNamePattern, 'i').test(title)) {
+    return title.trim();
+  }
+
   return `${stripped} | ${SITE_NAME}`;
 }
 

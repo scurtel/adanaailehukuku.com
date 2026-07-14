@@ -3,8 +3,16 @@ export const SITE_NAME = 'Avukat Ceren Sümer Cilli';
 export const SITE_TAGLINE = 'Adana Aile Hukuku';
 export const OG_IMAGE_URL = `${SITE_URL}/og-default.svg`;
 
+/** Canonical Person entity for E-E-A-T / author graph */
+export const PERSON_ENTITY_ID = `${SITE_URL}/#ceren-sumer-cilli`;
+export const LEGAL_SERVICE_ENTITY_ID = `${SITE_URL}/#legal-service`;
+export const AUTHOR_PROFILE_PATH = '/hakkimizda/';
+export const AUTHOR_PROFILE_URL = `${SITE_URL}${AUTHOR_PROFILE_PATH}`;
+
 export const BUSINESS_NAP = {
   name: 'Avukat Ceren Sümer Cilli',
+  personName: 'Ceren Sümer Cilli',
+  honorificPrefix: 'Av.',
   legalName: 'Sümer Hukuk Bürosu',
   telephone: '+905336342425',
   telephoneDisplay: '0533 634 24 25',
@@ -22,6 +30,43 @@ export const BUSINESS_NAP = {
   latitude: 36.9917146,
   longitude: 35.3294433,
 } as const;
+
+/** Verified official profiles (exact URLs from existing about page + NAP). Do not invent. */
+export const PROFILE_LINKS = [
+  {
+    label: 'Avukat Ceren Sümer Cilli Resmî Web Sitesi',
+    href: 'https://www.cerensumer.av.tr/adana-bosanma-avukati-ceren-sumer-cilli-kimdir/',
+  },
+  {
+    label: 'Google Maps İşletme Profili',
+    href: 'https://www.google.com/maps/search/?api=1&query=Avukat+Ceren+S%C3%BCmer+Cilli+Adana',
+  },
+  {
+    label: 'LinkedIn Mesleki Profili',
+    href: 'https://www.linkedin.com/in/avukat-ceren-s%C3%BCmer-cilli-375873b0/',
+  },
+  {
+    label: 'Instagram Mesleki Profili',
+    href: 'https://www.instagram.com/av.cerensumercilli/',
+  },
+  {
+    label: 'Facebook Sayfası',
+    href: 'https://www.facebook.com/cerensumercilli/',
+  },
+] as const;
+
+export const PRACTICE_AREA_LINKS = [
+  { title: 'Boşanma hukuku', href: '/adana-bosanma-avukati/' },
+  { title: 'Anlaşmalı boşanma', href: '/adana-anlasmali-bosanma-avukati/' },
+  { title: 'Çekişmeli boşanma', href: '/adana-cekismeli-bosanma-avukati/' },
+  { title: 'Velayet ve kişisel ilişki', href: '/adana-velayet-davasi-avukati/' },
+  { title: 'Tedbir, iştirak ve yoksulluk nafakası', href: '/adana-nafaka-davasi-avukati/' },
+  { title: 'Mal rejiminin tasfiyesi', href: '/adana-mal-paylasimi-avukati/' },
+  { title: 'Ziynet alacağı', href: '/adana-ziynet-alacagi-avukati/' },
+  { title: 'Maddi ve manevi tazminat', href: '/adana-bosanma-avukati/' },
+  { title: 'Aile konutu uyuşmazlıkları', href: '/aile-konutu-serhi-avukati/' },
+  { title: 'Boşanmayla bağlantılı taşınmaz uyuşmazlıkları', href: '/aile-konutu-serhi-avukati/' },
+] as const;
 
 export const ADANA_DISTRICTS = [
   { name: 'Seyhan', slug: 'seyhan' },
@@ -61,6 +106,7 @@ export const ARTICLE_SLUGS = [
   'aldatma-nedeniyle-bosanma-davasi',
   'velayet-davasinda-hakim-neye-dikkat-eder',
   'nafaka-nasil-hesaplanir',
+  'aile-hukukunda-sik-acilan-davalar',
 ] as const;
 
 export const PAGE_SLUGS = [

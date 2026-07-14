@@ -1,7 +1,14 @@
+---
+import { AUTHOR_PROFILE_PATH, SITE_NAME } from '../consts';
+---
+
 <section class="attorney-box">
-  <h2>Avukat Ceren Sümer Cilli</h2>
+  <h2>
+    <a href={AUTHOR_PROFILE_PATH}>{SITE_NAME}</a>
+  </h2>
   <p>
-    Adana merkezli olarak aile hukuku alanında danışmanlık ve dava takibi sunar. Çalışma odağı;
+    Avukat Ceren Sümer Cilli, Adana’da aile hukuku, boşanma, velayet, nafaka ve mal rejimi
+    uyuşmazlıkları üzerine çalışmaktadır. Çalışma odağı;
     <a href="/adana-bosanma-avukati/">boşanma</a>,
     <a href="/adana-velayet-davasi-avukati/">velayet</a>,
     <a href="/adana-nafaka-davasi-avukati/">nafaka</a>,
@@ -9,7 +16,7 @@
     ziynet alacağı, aile konutu ve koruma tedbirleridir.
   </p>
   <p>
-    <a href="/hakkimizda/">Hakkımızda</a>
+    <a href={AUTHOR_PROFILE_PATH}>Hakkımızda / mesleki profil</a>
     · <a href="/iletisim/">İletişim</a>
   </p>
 </section>

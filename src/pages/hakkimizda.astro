@@ -1,0 +1,455 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import CTA from '../components/CTA.astro';
+import {
+  BUSINESS_NAP,
+  NOINDEX_ARTICLE_SLUGS,
+  PRACTICE_AREA_LINKS,
+  PROFILE_LINKS,
+  SITE_NAME,
+} from '../consts';
+import { getArticlesSorted, getArticleSlug } from '../utils/content';
+import { buildAboutPageGraph } from '../utils/markdown';
+
+const pageTitle = 'Avukat Ceren Sümer Cilli | Aile Hukuku Çalışmaları';
+const pageDescription =
+  'Avukat Ceren Sümer Cilli’nin aile hukuku, boşanma, velayet, nafaka ve mal rejimi alanındaki çalışmaları, hukuki yayınları ve mesleki profili.';
+
+const articles = (await getArticlesSorted())
+  .filter((a) => !NOINDEX_ARTICLE_SLUGS.has(getArticleSlug(a)))
+  .slice(0, 8);
+
+const schemas = [buildAboutPageGraph()];
+
+const fullAddress = `${BUSINESS_NAP.streetAddress}, ${BUSINESS_NAP.postalCode} ${BUSINESS_NAP.addressLocality}/${BUSINESS_NAP.addressRegion}`;
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  path="/hakkimizda/"
+  schemas={schemas}
+  keywords={['Avukat Ceren Sümer Cilli', 'aile hukuku', 'boşanma hukuku', 'Adana', 'velayet', 'nafaka']}
+>
+  <div class="container">
+    <Breadcrumb items={[{ label: 'Hakkımızda' }]} />
+
+    <article class="content-card about-page">
+      <header class="about-hero">
+        <p class="about-hero__eyebrow">{SITE_NAME}</p>
+        <h1>Avukat Ceren Sümer Cilli Hakkında</h1>
+        <p class="about-hero__lead">
+          Avukat Ceren Sümer Cilli, Adana’da aile hukuku kapsamında boşanma, velayet, nafaka, mal
+          rejiminin tasfiyesi ve aile konutu uyuşmazlıkları üzerine çalışan avukattır. Hukuki
+          çalışmalarında aile uyuşmazlıklarını yalnızca boşanma talebi açısından değil; çocukların
+          durumu, ekonomik sonuçlar, mal varlığı ilişkileri ve uzun vadeli hukuki etkileriyle birlikte
+          değerlendirmektedir.
+        </p>
+        <!-- TODO: Doğrulanmış profesyonel portre fotoğrafı eklenecek (width/height + açıklayıcı alt metin ile). -->
+      </header>
+
+      <section class="about-section" aria-labelledby="mesleki-profil">
+        <h2 id="mesleki-profil">Mesleki Profil</h2>
+        <dl class="profile-grid">
+          <div>
+            <dt>Adı soyadı</dt>
+            <dd>{BUSINESS_NAP.personName}</dd>
+          </div>
+          <div>
+            <dt>Ünvan</dt>
+            <dd>Avukat</dd>
+          </div>
+          <div>
+            <dt>Büro</dt>
+            <dd>{BUSINESS_NAP.legalName}</dd>
+          </div>
+          <div>
+            <dt>Adres</dt>
+            <dd>{fullAddress}</dd>
+          </div>
+          <div>
+            <dt>Telefon</dt>
+            <dd>
+              <a href={`tel:${BUSINESS_NAP.telephone}`}>{BUSINESS_NAP.telephoneDisplay}</a>
+            </dd>
+          </div>
+          <div>
+            <dt>E-posta</dt>
+            <dd>
+              <a href={`mailto:${BUSINESS_NAP.email}`}>{BUSINESS_NAP.email}</a>
+            </dd>
+          </div>
+          <div>
+            <dt>Resmî web sitesi</dt>
+            <dd>
+              <a href={PROFILE_LINKS[0].href} target="_blank" rel="noopener noreferrer"
+                >cerensumer.av.tr</a
+              >
+            </dd>
+          </div>
+          <div>
+            <dt>Çalışma saatleri</dt>
+            <dd>Pazartesi–Cuma 09:00–18:00</dd>
+          </div>
+        </dl>
+        <!-- TODO: Doğrulanmış baro sicil bilgisi eklenecek. -->
+        <!-- TODO: Doğrulanmış TBB sicil numarası eklenecek. -->
+        <!-- TODO: Doğrulanmış mesleğe başlama yılı eklenecek. -->
+        <!-- TODO: Doğrulanmış mezuniyet / üniversite bilgisi eklenecek. -->
+        <!-- TODO: Doğrulanmış yabancı dil bilgisi eklenecek. -->
+        <p class="about-note">
+          Adana ve çevre ilçelerde — Seyhan, Çukurova, Yüreğir ve Sarıçam başta olmak üzere — aile
+          mahkemesi dosyaları takip edilir. Bu site, Adana aile hukuku süreçlerini anlaşılır ve ölçülü
+          bir dille açıklayan bilgilendirme platformudur.
+        </p>
+      </section>
+
+      <section class="about-section" aria-labelledby="yaklasim">
+        <h2 id="yaklasim">Aile Hukukuna Yaklaşımı</h2>
+        <p>
+          Aile hukuku, kişilerin özel yaşamına, çocukların güvenliğine ve aile ekonomisine doğrudan
+          dokunan bir alan olduğu için her dosya kendi koşulları içinde değerlendirilir. Avukat Ceren
+          Sümer Cilli’nin çalışmalarını aile hukuku alanında yoğunlaştırması; boşanma, velayet, nafaka
+          ve mal rejiminin tasfiyesi gibi konuların birbiriyle bağlantılı şekilde ele alınmasını
+          hedefleyen bir yaklaşımı yansıtır.
+        </p>
+
+        <h3>Boşanma uyuşmazlıklarının bütüncül değerlendirilmesi</h3>
+        <p>
+          Boşanma, yalnızca evlilik birliğinin sona ermesinden ibaret değildir. Anlaşmalı veya
+          çekişmeli boşanma sürecinde velayet, kişisel ilişki, tedbir–iştirak–yoksulluk nafakası,
+          maddi ve manevi tazminat, ziynet alacakları, aile konutu ve mal paylaşımı gibi konular
+          çoğu zaman aynı dosyanın ya da birbiriyle bağlantılı davaların parçasını oluşturur. Bu
+          nedenledir ki taleplerin birbirinden kopuk ele alınması, ileride uygulamada güçlük
+          yaratabilecek sonuçlar doğurabilir.
+        </p>
+        <p>
+          Bütüncül değerlendirme; tarafların mevcut yaşam düzeni, ekonomik koşulları, çocukların
+          durumu ve mal varlığı ilişkilerinin birlikte okunmasını ifade eder. Böylece mahkemeye
+          sunulacak dilekçe ve savunma içeriği, yalnızca boşanma sebebini değil, boşanmanın ekonomik
+          ve ailevi sonuçlarını da gözeten bir çerçevede hazırlanabilir.
+        </p>
+
+        <h3>Çocuğun üstün yararı</h3>
+        <p>
+          Velayet ve çocukla kişisel ilişki düzenlemelerinde belirleyici ölçü, çocuğun üstün
+          yararıdır. Çocuğun yaşı, eğitim ve bakım ihtiyacı, günlük yaşam düzeni, ebeveynlerle
+          ilişki kalitesi ve güvenli bir ortamda büyüme şartları birlikte değerlendirilir. Ebeveynlerin
+          ekonomik gücü tek başına belirleyici sayılamaz; bakım kapasitesi, süreklilik ve çocuğun
+          gelişimine uygun yaşam koşulları da sürecin parçasıdır.
+        </p>
+        <p>
+          Sosyal inceleme raporları, gerektiğinde çocuğun görüşü ve dosyadaki diğer deliller, velayet
+          kararının somut koşullara göre şekillenmesine katkı sağlar. Bu alanda amaç, tarafların
+          taleplerini değil; çocuğun güvenli, istikrarlı ve sürdürülebilir bir yaşam düzenine
+          ulaşmasını gözetmektir.
+        </p>
+
+        <h3>Delillerin ve sürecin planlanması</h3>
+        <p>
+          Aile mahkemesi süreçlerinde hukuka uygun şekilde sunulan delillerin niteliği, dosyanın
+          seyrini doğrudan etkiler. Mesajlaşmalar, banka hareketleri, tanık anlatımları, sosyal
+          inceleme raporları ve mal varlığı kayıtları; iddianın dayanağını oluşturabilir. Ancak her
+          belgenin mahkeme önünde aynı değerde kabul görmesi beklenmez. Delillerin toplanma biçimi,
+          içeriği ve süreci planlama şekli, hem maddi gerçeğin ortaya konulması hem de usul hatalarının
+          önlenmesi bakımından önemlidir.
+        </p>
+        <p>
+          Süreç planlaması, yalnızca dava açma kararını değil; hangi taleplerin hangi sırayla
+          ileri sürüleceğini, hangi delillerin eksik olduğunu ve ara kararlarla gelebilecek
+          ihtimalleri de kapsar. Adana aile mahkemelerinde de diğer adliyelerde olduğu gibi, dosyanın
+          erken aşamada netleştirilmesi gereksiz uzamaların azalmasına yardımcı olabilir.
+        </p>
+
+        <h3>Dava öncesi hukuki değerlendirme</h3>
+        <p>
+          Her uyuşmazlık aynı yöntemle çözülemez. Bazı dosyalarda protokol ve uzlaşı zemini daha
+          uygundur; bazılarında ise çekişmeli yargılama ve delil tartışması kaçınılmazdır. Dava
+          öncesi değerlendirme; olası talepleri, eldeki delilleri, riskleri ve muhtemel sonuçları
+          somut olayın koşullarına göre gözden geçirmeyi gerektirir. Bu değerlendirme, sonuç
+          garantisi anlamı taşımaz; ölçülü bir ön değerlendirme sunar.
+        </p>
+        <p>
+          Erken dönemde yapılan hukuki değerlendirme, müvekkilin sürecin adımlarını daha net
+          görmesine, gereksiz beklentilerin süzülmesine ve dosyanın hukuki ekseninin doğru
+          kurulmasına yardımcı olur. İlgili konular için
+          <a href="/adana-aile-hukuku-avukati/">aile hukuku</a>,
+          <a href="/adana-bosanma-avukati/">boşanma</a>,
+          <a href="/adana-velayet-davasi-avukati/">velayet</a> ve
+          <a href="/adana-nafaka-davasi-avukati/">nafaka</a> sayfalarından da ayrıntılı bilgilere
+          ulaşılabilir.
+        </p>
+      </section>
+
+      <section class="about-section" aria-labelledby="calisma-alanlari">
+        <h2 id="calisma-alanlari">Çalışma Alanları</h2>
+        <p>
+          Aşağıdaki başlıklar, Avukat Ceren Sümer Cilli’nin Adana’da aile hukuku çerçevesindeki
+          çalışma alanlarını özetler. Her başlık, sitedeki ilgili bilgilendirme sayfasına bağlanır.
+        </p>
+        <ul class="practice-grid">
+          {
+            PRACTICE_AREA_LINKS.map((area) => (
+              <li>
+                <a href={area.href}>{area.title}</a>
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+
+      <section class="about-section" aria-labelledby="yayinlar">
+        <h2 id="yayinlar">Avukat Ceren Sümer Cilli’nin Hukuki Yayınları</h2>
+        <p>
+          adanaailehukuku.com üzerindeki aile hukuku makalelerinin yazarı Avukat Ceren Sümer
+          Cilli’dir. Aşağıda son yayınlardan bir seçki yer alır; tüm yazılar
+          <a href="/makaleler/">Makaleler</a> sayfasında listelenir.
+        </p>
+        <div class="grid-2 about-publications">
+          {
+            articles.map((article) => {
+              const slug = getArticleSlug(article);
+              return (
+                <ArticleCard
+                  title={article.data.title}
+                  description={article.data.description}
+                  href={`/makaleler/${slug}/`}
+                  category={article.data.category}
+                  date={article.data.date}
+                  author={article.data.author ?? SITE_NAME}
+                  authorHref="/hakkimizda/"
+                />
+              );
+            })
+          }
+        </div>
+      </section>
+
+      <section class="about-section" aria-labelledby="icerik-standardi">
+        <h2 id="icerik-standardi">İçerik Hazırlama Standardı</h2>
+        <p>
+          Bu sitedeki hukuki içerikler Avukat Ceren Sümer Cilli tarafından hazırlanmakta veya
+          hukuki açıdan kontrol edilmektedir. İçeriklerde yürürlükteki mevzuat, resmî düzenlemeler
+          ve ilgili yüksek mahkeme kararları esas alınmaktadır. Mevzuat değişikliklerinden
+          etkilenebilecek içerikler belirli aralıklarla gözden geçirilmektedir.
+        </p>
+        <p class="about-disclaimer">
+          Bu içerikler genel hukuki bilgilendirme amacı taşır; kişiye özel hukuki danışmanlık
+          yerine geçmez. Somut olaylar farklı değerlendirme gerektirebilir. Somut dosyanız için
+          <a href="/iletisim/">iletişim</a> sayfasından ulaşabilirsiniz.
+        </p>
+      </section>
+
+      <section class="about-section" aria-labelledby="resmi-profiller">
+        <h2 id="resmi-profiller">Resmî Profiller ve İletişim Kanalları</h2>
+        <p>
+          Aşağıdaki bağlantılar, Avukat Ceren Sümer Cilli’nin doğrulanabilir mesleki ve kurumsal
+          dijital varlıklarını gösterir.
+        </p>
+        <ul class="ref-links about-profiles">
+          {
+            PROFILE_LINKS.map((link) => (
+              <li>
+                <a href={link.href} target="_blank" rel="noopener noreferrer">
+                  {link.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+
+        <div class="about-map">
+          <h3>Ofis konumu</h3>
+          <p>{fullAddress}</p>
+          <div class="about-map__frame">
+            <iframe
+              title="Avukat Ceren Sümer Cilli ofis konumu - Adana Seyhan"
+              src={BUSINESS_NAP.mapsEmbedUrl}
+              width="600"
+              height="320"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              allowfullscreen></iframe>
+          </div>
+          <p>
+            <a href={BUSINESS_NAP.mapsPlaceUrl} target="_blank" rel="noopener noreferrer"
+              >Google Maps İşletme Profili’ni haritada aç</a
+            >
+          </p>
+        </div>
+      </section>
+
+      <CTA />
+    </article>
+  </div>
+</BaseLayout>
+
+<style>
+  .about-page {
+    max-width: 100%;
+  }
+
+  .about-hero {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .about-hero__eyebrow {
+    margin: 0 0 0.5rem;
+    font-size: 0.9rem;
+    color: var(--gold-dark);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+
+  .about-hero h1 {
+    margin: 0 0 1rem;
+    color: var(--navy);
+    font-size: clamp(1.55rem, 2.8vw, 2rem);
+    line-height: 1.25;
+  }
+
+  .about-hero__lead {
+    margin: 0;
+    font-size: 1.05rem;
+    color: var(--text);
+    max-width: 68ch;
+  }
+
+  .about-section {
+    margin-top: 2.25rem;
+  }
+
+  .about-section h2 {
+    color: var(--navy);
+    font-size: 1.35rem;
+    margin: 0 0 1rem;
+    border-bottom: 2px solid var(--border);
+    padding-bottom: 0.35rem;
+  }
+
+  .about-section h3 {
+    color: var(--navy);
+    font-size: 1.1rem;
+    margin: 1.5rem 0 0.65rem;
+  }
+
+  .about-section p {
+    margin: 0 0 1rem;
+    max-width: 70ch;
+  }
+
+  .about-note,
+  .about-disclaimer {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+  }
+
+  .profile-grid {
+    display: grid;
+    gap: 0.85rem 1.25rem;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    margin: 0 0 1.25rem;
+    padding: 1.1rem 1.2rem;
+    background: #faf7f1;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+
+  .profile-grid dt {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-muted);
+    margin: 0 0 0.2rem;
+  }
+
+  .profile-grid dd {
+    margin: 0;
+    color: var(--navy);
+    font-weight: 600;
+  }
+
+  .practice-grid {
+    list-style: none;
+    margin: 1rem 0 0;
+    padding: 0;
+    display: grid;
+    gap: 0.65rem;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  }
+
+  .practice-grid a {
+    display: block;
+    padding: 0.85rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--white);
+    text-decoration: none;
+    font-weight: 600;
+    color: var(--navy);
+    transition:
+      border-color 0.15s ease,
+      color 0.15s ease;
+  }
+
+  .practice-grid a:hover {
+    border-color: var(--gold);
+    color: var(--gold-dark);
+  }
+
+  .about-publications {
+    margin-top: 1.25rem;
+  }
+
+  .about-profiles {
+    list-style: none;
+    margin: 1rem 0 1.5rem;
+    padding: 0;
+    display: grid;
+    gap: 0.65rem;
+  }
+
+  .about-profiles a {
+    display: block;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--white);
+    color: var(--navy);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .about-profiles a:hover {
+    border-color: var(--gold);
+    color: var(--gold-dark);
+  }
+
+  .about-map h3 {
+    margin-top: 0.5rem;
+  }
+
+  .about-map__frame {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    max-height: 360px;
+    margin: 0.75rem 0 1rem;
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: #e8eef4;
+  }
+
+  .about-map__frame iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+</style>

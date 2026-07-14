@@ -14,7 +14,10 @@ import { SITE_URL } from '../consts';
 export async function getStaticPaths() {
   const pages = await getCollection('pages');
   return pages
-    .filter((page) => !page.id.replace(/\.md$/, '').includes('ana-sayfa'))
+    .filter((page) => {
+      const id = page.id.replace(/\.md$/, '');
+      return id !== 'ana-sayfa' && id !== 'hakkimizda';
+    })
     .map((page) => {
       const slug = getPageSlug(page);
       return { slug, page };

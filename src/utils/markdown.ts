@@ -1,9 +1,13 @@
 import { marked } from 'marked';
 import {
   ARTICLE_SLUGS,
+  AUTHOR_PROFILE_URL,
   BUSINESS_NAP,
+  LEGAL_SERVICE_ENTITY_ID,
   OG_IMAGE_URL,
   PAGE_SLUGS,
+  PERSON_ENTITY_ID,
+  PROFILE_LINKS,
   SITE_NAME,
   SITE_TAGLINE,
   SITE_URL,
@@ -143,12 +147,13 @@ export function buildArticleSchema(input: {
     image: input.image ?? `${SITE_URL}/og/article-default.svg`,
     author: {
       '@type': 'Person',
-      '@id': `${SITE_URL}/hakkimizda/#person`,
-      name: input.author ?? 'Av. Ceren Sümer Cilli',
+      '@id': PERSON_ENTITY_ID,
+      name: input.author ?? SITE_NAME,
+      url: AUTHOR_PROFILE_URL,
     },
     publisher: {
       '@type': 'Organization',
-      '@id': `${SITE_URL}/#organization`,
+      '@id': LEGAL_SERVICE_ENTITY_ID,
       name: SITE_NAME,
     },
     datePublished: iso,
@@ -182,8 +187,9 @@ export function buildLegalServiceSchema(input: {
     description: input.description,
     provider: {
       '@type': 'Person',
-      '@id': `${SITE_URL}/hakkimizda/#person`,
+      '@id': PERSON_ENTITY_ID,
       name: SITE_NAME,
+      url: AUTHOR_PROFILE_URL,
     },
   };
 }
@@ -192,28 +198,27 @@ export function buildPersonSchema() {
   return {
     '@context': 'https://schema.org',
     '@type': 'Person',
-    '@id': `${SITE_URL}/hakkimizda/#person`,
-    name: BUSINESS_NAP.name,
+    '@id': PERSON_ENTITY_ID,
+    name: BUSINESS_NAP.personName,
+    honorificPrefix: BUSINESS_NAP.honorificPrefix,
+    alternateName: SITE_NAME,
     jobTitle: 'Avukat',
+    url: AUTHOR_PROFILE_URL,
     worksFor: {
       '@type': 'LegalService',
-      '@id': `${SITE_URL}/#organization`,
-      name: `${BUSINESS_NAP.name} - ${SITE_TAGLINE}`,
+      '@id': LEGAL_SERVICE_ENTITY_ID,
+      name: SITE_NAME,
     },
     knowsAbout: [
-      'Adana aile hukuku',
-      'boşanma davaları',
-      'velayet davaları',
-      'nafaka davaları',
-      'mal paylaşımı',
+      'Aile Hukuku',
+      'Boşanma Hukuku',
+      'Velayet',
+      'Nafaka',
+      'Mal Rejiminin Tasfiyesi',
+      'Aile Konutu',
+      'Ziynet Alacağı',
     ],
-    sameAs: [
-      'https://www.cerensumer.av.tr/adana-bosanma-avukati-ceren-sumer-cilli-kimdir/',
-      BUSINESS_NAP.mapsPlaceUrl,
-      'https://www.linkedin.com/in/avukat-ceren-s%C3%BCmer-cilli-375873b0/',
-      'https://www.instagram.com/av.cerensumercilli/',
-      'https://www.facebook.com/cerensumercilli/',
-    ],
+    sameAs: PROFILE_LINKS.map((l) => l.href),
   };
 }
 
@@ -221,7 +226,7 @@ export function buildLocalBusinessSchema() {
   return {
     '@context': 'https://schema.org',
     '@type': 'LegalService',
-    '@id': `${SITE_URL}/#organization`,
+    '@id': LEGAL_SERVICE_ENTITY_ID,
     name: BUSINESS_NAP.name,
     url: SITE_URL,
     image: OG_IMAGE_URL,
@@ -250,12 +255,112 @@ export function buildLocalBusinessSchema() {
       longitude: BUSINESS_NAP.longitude,
     },
     openingHours: BUSINESS_NAP.openingHours,
-    sameAs: [
-      'https://www.cerensumer.av.tr/adana-bosanma-avukati-ceren-sumer-cilli-kimdir/',
-      BUSINESS_NAP.mapsPlaceUrl,
-      'https://www.linkedin.com/in/avukat-ceren-s%C3%BCmer-cilli-375873b0/',
-      'https://www.instagram.com/av.cerensumercilli/',
-      'https://www.facebook.com/cerensumercilli/',
+    sameAs: PROFILE_LINKS.map((l) => l.href),
+    employee: { '@id': PERSON_ENTITY_ID },
+  };
+}
+
+/** About page @graph: WebPage + Person + LegalService + BreadcrumbList */
+export function buildAboutPageGraph() {
+  const webpageId = `${SITE_URL}/hakkimizda/#webpage`;
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'WebPage',
+        '@id': webpageId,
+        url: AUTHOR_PROFILE_URL,
+        name: 'Avukat Ceren Sümer Cilli Hakkında',
+        description:
+          'Avukat Ceren Sümer Cilli’nin aile hukuku, boşanma, velayet, nafaka ve mal rejimi alanındaki çalışmaları, hukuki yayınları ve mesleki profili.',
+        isPartOf: { '@id': `${SITE_URL}/#website` },
+        about: { '@id': PERSON_ENTITY_ID },
+        mainEntity: { '@id': PERSON_ENTITY_ID },
+        breadcrumb: { '@id': `${SITE_URL}/hakkimizda/#breadcrumb` },
+        inLanguage: 'tr-TR',
+      },
+      {
+        '@type': 'Person',
+        '@id': PERSON_ENTITY_ID,
+        name: BUSINESS_NAP.personName,
+        honorificPrefix: BUSINESS_NAP.honorificPrefix,
+        alternateName: SITE_NAME,
+        jobTitle: 'Avukat',
+        url: AUTHOR_PROFILE_URL,
+        image: OG_IMAGE_URL,
+        worksFor: { '@id': LEGAL_SERVICE_ENTITY_ID },
+        knowsAbout: [
+          'Aile Hukuku',
+          'Boşanma Hukuku',
+          'Velayet',
+          'Nafaka',
+          'Mal Rejiminin Tasfiyesi',
+          'Aile Konutu',
+          'Ziynet Alacağı',
+        ],
+        sameAs: PROFILE_LINKS.map((l) => l.href),
+        address: {
+          '@type': 'PostalAddress',
+          streetAddress: BUSINESS_NAP.streetAddress,
+          addressLocality: BUSINESS_NAP.addressLocality,
+          addressRegion: BUSINESS_NAP.addressRegion,
+          postalCode: BUSINESS_NAP.postalCode,
+          addressCountry: BUSINESS_NAP.addressCountry,
+        },
+        email: BUSINESS_NAP.email,
+        telephone: BUSINESS_NAP.telephone,
+      },
+      {
+        '@type': 'LegalService',
+        '@id': LEGAL_SERVICE_ENTITY_ID,
+        name: SITE_NAME,
+        alternateName: `${SITE_NAME} - ${SITE_TAGLINE}`,
+        url: SITE_URL,
+        telephone: BUSINESS_NAP.telephone,
+        email: BUSINESS_NAP.email,
+        image: OG_IMAGE_URL,
+        address: {
+          '@type': 'PostalAddress',
+          streetAddress: BUSINESS_NAP.streetAddress,
+          addressLocality: BUSINESS_NAP.addressLocality,
+          addressRegion: BUSINESS_NAP.addressRegion,
+          postalCode: BUSINESS_NAP.postalCode,
+          addressCountry: BUSINESS_NAP.addressCountry,
+        },
+        geo: {
+          '@type': 'GeoCoordinates',
+          latitude: BUSINESS_NAP.latitude,
+          longitude: BUSINESS_NAP.longitude,
+        },
+        areaServed: [
+          { '@type': 'City', name: 'Adana' },
+          { '@type': 'Place', name: 'Seyhan' },
+          { '@type': 'Place', name: 'Çukurova' },
+          { '@type': 'Place', name: 'Yüreğir' },
+          { '@type': 'Place', name: 'Sarıçam' },
+        ],
+        serviceType: 'Aile Hukuku',
+        employee: { '@id': PERSON_ENTITY_ID },
+        sameAs: PROFILE_LINKS.map((l) => l.href),
+      },
+      {
+        '@type': 'BreadcrumbList',
+        '@id': `${SITE_URL}/hakkimizda/#breadcrumb`,
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: 'Ana Sayfa',
+            item: `${SITE_URL}/`,
+          },
+          {
+            '@type': 'ListItem',
+            position: 2,
+            name: 'Hakkımızda',
+            item: AUTHOR_PROFILE_URL,
+          },
+        ],
+      },
     ],
   };
 }

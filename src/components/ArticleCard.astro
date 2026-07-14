@@ -6,9 +6,22 @@ interface Props {
   category?: string;
   focusKeyword?: string;
   date?: Date;
+  author?: string;
+  authorHref?: string;
+  showFocusKeyword?: boolean;
 }
 
-const { title, description, href, category, focusKeyword, date } = Astro.props;
+const {
+  title,
+  description,
+  href,
+  category,
+  focusKeyword,
+  date,
+  author,
+  authorHref,
+  showFocusKeyword = false,
+} = Astro.props;
 
 const formattedDate =
   date &&
@@ -23,10 +36,20 @@ const formattedDate =
   <div class="card-meta">
     {category && <span class="badge">{category}</span>}
     {formattedDate && <time datetime={date?.toISOString()}>{formattedDate}</time>}
+    {
+      author &&
+        (authorHref ? (
+          <span>
+            Yazar: <a href={authorHref}>{author}</a>
+          </span>
+        ) : (
+          <span>Yazar: {author}</span>
+        ))
+    }
   </div>
   <h3><a href={href}>{title}</a></h3>
   <p>{description}</p>
-  {focusKeyword && <p class="card-keyword"><small>Odak: {focusKeyword}</small></p>}
+  {showFocusKeyword && focusKeyword && <p class="card-keyword"><small>Odak: {focusKeyword}</small></p>}
   <a class="card-link" href={href}>Devamını oku →</a>
 </article>
 
