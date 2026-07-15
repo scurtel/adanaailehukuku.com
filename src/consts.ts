@@ -107,6 +107,7 @@ export const ARTICLE_SLUGS = [
   'velayet-davasinda-hakim-neye-dikkat-eder',
   'nafaka-nasil-hesaplanir',
   'aile-hukukunda-sik-acilan-davalar',
+  'nafaka-turleri-nelerdir-adana',
 ] as const;
 
 export const PAGE_SLUGS = [
