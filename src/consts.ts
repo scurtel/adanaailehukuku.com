@@ -108,6 +108,7 @@ export const ARTICLE_SLUGS = [
   'nafaka-nasil-hesaplanir',
   'aile-hukukunda-sik-acilan-davalar',
   'nafaka-turleri-nelerdir-adana',
+  'bosanma-davasinda-tanik-beyani',
 ] as const;
 
 export const PAGE_SLUGS = [
