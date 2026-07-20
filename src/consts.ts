@@ -109,6 +109,7 @@ export const ARTICLE_SLUGS = [
   'aile-hukukunda-sik-acilan-davalar',
   'nafaka-turleri-nelerdir-adana',
   'bosanma-davasinda-tanik-beyani',
+  'cocugu-gostermeme-halinde-ne-yapilir',
 ] as const;
 
 export const PAGE_SLUGS = [
