@@ -26,6 +26,13 @@ DISCLAIMER = (
 )
 
 
+
+def sanitize_faq_question_name(name: str) -> str:
+    import re
+    name = re.sub(r"^#{1,6}\s+", "", name or "")
+    name = re.sub(r"^[-*•]\s+", "", name)
+    return name.strip()
+
 def link(slug: str, text: str | None = None) -> str:
     t = text or ARTICLES.get(slug, slug.replace("-", " ").title())
     return f"[{t}]({BASE}/{slug}/)"
@@ -46,7 +53,7 @@ def seo_block(
         f"  - [{ARTICLES.get(s, s)}]({BASE}/{s}/) — `{s}`" for s in internal
     )
     faq_json = ",\n    ".join(
-        f'{{"@type": "Question", "name": "{q}", "acceptedAnswer": {{"@type": "Answer", "text": "{a}"}}}}'
+        f'{{"@type": "Question", "name": "{sanitize_faq_question_name(q)}", "acceptedAnswer": {{"@type": "Answer", "text": "{a}"}}}}'
         for q, a in faqs
     )
     hl = headline or title
@@ -414,7 +421,7 @@ Ağırlıklı olarak Adana ve çevre ilçelerdeki dosyalar takip edilir; yetki k
 
 def write_contact():
     faqs = [
-        ("Randevu nasıl alınır?", "İletişim formu veya telefon ile ön talep iletilebilir; uygunluk durumuna göre görüşme planlanır."),
+        ("Randevu nasıl alınır?", "Telefon veya e-posta ile ön talep iletilebilir; uygunluk durumuna göre görüşme planlanır."),
         ("İlk görüşme ücretli mi?", "Görüşme koşulları dosya kapsamına göre paylaşılır."),
         ("Hangi belgeleri getirmeliyim?", "Kimlik, nüfus kaydı, evlilik cüzdanı ve varsa mevcut dilekçe veya protokol taslağı."),
     ]

@@ -138,11 +138,7 @@ Adana'da aile hukuku süreciniz hakkında hukuki değerlendirme almak için [ile
 
 **Hukuki uyarı:** Bu içerik genel bilgilendirme amacıyla hazırlanmıştır. Somut olayın özelliklerine göre hukuki değerlendirme değişebilir.
 
----
 
-Harika, Adana Aile Hukuku web siteniz için "Anlaşmalı Boşanma" hizmet sayfasının meta bölümünü profesyonel ve SEO odaklı bir yaklaşımla hazırlayalım.
-
----
 ## SEO Çıktıları
 
 - **SEO title:** Adana Anlaşmalı Boşanma Avukatı
@@ -159,7 +155,7 @@ Harika, Adana Aile Hukuku web siteniz için "Anlaşmalı Boşanma" hizmet sayfas
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
-    {"@type": "Question", "name": "### Anlaşmalı boşanma ne kadar sürer?", "acceptedAnswer": {"@type": "Answer", "text": "Anlaşmalı boşanma davaları, çekişmeli davalara göre çok daha hızlı sonuçlanır. Genellikle tek celsede, birkaç hafta ila birkaç ay içinde karara bağlanır. Kararın kesinleşme süresi ise tarafların istinaf/temyiz haklarından feragat etmelerine bağlı olarak değişir."}},
+    {"@type": "Question", "name": "Anlaşmalı boşanma ne kadar sürer?", "acceptedAnswer": {"@type": "Answer", "text": "Anlaşmalı boşanma davaları, çekişmeli davalara göre çok daha hızlı sonuçlanır. Genellikle tek celsede, birkaç hafta ila birkaç ay içinde karara bağlanır. Kararın kesinleşme süresi ise tarafların istinaf/temyiz haklarından feragat etmelerine bağlı olarak değişir."}},
     {"@type": "Question", "name": "Anlaşmalı boşanmada avukat zorunlu mu?", "acceptedAnswer": {"@type": "Answer", "text": "Hayır, anlaşmalı boşanma davasında avukatla temsil zorunlu değildir. Ancak, hakların korunması, protokolün doğru hazırlanması ve sürecin sorunsuz ilerlemesi açısından profesyonel hukuki destek almak şiddetle tavsiye edilir."}},
     {"@type": "Question", "name": "Protokolde değişiklik yapılabilir mi?", "acceptedAnswer": {"@type": "Answer", "text": "Evet, mahkeme duruşmasında hakim, protokolde çocukların menfaatlerine aykırı veya eksik bulduğu hususlarda değişiklik yapılmasını isteyebilir. Taraflar bu değişiklikleri kabul ederse, protokol değiştirilerek dava sonuçlandırılır."}},
     {"@type": "Question", "name": "Anlaşmalı boşanmada nafaka ve velayet nasıl belirlenir?", "acceptedAnswer": {"@type": "Answer", "text": "Nafaka (iştirak ve yoksulluk) ve velayet konuları, tarafların karşılıklı anlaşmasıyla belirlenir ve anlaşmalı boşanma protokolünde açıkça belirtilir. Hakim, bu düzenlemeleri özellikle çocukların üstün yararı açısından değerlendirir ve uygun bulursa onaylar."}},

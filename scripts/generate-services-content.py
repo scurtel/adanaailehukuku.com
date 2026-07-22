@@ -182,6 +182,13 @@ BANNED = re.compile(
 )
 
 
+
+def sanitize_faq_question_name(name: str) -> str:
+    import re
+    name = re.sub(r"^#{1,6}\s+", "", name or "")
+    name = re.sub(r"^[-*•]\s+", "", name)
+    return name.strip()
+
 def load_env() -> dict[str, str]:
     env: dict[str, str] = {}
     if not ENV_PATH.exists():
@@ -418,6 +425,8 @@ Adana'da aile hukuku süreciniz hakkında hukuki değerlendirme almak için [ile
 800-1200 kelime. Tekrar yok. Reklam dili yok."""
 
 PROMPT_META = """Aşağıdaki hizmet sayfası için SADECE meta bölümünü yaz.
+ÖNEMLİ: Konuşma cümlesi yazma (ör. "Harika", "hazırlıyorum", "İşte SEO"). Doğrudan ## SEO Çıktıları ile başla.
+FAQ JSON içindeki Question name alanlarında ###, ## veya madde işareti kullanma; yalnızca düz soru metni yaz.
 
 Konu: {topic}
 Slug: {slug}
@@ -433,7 +442,7 @@ H1: {h1}
 - **İç link önerileri:** (mevcut sluglar, markdown link)
 
 ## FAQ Schema JSON-LD
-(geçerli JSON, 5-7 soru — gövdedeki SSS ile uyumlu)
+(geçerli JSON, 5-7 soru — gövdedeki SSS ile uyumlu; name alanlarında markdown yok)
 
 ## Schema JSON-LD
 (LegalService, provider: Avukat Ceren Sümer Cilli, url: {page_url})

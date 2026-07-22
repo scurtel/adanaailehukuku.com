@@ -23,9 +23,44 @@ const RELATED_HEADING = /^## İlgili (makaleler|yazılar)\s*$/m;
 const GEMINI_JSON_BLOCK =
   /\n---\n\n```json\s*[\s\S]*?```|\n```json\s*\{[\s\S]*?"(?:seo_outputs|faq_schema_json_ld|article_schema_json_ld)"[\s\S]*?```/g;
 
+/** AI chat / generation notes that must never render as page content. */
+const AI_PREAMBLE_BLOCK =
+  /\n---\n+\n?(?:Harika[,\s][\s\S]*?(?:meta bölümünü|SEO(?:\s+çıktı|\s+odaklı)?|hazırlıyorum|hazırlayalım)[^\n]*)\n+\n?---\n+/gi;
+const AI_PREAMBLE_LINE =
+  /^(?:Harika[,\s].*(?:meta bölümünü|SEO|hazırlıyorum|hazırlayalım).*|(?:İşte\s+)?SEO çıktıları\b.*|Aşağıda istediğiniz içerik.*)\n+/gim;
+
 /** Remove raw Gemini meta JSON accidentally left in article body (not valid schema blocks). */
 export function stripVisibleJsonArtifacts(raw: string): string {
   return raw.replace(GEMINI_JSON_BLOCK, '\n').replace(/\n{3,}/g, '\n\n').trimEnd();
+}
+
+/** Strip generation-assistant preamble; does not remove incidental words like “harika” in legal prose. */
+export function stripAiGenerationArtifacts(raw: string): string {
+  return raw
+    .replace(AI_PREAMBLE_BLOCK, '\n\n')
+    .replace(AI_PREAMBLE_LINE, '')
+    .replace(/\n{3,}/g, '\n\n')
+    .trimEnd();
+}
+
+/** FAQ schema question names must be plain text (no markdown heading/list markers). */
+export function sanitizeFaqQuestionName(name: string): string {
+  return name
+    .replace(/^#{1,6}\s+/, '')
+    .replace(/^[-*•]\s+/, '')
+    .trim();
+}
+
+function sanitizeFaqSchema(schema: Record<string, unknown>): Record<string, unknown> {
+  if (schema['@type'] !== 'FAQPage') return schema;
+  const entities = schema.mainEntity;
+  if (!Array.isArray(entities)) return schema;
+  for (const item of entities) {
+    if (!item || typeof item !== 'object') continue;
+    const q = item as Record<string, unknown>;
+    if (typeof q.name === 'string') q.name = sanitizeFaqQuestionName(q.name);
+  }
+  return schema;
 }
 
 const articleSlugSet = new Set<string>(ARTICLE_SLUGS);
@@ -71,7 +106,7 @@ function normalizeExtractedSchema(schema: Record<string, unknown>): Record<strin
       mep['@id'] = `${SITE_URL}/makaleler/${slugMatch[1]}/`;
     }
   }
-  return schema;
+  return sanitizeFaqSchema(schema);
 }
 
 function extractJsonLdBlocks(text: string): Record<string, unknown>[] {
@@ -90,7 +125,7 @@ function extractJsonLdBlocks(text: string): Record<string, unknown>[] {
 }
 
 export function parseMarkdownBody(raw: string) {
-  const sanitized = stripVisibleJsonArtifacts(raw);
+  const sanitized = stripAiGenerationArtifacts(stripVisibleJsonArtifacts(raw));
   const metaIndex = sanitized.search(META_START);
   const bodyWithMaybeRelated = metaIndex >= 0 ? sanitized.slice(0, metaIndex) : sanitized;
   const metaTail = metaIndex >= 0 ? sanitized.slice(metaIndex) : '';

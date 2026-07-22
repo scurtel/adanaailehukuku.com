@@ -1,5 +1,5 @@
 ---
-import { NAV_ITEMS, SITE_NAME, SITE_TAGLINE } from '../consts';
+import { BUSINESS_NAP, NAV_ITEMS, SITE_NAME, SITE_TAGLINE } from '../consts';
 
 const pathname = Astro.url.pathname;
 ---
@@ -28,6 +28,19 @@ const pathname = Astro.url.pathname;
         })
       }
     </nav>
+    <div class="header-actions">
+      <a class="header-cta header-cta--tel" href={`tel:${BUSINESS_NAP.telephone}`}>
+        {BUSINESS_NAP.telephoneDisplay}
+      </a>
+      <a
+        class="header-cta header-cta--wa"
+        href={BUSINESS_NAP.whatsappUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        WhatsApp
+      </a>
+    </div>
   </div>
 </header>
 

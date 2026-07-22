@@ -5,9 +5,12 @@ interface Props {
   desc: string;
   image: string;
   imageAlt: string;
+  /** Above-the-fold cards: eager load; first card may also get high fetch priority. */
+  priority?: boolean;
+  fetchPriorityHigh?: boolean;
 }
 
-const { title, href, desc, image, imageAlt } = Astro.props;
+const { title, href, desc, image, imageAlt, priority = false, fetchPriorityHigh = false } = Astro.props;
 ---
 
 <article class="card service-card">
@@ -16,9 +19,10 @@ const { title, href, desc, image, imageAlt } = Astro.props;
       src={image}
       alt={imageAlt}
       width="800"
-      height="200"
-      loading="lazy"
+      height="533"
+      loading={priority ? 'eager' : 'lazy'}
       decoding="async"
+      fetchpriority={fetchPriorityHigh ? 'high' : undefined}
       referrerpolicy="no-referrer"
     />
   </div>

@@ -422,6 +422,13 @@ function checkFaqQuality(faqPairs, plan) {
   }
 }
 
+function sanitizeFaqQuestionName(name) {
+  return String(name || '')
+    .replace(/^#{1,6}\s+/, '')
+    .replace(/^[-*•]\s+/, '')
+    .trim();
+}
+
 function extractFaqPairs(body) {
   const start = body.indexOf('## Sık Sorulan Sorular');
   if (start < 0) return [];
@@ -458,7 +465,7 @@ ${JSON.stringify(
     '@type': 'FAQPage',
     mainEntity: faqPairs.map(({ q, a }) => ({
       '@type': 'Question',
-      name: q,
+      name: sanitizeFaqQuestionName(q),
       acceptedAnswer: { '@type': 'Answer', text: a },
     })),
   },

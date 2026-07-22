@@ -68,13 +68,15 @@ const pageSchemas = mergeSchemas(
   <div class="container">
     <h2 class="section-title">Hizmetler</h2>
     <div class="grid-3 services-grid">
-      {SERVICE_CARDS.map((card) => (
+      {SERVICE_CARDS.map((card, index) => (
         <ServiceCard
           title={card.title}
           href={card.href}
           desc={card.desc}
           image={card.image}
           imageAlt={card.imageAlt}
+          priority={index < 3}
+          fetchPriorityHigh={index === 0}
         />
       ))}
     </div>

@@ -15,7 +15,7 @@ secondaryKeywords:
 
 ## Danışma talebi
 
-Aile hukuku kapsamındaki sorularınız için ön bilgilendirme ve randevu talebi oluşturabilirsiniz. İlk mesajda kısa olay özeti ve iletişim bilgilerinizi paylaşmanız süreci hızlandırır.
+Aile hukuku kapsamındaki sorularınız için telefon, e-posta veya ofis adresi üzerinden ön bilgilendirme ve randevu talebi oluşturabilirsiniz. İlk mesajda kısa olay özeti ve iletişim bilgilerinizi paylaşmanız süreci hızlandırır.
 
 ## Randevu süreci
 
@@ -67,7 +67,7 @@ Aile hukuku kapsamındaki sorularınız için ön bilgilendirme ve randevu taleb
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
-    {"@type": "Question", "name": "Randevu nasıl alınır?", "acceptedAnswer": {"@type": "Answer", "text": "İletişim formu veya telefon ile ön talep iletilebilir; uygunluk durumuna göre görüşme planlanır."}},
+    {"@type": "Question", "name": "Randevu nasıl alınır?", "acceptedAnswer": {"@type": "Answer", "text": "Telefon veya e-posta ile ön talep iletilebilir; uygunluk durumuna göre görüşme planlanır. İletişim bilgileri bu sayfada ve site altbilgisinde yer alır."}},
     {"@type": "Question", "name": "İlk görüşme ücretli mi?", "acceptedAnswer": {"@type": "Answer", "text": "Görüşme koşulları dosya kapsamına göre paylaşılır."}},
     {"@type": "Question", "name": "Hangi belgeleri getirmeliyim?", "acceptedAnswer": {"@type": "Answer", "text": "Kimlik, nüfus kaydı, evlilik cüzdanı ve varsa mevcut dilekçe veya protokol taslağı."}}
   ]

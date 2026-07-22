@@ -146,11 +146,7 @@ Adana'da aile hukuku süreciniz hakkında hukuki değerlendirme almak için [ile
 
 **Hukuki uyarı:** Bu içerik genel bilgilendirme amacıyla hazırlanmıştır. Somut olayın özelliklerine göre hukuki değerlendirme değişebilir.
 
----
 
-Harika, Adana aile hukuku alanında uzmanlaşmış Avukat Ceren Sümer Cilli'nin mal paylaşımı hizmetleri için meta bölümünü hazırlayalım.
-
----
 ## SEO Çıktıları
 
 - **SEO title:** Adana Mal Paylaşımı Avukatı
@@ -167,7 +163,7 @@ Harika, Adana aile hukuku alanında uzmanlaşmış Avukat Ceren Sümer Cilli'nin
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
-    {"@type": "Question", "name": "### Mal paylaşımı davası ne kadar sürer?", "acceptedAnswer": {"@type": "Answer", "text": "Mal paylaşımı davalarının süresi, malvarlığının büyüklüğü, delillerin toplanma hızı, bilirkişi incelemelerinin tamamlanması ve mahkemenin iş yüküne göre değişir. Genellikle 1 ila 3 yıl arasında sürebilir."}},
+    {"@type": "Question", "name": "Mal paylaşımı davası ne kadar sürer?", "acceptedAnswer": {"@type": "Answer", "text": "Mal paylaşımı davalarının süresi, malvarlığının büyüklüğü, delillerin toplanma hızı, bilirkişi incelemelerinin tamamlanması ve mahkemenin iş yüküne göre değişir. Genellikle 1 ila 3 yıl arasında sürebilir."}},
     {"@type": "Question", "name": "Hangi mallar paylaşıma tabidir?", "acceptedAnswer": {"@type": "Answer", "text": "Evlilik birliği içinde karşılığı verilerek edinilen tüm malvarlığı değerleri (edinilmiş mallar) paylaşıma tabidir. Bunlar maaş, kira geliri, çalışmanın karşılığı olan kazançlar, tazminatlar, taşınmazlar, araçlar, banka hesapları gibi değerlerdir."}},
     {"@type": "Question", "name": "Evlilik birliği içinde alınan her şey paylaşılır mı?", "acceptedAnswer": {"@type": "Answer", "text": "Hayır, evlilik birliği içinde edinilen her şey paylaşılmaz. Eşlerin kişisel malları (evlenmeden önce sahip olunanlar, miras veya bağış yoluyla edinilenler, manevi tazminatlar) paylaşıma dahil değildir."}},
     {"@type": "Question", "name": "Miras kalan mallar paylaşılır mı?", "acceptedAnswer": {"@type": "Answer", "text": "Miras yoluyla edinilen mallar, kişisel mal niteliğinde olduğu için doğrudan mal paylaşımına tabi değildir. Ancak miras kalan bir malın geliri veya bu malın satılıp yerine başka bir mal alınması durumunda, bu gelir veya yeni mal edinilmiş mal olarak değerlendirilebilir."}},

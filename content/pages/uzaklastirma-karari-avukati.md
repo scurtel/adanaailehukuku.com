@@ -90,11 +90,7 @@ Adana'da uzaklaştırma kararı süreçleri hakkında daha detaylı bilgi almak,
 
 **Hukuki uyarı:** Bu içerik genel bilgilendirme amacıyla hazırlanmıştır. Somut olayın özelliklerine göre hukuki değerlendirme değişebilir.
 
----
 
-Harika, Adana aile hukuku alanında uzman Avukat Ceren Sümer Cilli için uzaklaştırma kararı hizmet sayfasının meta bölümünü hazırlayalım.
-
----
 ## SEO Çıktıları
 
 - **SEO title:** Adana Uzaklaştırma Kararı Avukatı
@@ -111,7 +107,7 @@ Harika, Adana aile hukuku alanında uzman Avukat Ceren Sümer Cilli için uzakla
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
-    {"@type": "Question", "name": "### Uzaklaştırma kararı ne kadar süreliğine verilir?", "acceptedAnswer": {"@type": "Answer", "text": "Uzaklaştırma kararı ilk etapta en fazla 6 ay süreyle verilir. Ancak, şiddet veya şiddet tehdidinin devam etmesi halinde, mahkeme kararın süresini uzatabilir veya yeni tedbirler getirebilir."}},
+    {"@type": "Question", "name": "Uzaklaştırma kararı ne kadar süreliğine verilir?", "acceptedAnswer": {"@type": "Answer", "text": "Uzaklaştırma kararı ilk etapta en fazla 6 ay süreyle verilir. Ancak, şiddet veya şiddet tehdidinin devam etmesi halinde, mahkeme kararın süresini uzatabilir veya yeni tedbirler getirebilir."}},
     {"@type": "Question", "name": "Uzaklaştırma kararına itiraz edilebilir mi?", "acceptedAnswer": {"@type": "Answer", "text": "Evet, uzaklaştırma kararına karşı, kararın tebliğinden itibaren iki hafta içinde itiraz edilebilir. İtiraz, kararı veren mahkemenin bağlı olduğu üst mahkeme tarafından incelenir."}},
     {"@type": "Question", "name": "Uzaklaştırma kararını ihlal etmenin sonuçları nelerdir?", "acceptedAnswer": {"@type": "Answer", "text": "Uzaklaştırma kararını ihlal eden kişi hakkında, ihlal edilen her bir eylem için 3 günden 10 güne kadar zorlama hapsi kararı verilebilir. Tekrarlanan ihlallerde bu süre artırılabilir."}},
     {"@type": "Question", "name": "Uzaklaştırma kararı için avukat tutmak zorunlu mu?", "acceptedAnswer": {"@type": "Answer", "text": "Hayır, uzaklaştırma kararı başvurusu için avukat tutmak zorunlu değildir. Ancak, hukuki sürecin karmaşıklığı, delillerin toplanması ve hak kayıplarının önlenmesi adına profesyonel bir avukat desteği almak büyük fayda sağlar."}},

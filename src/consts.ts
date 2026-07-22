@@ -16,6 +16,8 @@ export const BUSINESS_NAP = {
   legalName: 'Sümer Hukuk Bürosu',
   telephone: '+905336342425',
   telephoneDisplay: '0533 634 24 25',
+  /** International digits only for wa.me (TR mobile without leading 0). */
+  whatsappUrl: 'https://wa.me/905336342425',
   email: 'info@cerensumer.av.tr',
   streetAddress: 'Gazipaşa Mah. Ordu Cad. No:7 Dinçkan Apt. A Blok Daire:3',
   addressLocality: 'Seyhan',

@@ -129,11 +129,7 @@ Adana'da aile hukuku süreciniz hakkında hukuki değerlendirme almak için [ile
 
 **Hukuki uyarı:** Bu içerik genel bilgilendirme amacıyla hazırlanmıştır. Somut olayın özelliklerine göre hukuki değerlendirme değişebilir.
 
----
 
-Harika, Adana aile hukuku alanında uzman Avukat Ceren Sümer Cilli için ziynet alacağı hizmet sayfasının meta bölümünü hazırlıyorum.
-
----
 ## SEO Çıktıları
 
 - **SEO title:** Adana Ziynet Alacağı Avukatı
@@ -150,7 +146,7 @@ Harika, Adana aile hukuku alanında uzman Avukat Ceren Sümer Cilli için ziynet
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
-    {"@type": "Question", "name": "### Ziynet alacağı davası ne kadar sürer?", "acceptedAnswer": {"@type": "Answer", "text": "Ziynet alacağı davasının süresi, delillerin toplanma kolaylığı, tanık sayısı, bilirkişi incelemesinin gerekliliği, mahkemenin iş yükü ve tarafların itiraz süreçlerine göre değişiklik gösterir. Ortalama olarak 1 ila 2 yıl sürebilmektedir."}},
+    {"@type": "Question", "name": "Ziynet alacağı davası ne kadar sürer?", "acceptedAnswer": {"@type": "Answer", "text": "Ziynet alacağı davasının süresi, delillerin toplanma kolaylığı, tanık sayısı, bilirkişi incelemesinin gerekliliği, mahkemenin iş yükü ve tarafların itiraz süreçlerine göre değişiklik gösterir. Ortalama olarak 1 ila 2 yıl sürebilmektedir."}},
     {"@type": "Question", "name": "Ziynetler boşanmada kimde kalır?", "acceptedAnswer": {"@type": "Answer", "text": "Kural olarak, düğünde takılan ziynet eşyaları kadın eşin kişisel malı sayılır ve boşanma durumunda kadında kalır. Eğer ziynetler erkek eşin zilyetliğinde ise, kadına iade edilmesi veya bedelinin ödenmesi gerekir."}},
     {"@type": "Question", "name": "Ziynet alacağı davasında zamanaşımı var mıdır?", "acceptedAnswer": {"@type": "Answer", "text": "Ziynet alacağı davası, boşanma davası kesinleştikten sonra 10 yıllık genel zamanaşımı süresine tabidir. Ancak, ziynetlerin iadesi talebi, mülkiyet hakkına dayandığı için zamanaşımına tabi olmadığı yönünde de Yargıtay kararları bulunmaktadır. Bu konudaki güncel içtihatların takibi önemlidir."}},
     {"@type": "Question", "name": "Ziynetlerin iade edildiğini kim ispatlar?", "acceptedAnswer": {"@type": "Answer", "text": "Ziynetlerin davacıya (genellikle kadın eşe) iade edildiğini veya evlilik birliği içinde zorunluluk nedeniyle bozdurulduğunu ispat yükü, davalı (genellikle erkek eş) üzerindedir. Davalı, bu durumu yazılı delillerle veya güçlü tanık beyanlarıyla kanıtlamak zorundadır."}},

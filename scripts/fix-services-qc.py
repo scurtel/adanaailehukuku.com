@@ -55,6 +55,13 @@ DISCLAIMER = (
 )
 
 
+
+def sanitize_faq_question_name(name: str) -> str:
+    import re
+    name = re.sub(r"^#{1,6}\s+", "", name or "")
+    name = re.sub(r"^[-*•]\s+", "", name)
+    return name.strip()
+
 def parse_frontmatter(text: str) -> tuple[str, dict]:
     if not text.startswith("---"):
         return text, {}
@@ -142,7 +149,7 @@ def extract_faqs(body: str) -> list[tuple[str, str]]:
 
 def build_meta(slug: str, title: str, desc: str, focus: str, secondary: list, faqs: list[tuple[str, str]]) -> str:
     faq_json = ",\n    ".join(
-        f'{{"@type": "Question", "name": "{q}", "acceptedAnswer": {{"@type": "Answer", "text": "{a}"}}}}'
+        f'{{"@type": "Question", "name": "{sanitize_faq_question_name(q)}", "acceptedAnswer": {{"@type": "Answer", "text": "{a}"}}}}'
         for q, a in faqs
     ) or (
         '{"@type": "Question", "name": "İlk görüşmede ne hazırlanmalı?", '

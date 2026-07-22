@@ -420,6 +420,13 @@ ${linkHints}
 EN AZ 2500 kelime. Hukuki detay, örnek senaryo, TMK maddeleri (madde numarasıyla), Yargıtay yaklaşımı ekle.`;
 }
 
+function sanitizeFaqQuestionName(name) {
+  return String(name || '')
+    .replace(/^#{1,6}\s+/, '')
+    .replace(/^[-*•]\s+/, '')
+    .trim();
+}
+
 function extractFaqPairs(body) {
   const start = body.indexOf('## Sık Sorulan Sorular');
   if (start < 0) return [];
@@ -467,7 +474,7 @@ function buildMetaSection(article, faqPairs) {
     '@type': 'FAQPage',
     mainEntity: faqPairs.map(({ q, a }) => ({
       '@type': 'Question',
-      name: q,
+      name: sanitizeFaqQuestionName(q),
       acceptedAnswer: { '@type': 'Answer', text: a },
     })),
   };
