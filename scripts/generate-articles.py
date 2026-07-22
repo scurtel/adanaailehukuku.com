@@ -139,6 +139,42 @@ def load_env() -> dict[str, str]:
     return env
 
 
+def _google_search_enabled(env: dict) -> bool:
+    return (
+        env.get("GEMINI_GOOGLE_SEARCH_ENABLED") == "true"
+        or env.get("GEMINI_ENABLE_SEARCH_GROUNDING") == "true"
+        or os.environ.get("GEMINI_GOOGLE_SEARCH_ENABLED") == "true"
+        or os.environ.get("GEMINI_ENABLE_SEARCH_GROUNDING") == "true"
+    )
+
+
+def _extract_grounding(data: dict):
+    gm = (data.get("candidates") or [{}])[0].get("groundingMetadata")
+    if not gm:
+        return None
+    sources = []
+    for chunk in gm.get("groundingChunks") or []:
+        web = chunk.get("web") or chunk.get("retrievedContext") or {}
+        url = web.get("uri")
+        if url:
+            sources.append({"title": web.get("title"), "url": url})
+    return {
+        "sources": sources,
+        "webSearchQueries": gm.get("webSearchQueries") or [],
+        "groundingSupports": gm.get("groundingSupports") or [],
+    }
+
+
+def _append_sources(text: str, grounding) -> str:
+    if not grounding or not grounding.get("sources"):
+        return text
+    lines = [
+        f"- [{s.get('title') or f'Kaynak {i+1}'}]({s['url']})"
+        for i, s in enumerate(grounding["sources"])
+    ]
+    return text.rstrip() + "\n\n## Kaynaklar\n\n" + "\n".join(lines) + "\n"
+
+
 def is_table_line(line: str) -> bool:
     s = line.strip()
     if not s:
@@ -179,7 +215,14 @@ def validate_content(content: str) -> tuple[bool, str]:
     return True, f"{words} words"
 
 
-def call_gemini(api_key: str, model: str, user_prompt: str, temperature: float = 0.5) -> str:
+def call_gemini(
+    api_key: str,
+    model: str,
+    user_prompt: str,
+    temperature: float = 0.5,
+    env: dict | None = None,
+) -> str:
+    env = env or {}
     url = (
         f"https://generativelanguage.googleapis.com/v1beta/models/"
         f"{model}:generateContent?key={api_key}"
@@ -192,6 +235,8 @@ def call_gemini(api_key: str, model: str, user_prompt: str, temperature: float =
             "maxOutputTokens": 8192,
         },
     }
+    if _google_search_enabled(env):
+        body["tools"] = [{"google_search": {}}]
     req = urllib.request.Request(
         url,
         data=json.dumps(body).encode("utf-8"),
@@ -209,21 +254,24 @@ def call_gemini(api_key: str, model: str, user_prompt: str, temperature: float =
     text = "".join(p.get("text", "") for p in parts).strip()
     if not text:
         raise RuntimeError("Empty Gemini response")
-    return text
+    return _append_sources(text, _extract_grounding(data))
 
 
-def generate_article(api_key: str, model: str, article: dict) -> str:
+def generate_article(api_key: str, model: str, article: dict, env: dict | None = None) -> str:
     body_prompt = PROMPT_BODY.format(**article)
     meta_prompt = PROMPT_META.format(**article)
+    env = env or {}
 
     for attempt in range(4):
-        body = call_gemini(api_key, model, body_prompt, temperature=0.45 + attempt * 0.05)
+        body = call_gemini(
+            api_key, model, body_prompt, temperature=0.45 + attempt * 0.05, env=env
+        )
         ok, reason = validate_content(body)
         if not ok:
             body_prompt += f"\n\nDüzelt: {reason}. Tablo kullanma, tekrar etme."
             time.sleep(4)
             continue
-        meta = call_gemini(api_key, model, meta_prompt, temperature=0.3)
+        meta = call_gemini(api_key, model, meta_prompt, temperature=0.3, env=env)
         return body + "\n\n---\n\n" + meta
 
     raise RuntimeError(f"Body validation failed after retries: {reason}")
@@ -255,7 +303,7 @@ def main() -> int:
 
         print(f"[{i}/{len(articles)}] {article['title']}...")
         try:
-            content = generate_article(api_key, model, article)
+            content = generate_article(api_key, model, article, env)
             fm = (
                 f"---\ntitle: \"{article['title']}\"\n"
                 f"slug: {article['slug']}\n"

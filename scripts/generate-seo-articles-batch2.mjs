@@ -321,22 +321,57 @@ function countWords(text) {
   return text.split(/\s+/).filter(Boolean).length;
 }
 
-async function callGemini(apiKey, model, userPrompt, maxTokens = 16384) {
+function isGoogleSearchEnabled(env = {}) {
+  return (
+    env.GEMINI_GOOGLE_SEARCH_ENABLED === 'true' ||
+    process.env.GEMINI_GOOGLE_SEARCH_ENABLED === 'true' ||
+    env.GEMINI_ENABLE_SEARCH_GROUNDING === 'true' ||
+    process.env.GEMINI_ENABLE_SEARCH_GROUNDING === 'true'
+  );
+}
+
+function extractGroundingMetadata(data) {
+  const gm = data?.candidates?.[0]?.groundingMetadata;
+  if (!gm) return null;
+  const sources = (gm.groundingChunks || [])
+    .map((chunk) => ({
+      title: chunk.web?.title || chunk.retrievedContext?.title || null,
+      url: chunk.web?.uri || chunk.retrievedContext?.uri || null,
+    }))
+    .filter((source) => source.url);
+  return {
+    sources,
+    webSearchQueries: gm.webSearchQueries || [],
+    groundingSupports: gm.groundingSupports || [],
+  };
+}
+
+function appendSourcesSection(markdown, grounding) {
+  if (!grounding?.sources?.length) return markdown;
+  const lines = grounding.sources.map((s, i) => `- [${s.title || `Kaynak ${i + 1}`}](${s.url})`);
+  return `${markdown.trim()}\n\n## Kaynaklar\n\n${lines.join('\n')}\n`;
+}
+
+async function callGemini(apiKey, model, userPrompt, maxTokens = 16384, env = {}) {
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+  const body = {
+    systemInstruction: { parts: [{ text: SYSTEM }] },
+    contents: [{ role: 'user', parts: [{ text: userPrompt }] }],
+    generationConfig: { temperature: 0.45, maxOutputTokens: maxTokens },
+  };
+  if (isGoogleSearchEnabled(env)) {
+    body.tools = [{ google_search: {} }];
+  }
   const res = await fetch(url, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      systemInstruction: { parts: [{ text: SYSTEM }] },
-      contents: [{ role: 'user', parts: [{ text: userPrompt }] }],
-      generationConfig: { temperature: 0.45, maxOutputTokens: maxTokens },
-    }),
+    body: JSON.stringify(body),
   });
   if (!res.ok) throw new Error(`Gemini HTTP ${res.status}: ${(await res.text()).slice(0, 500)}`);
   const data = await res.json();
   const text = data.candidates?.[0]?.content?.parts?.map((p) => p.text).join('')?.trim();
   if (!text) throw new Error('Empty Gemini response');
-  return text;
+  return appendSourcesSection(text, extractGroundingMetadata(data));
 }
 
 function buildBodyPrompt(article) {
@@ -524,7 +559,7 @@ ${tagsYaml}
 }
 
 async function generateArticleBody(apiKey, model, article) {
-  let body = await callGemini(apiKey, model, buildBodyPrompt(article));
+  let body = await callGemini(apiKey, model, buildBodyPrompt(article), 16384, env);
   let words = countWords(body);
 
   if (words < MIN_WORDS) {
@@ -532,7 +567,7 @@ async function generateArticleBody(apiKey, model, article) {
     const expandPrompt = `Aşağıdaki makaleyi genişlet. EN AZ ${MIN_WORDS} kelime olmalı. Yeni H2/H3 ekleme, mevcut bölümleri detaylandır. Focus keyword koru. Meta/JSON ekleme.
 
 ${body}`;
-    body = await callGemini(apiKey, model, expandPrompt, 16384);
+    body = await callGemini(apiKey, model, expandPrompt, 16384, env);
     words = countWords(body);
     console.log(`  Genişletme sonrası: ${words} kelime`);
   }

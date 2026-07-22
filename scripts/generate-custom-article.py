@@ -84,7 +84,42 @@ def load_env() -> dict[str, str]:
     return env
 
 
-def call_gemini(api_key: str, model: str, system: str, user: str) -> str:
+def _google_search_enabled(env: dict) -> bool:
+    return (
+        env.get("GEMINI_GOOGLE_SEARCH_ENABLED") == "true"
+        or env.get("GEMINI_ENABLE_SEARCH_GROUNDING") == "true"
+    )
+
+
+def _extract_grounding(data: dict):
+    gm = (data.get("candidates") or [{}])[0].get("groundingMetadata")
+    if not gm:
+        return None
+    sources = []
+    for chunk in gm.get("groundingChunks") or []:
+        web = chunk.get("web") or chunk.get("retrievedContext") or {}
+        url = web.get("uri")
+        if url:
+            sources.append({"title": web.get("title"), "url": url})
+    return {
+        "sources": sources,
+        "webSearchQueries": gm.get("webSearchQueries") or [],
+        "groundingSupports": gm.get("groundingSupports") or [],
+    }
+
+
+def _append_sources(text: str, grounding) -> str:
+    if not grounding or not grounding.get("sources"):
+        return text
+    lines = [
+        f"- [{s.get('title') or f'Kaynak {i+1}'}]({s['url']})"
+        for i, s in enumerate(grounding["sources"])
+    ]
+    return text.rstrip() + "\n\n## Kaynaklar\n\n" + "\n".join(lines) + "\n"
+
+
+def call_gemini(api_key: str, model: str, system: str, user: str, env=None) -> str:
+    env = env or {}
     url = (
         f"https://generativelanguage.googleapis.com/v1beta/models/"
         f"{model}:generateContent?key={api_key}"
@@ -94,6 +129,8 @@ def call_gemini(api_key: str, model: str, system: str, user: str) -> str:
         "contents": [{"role": "user", "parts": [{"text": user}]}],
         "generationConfig": {"temperature": 0.5, "maxOutputTokens": 8192},
     }
+    if _google_search_enabled(env):
+        body["tools"] = [{"google_search": {}}]
     req = urllib.request.Request(
         url,
         data=json.dumps(body).encode("utf-8"),
@@ -103,7 +140,8 @@ def call_gemini(api_key: str, model: str, system: str, user: str) -> str:
     with urllib.request.urlopen(req, timeout=300) as resp:
         data = json.loads(resp.read().decode("utf-8"))
     parts = data["candidates"][0]["content"]["parts"]
-    return "".join(p.get("text", "") for p in parts).strip()
+    text = "".join(p.get("text", "") for p in parts).strip()
+    return _append_sources(text, _extract_grounding(data))
 
 
 def main() -> int:
@@ -115,8 +153,8 @@ def main() -> int:
         return 1
 
     a = ARTICLE
-    body = call_gemini(api_key, model, SYSTEM, BODY_PROMPT.format(**a))
-    meta = call_gemini(api_key, model, SYSTEM, META_PROMPT.format(**a))
+    body = call_gemini(api_key, model, SYSTEM, BODY_PROMPT.format(**a), env)
+    meta = call_gemini(api_key, model, SYSTEM, META_PROMPT.format(**a), env)
     content = body + "\n\n" + meta
 
     out = ROOT / "content" / "articles" / f"{a['slug']}.md"

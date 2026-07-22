@@ -199,6 +199,42 @@ def get_api_key(env: dict[str, str]) -> str | None:
     return env.get("GEMINI_API_KEY") or env.get("GOOGLE_GEMINI_API_KEY")
 
 
+def _google_search_enabled(env: dict) -> bool:
+    return (
+        env.get("GEMINI_GOOGLE_SEARCH_ENABLED") == "true"
+        or env.get("GEMINI_ENABLE_SEARCH_GROUNDING") == "true"
+        or os.environ.get("GEMINI_GOOGLE_SEARCH_ENABLED") == "true"
+        or os.environ.get("GEMINI_ENABLE_SEARCH_GROUNDING") == "true"
+    )
+
+
+def _extract_grounding(data: dict):
+    gm = (data.get("candidates") or [{}])[0].get("groundingMetadata")
+    if not gm:
+        return None
+    sources = []
+    for chunk in gm.get("groundingChunks") or []:
+        web = chunk.get("web") or chunk.get("retrievedContext") or {}
+        url = web.get("uri")
+        if url:
+            sources.append({"title": web.get("title"), "url": url})
+    return {
+        "sources": sources,
+        "webSearchQueries": gm.get("webSearchQueries") or [],
+        "groundingSupports": gm.get("groundingSupports") or [],
+    }
+
+
+def _append_sources(text: str, grounding) -> str:
+    if not grounding or not grounding.get("sources"):
+        return text
+    lines = [
+        f"- [{s.get('title') or f'Kaynak {i+1}'}]({s['url']})"
+        for i, s in enumerate(grounding["sources"])
+    ]
+    return text.rstrip() + "\n\n## Kaynaklar\n\n" + "\n".join(lines) + "\n"
+
+
 def service_url(slug: str) -> str:
     return f"{BASE}/{slug}/"
 
@@ -298,7 +334,14 @@ def validate_body(content: str) -> tuple[bool, str]:
     return True, f"{words} words"
 
 
-def call_gemini(api_key: str, model: str, user_prompt: str, temperature: float = 0.5) -> str:
+def call_gemini(
+    api_key: str,
+    model: str,
+    user_prompt: str,
+    temperature: float = 0.5,
+    env: dict | None = None,
+) -> str:
+    env = env or {}
     url = (
         f"https://generativelanguage.googleapis.com/v1beta/models/"
         f"{model}:generateContent?key={api_key}"
@@ -308,6 +351,8 @@ def call_gemini(api_key: str, model: str, user_prompt: str, temperature: float =
         "contents": [{"role": "user", "parts": [{"text": user_prompt}]}],
         "generationConfig": {"temperature": temperature, "maxOutputTokens": 16384},
     }
+    if _google_search_enabled(env):
+        body["tools"] = [{"google_search": {}}]
     req = urllib.request.Request(
         url,
         data=json.dumps(body).encode("utf-8"),
@@ -323,7 +368,7 @@ def call_gemini(api_key: str, model: str, user_prompt: str, temperature: float =
     text = "".join(p.get("text", "") for p in parts).strip()
     if not text:
         raise RuntimeError("Empty Gemini response")
-    return text
+    return _append_sources(text, _extract_grounding(data))
 
 
 PROMPT_BODY = """Mevcut HİZMET sayfası gövdesini yaz (SEO/schema bölümleri HARİÇ).
@@ -419,7 +464,10 @@ def extract_seo_fields(meta: str) -> tuple[str, str, list[str]]:
     return seo_title, meta_desc, secondary
 
 
-def generate_service(api_key: str, model: str, service: dict, existing_fm: dict) -> str:
+def generate_service(
+    api_key: str, model: str, service: dict, existing_fm: dict, env: dict | None = None
+) -> str:
+    env = env or {}
     body_prompt = PROMPT_BODY.format(
         topic=service["topic"],
         h1=service["h1"],
@@ -439,7 +487,9 @@ def generate_service(api_key: str, model: str, service: dict, existing_fm: dict)
     reason = ""
     body = ""
     for attempt in range(4):
-        body = call_gemini(api_key, model, body_prompt, temperature=0.45 + attempt * 0.05)
+        body = call_gemini(
+            api_key, model, body_prompt, temperature=0.45 + attempt * 0.05, env=env
+        )
         ok, reason = validate_body(body)
         if ok:
             break
@@ -448,7 +498,7 @@ def generate_service(api_key: str, model: str, service: dict, existing_fm: dict)
     else:
         raise RuntimeError(f"Body validation failed: {reason}")
 
-    meta = call_gemini(api_key, model, meta_prompt, temperature=0.3)
+    meta = call_gemini(api_key, model, meta_prompt, temperature=0.3, env=env)
     seo_title, meta_desc, secondary = extract_seo_fields(meta)
     if not seo_title:
         seo_title = service["h1"]
@@ -497,7 +547,7 @@ def main() -> int:
             existing_fm["slug"] = service["slug"]
 
         try:
-            content = generate_service(api_key, model, service, existing_fm)
+            content = generate_service(api_key, model, service, existing_fm, env)
             path.write_text(content, encoding="utf-8")
             words = len(re.findall(r"\w+", content, re.UNICODE))
             print(f"    OK {path.name} (~{words} words, {path.stat().st_size / 1024:.1f} KB)\n")

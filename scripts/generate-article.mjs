@@ -241,19 +241,51 @@ function pickTopic(existingArticles) {
   return available[dayIndex % available.length];
 }
 
-async function callGemini(apiKey, model, userPrompt, jsonMode = false) {
+function isGoogleSearchEnabled(env) {
+  return (
+    env.GEMINI_GOOGLE_SEARCH_ENABLED === 'true' ||
+    process.env.GEMINI_GOOGLE_SEARCH_ENABLED === 'true' ||
+    env.GEMINI_ENABLE_SEARCH_GROUNDING === 'true' ||
+    process.env.GEMINI_ENABLE_SEARCH_GROUNDING === 'true'
+  );
+}
+
+function extractGroundingMetadata(data) {
+  const gm = data?.candidates?.[0]?.groundingMetadata;
+  if (!gm) return null;
+  const sources = (gm.groundingChunks || [])
+    .map((chunk) => ({
+      title: chunk.web?.title || chunk.retrievedContext?.title || null,
+      url: chunk.web?.uri || chunk.retrievedContext?.uri || null,
+    }))
+    .filter((source) => source.url);
+  return {
+    sources,
+    webSearchQueries: gm.webSearchQueries || [],
+    groundingSupports: gm.groundingSupports || [],
+  };
+}
+
+async function callGemini(apiKey, model, userPrompt, jsonMode = false, env = {}) {
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+  // Prefer Google Search when enabled; JSON mime type is incompatible with grounding.
+  const useGrounding = isGoogleSearchEnabled(env);
   const generationConfig = { temperature: 0.45, maxOutputTokens: 8192 };
-  if (jsonMode) generationConfig.responseMimeType = 'application/json';
+  if (jsonMode && !useGrounding) generationConfig.responseMimeType = 'application/json';
+
+  const body = {
+    systemInstruction: { parts: [{ text: SYSTEM }] },
+    contents: [{ role: 'user', parts: [{ text: userPrompt }] }],
+    generationConfig,
+  };
+  if (useGrounding) {
+    body.tools = [{ google_search: {} }];
+  }
 
   const res = await fetch(url, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      systemInstruction: { parts: [{ text: SYSTEM }] },
-      contents: [{ role: 'user', parts: [{ text: userPrompt }] }],
-      generationConfig,
-    }),
+    body: JSON.stringify(body),
   });
 
   if (!res.ok) {
@@ -264,7 +296,7 @@ async function callGemini(apiKey, model, userPrompt, jsonMode = false) {
   const data = await res.json();
   const text = data.candidates?.[0]?.content?.parts?.map((p) => p.text).join('')?.trim();
   if (!text) fail('Gemini boş yanıt döndü');
-  return text;
+  return { text, grounding: extractGroundingMetadata(data) };
 }
 
 function extractJsonObject(text) {
@@ -570,8 +602,8 @@ JSON şeması:
 
 Mevcut sluglar (bunları kullanma): ${[...existingSlugs].join(', ')}`;
 
-  const planRaw = await callGemini(apiKey, model, planPrompt, true);
-  const plan = extractJsonObject(planRaw);
+  const planRaw = await callGemini(apiKey, model, planPrompt, true, env);
+  const plan = extractJsonObject(planRaw.text);
   plan.category = topicEntry.category;
   plan.practiceArea = topicEntry.practiceArea;
   validatePlanTechnical(plan, existingSlugs);
@@ -609,7 +641,14 @@ Kelime hedefi: ${MIN_WORDS}-${MAX_WORDS} kelime (bu aralığın dışına çıkm
 İç linkler — YALNIZCA şu URL'lerden kullan (yoksa düz metin):
 ${internalLinks.join('\n')}`;
 
-  let body = await callGemini(apiKey, model, bodyPrompt);
+  let bodyResult = await callGemini(apiKey, model, bodyPrompt, false, env);
+  let body = bodyResult.text;
+  if (bodyResult.grounding?.sources?.length) {
+    const lines = bodyResult.grounding.sources.map(
+      (s, i) => `- [${s.title || `Kaynak ${i + 1}`}](${s.url})`
+    );
+    body = `${body.trim()}\n\n## Kaynaklar\n\n${lines.join('\n')}\n`;
+  }
   checkBodyQuality(body, plan, internalLinks);
 
   let faqPairs = extractFaqPairs(body);
