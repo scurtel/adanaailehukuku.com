@@ -97,7 +97,7 @@ Adana Aile Hukuku alanında ziynet alacağı davaları, genellikle boşanma sür
 
 * **Hizmet:** [Boşanma Davaları](https://adanaailehukuku.com/adana-bosanma-avukati/) – Boşanma sürecinin tüm aşamalarında hukuki destek sağlıyoruz.
 * **Hizmet:** [Mal Paylaşımı](https://adanaailehukuku.com/adana-mal-paylasimi-avukati/) – Evlilik birliği içinde edinilen malların paylaşımına ilişkin davalar hakkında bilgi alabilirsiniz.
-* **Makale:** [Ziynet Alacağı Davası](https://adanaailehukuku.com/makaleler/ziynet-alacagi-davasi/) – Ziynet alacağı davasının detaylarını, hukuki dayanaklarını ve ispat yükünü daha ayrıntılı inceleyebilirsiniz.
+* **Makale:** [Ziynet alacağının ispatı ve zamanaşımı](https://adanaailehukuku.com/makaleler/ziynet-alacagi-davasi/) – Ziynet alacağı davasının hukuki dayanaklarını ve ispat yükünü daha ayrıntılı inceleyebilirsiniz.
 * **Makale:** [Mal Paylaşımı](https://adanaailehukuku.com/makaleler/bosanmada-mal-paylasimi/) – Boşanmada mal paylaşımı süreçleri ve eşler arasındaki mal rejimleri hakkında kapsamlı bilgi edinebilirsiniz.
 
 Bu kaynaklar, aile hukuku alanındaki haklarınızı daha iyi anlamanıza yardımcı olacaktır.

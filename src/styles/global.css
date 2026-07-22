@@ -492,6 +492,25 @@ main {
   color: #aeb8cb;
 }
 
+.footer-legal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.1rem;
+  margin: 0 0 0.75rem;
+}
+
+.footer-legal a {
+  color: #d5dcea;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.footer-legal a:hover,
+.footer-legal a:focus-visible {
+  color: var(--gold);
+  outline: none;
+}
+
 .error-page {
   text-align: center;
   padding: 3rem 0;

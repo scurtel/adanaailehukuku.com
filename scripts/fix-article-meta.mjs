@@ -13,7 +13,6 @@ const ROOT = join(__dirname, '..');
 const ARTICLES_DIR = join(ROOT, 'content', 'articles');
 
 const SLUGS = [
-  'uludag-sozluk-pazar-degeri-eksi-sozluk',
   'aym-suresiz-nafaka-duzenlemesini-iptal-etti',
   'adanada-bosanma-davasi-nasil-acilir',
   'adanada-nafaka-davasi-ve-nafaka-artirim-sureci',

@@ -229,7 +229,7 @@ Evet, iştirak nafakası kararı verildikten sonra tarafların veya çocuğun ko
 Boşanma davası devam ederken, çocukların bakımı ve eğitimi için geçici olarak ödenecek nafakaya "tedbir nafakası" denir. Tedbir nafakası, boşanma davası sonuçlanana kadar çocukların mağdur olmaması için mahkeme tarafından hükmedilir. Boşanma kararı kesinleştiğinde, tedbir nafakası kendiliğinden iştirak nafakasına dönüşür. Dolayısıyla, evet, boşanma davası ile birlikte veya dava devam ederken tedbir nafakası adı altında iştirak nafakası talep edilebilir.
 
 ### H3 İştirak nafakası için avukat tutmak zorunlu mu?
-İştirak nafakası davalarında avukat tutmak zorunlu değildir, ancak şiddetle tavsiye edilir. Hukuki süreçlerin karmaşıklığı, delil toplama ve sunma gerekliliği, yasal sürelerin takibi gibi konularda uzman bir avukatın desteği, hak kayıplarının önüne geçilmesini ve hakların doğru talep edilmesinı büyük ölçüde sağlar. Özellikle Adana gibi büyük şehirlerde, Aile Mahkemeleri'ndeki yoğunluk ve prosedürler, avukat desteğini daha da önemli kılmaktadır.
+İştirak nafakası davalarında avukat tutmak zorunlu değildir, ancak şiddetle tavsiye edilir. Hukuki süreçlerin karmaşıklığı, delil toplama ve sunma gerekliliği, yasal sürelerin takibi gibi konularda [nafaka davalarının hukuki değerlendirilmesi](https://adanaailehukuku.com/adana-nafaka-davasi-avukati/) için destek almak, hak kayıplarının önüne geçilmesine yardımcı olabilir. Özellikle Adana gibi büyük şehirlerde, Aile Mahkemeleri'ndeki yoğunluk ve prosedürler, avukat desteğini daha da önemli kılmaktadır.
 
 ---
 

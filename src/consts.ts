@@ -6,6 +6,7 @@ export const OG_IMAGE_URL = `${SITE_URL}/og-default.svg`;
 /** Canonical Person entity for E-E-A-T / author graph */
 export const PERSON_ENTITY_ID = `${SITE_URL}/#ceren-sumer-cilli`;
 export const LEGAL_SERVICE_ENTITY_ID = `${SITE_URL}/#legal-service`;
+export const WEBSITE_ENTITY_ID = `${SITE_URL}/#website`;
 export const AUTHOR_PROFILE_PATH = '/hakkimizda/';
 export const AUTHOR_PROFILE_URL = `${SITE_URL}${AUTHOR_PROFILE_PATH}`;
 
@@ -79,7 +80,6 @@ export const ADANA_DISTRICTS = [
 
 /** Legacy articles superseded by newer URLs — excluded from sitemap, noindex at render. */
 export const NOINDEX_ARTICLE_SLUGS = new Set([
-  'uludag-sozluk-pazar-degeri-eksi-sozluk',
   'bosanma-davasi-nasil-acilir-adana',
   'velayet-davasi-mahkeme-kriterleri',
 ]);
@@ -129,6 +129,9 @@ export const PAGE_SLUGS = [
   'adana-ilce-aile-hukuku-avukati',
   'hakkimizda',
   'iletisim',
+  'gizlilik-politikasi',
+  'kvkk-aydinlatma-metni',
+  'cerez-politikasi',
 ] as const;
 
 export const NAV_ITEMS = [

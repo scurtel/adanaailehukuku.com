@@ -98,7 +98,7 @@ Boşanma süreçleri hakkında daha fazla bilgi edinmek ve diğer hizmetlerimizi
 
 * [Boşanma Davaları](https://adanaailehukuku.com/adana-bosanma-avukati/)
 * [Anlaşmalı Boşanma](https://adanaailehukuku.com/adana-anlasmali-bosanma-avukati/)
-* [Çekişmeli Boşanma](https://adanaailehukuku.com/makaleler/cekismeli-bosanma-sebepleri/)
+* [yasal boşanma sebepleri](https://adanaailehukuku.com/makaleler/cekismeli-bosanma-sebepleri/)
 * [Boşanma Davası Nasıl Açılır?](https://adanaailehukuku.com/makaleler/bosanma-davasi-nasil-acilir-adana/)
 
 ## Sık Sorulan Sorular

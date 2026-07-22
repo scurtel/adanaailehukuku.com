@@ -92,7 +92,7 @@ Aile konutu şerhi, aile hukuku alanındaki diğer birçok konuyla yakından ili
 
 * Hizmet: [Mal Paylaşımı](https://adanaailehukuku.com/adana-mal-paylasimi-avukati/)
 * Hizmet: [Boşanma Davaları](https://adanaailehukuku.com/adana-bosanma-avukati/)
-* Makale: [Aile Konutu Şerhi](https://adanaailehukuku.com/makaleler/aile-konutu-serhi-bosanma/)
+* Makale: [aile konutunun hukuki korunması](https://adanaailehukuku.com/makaleler/aile-konutu-serhi-bosanma/)
 * Makale: [Mal Paylaşımı](https://adanaailehukuku.com/makaleler/bosanmada-mal-paylasimi/)
 
 ## Sık Sorulan Sorular

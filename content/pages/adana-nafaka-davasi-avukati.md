@@ -23,13 +23,13 @@ Adana Aile Hukuku olarak, Avukat Ceren Sümer Cilli ve ekibi, nafaka davalarınd
 
 ## Bu süreç nedir?
 
-Nafaka davaları, genellikle boşanma davaları ile birlikte veya boşanma kararından sonra açılan, maddi destek taleplerini içeren hukuki süreçlerdir. Türk Medeni Kanunu'na göre başlıca üç tür nafaka bulunmaktadır:
+Nafaka davaları, genellikle boşanma davaları ile birlikte veya boşanma kararından sonra açılan, maddi destek taleplerini içeren hukuki süreçlerdir. Türk Medeni Kanunu'na göre başlıca üç tür nafaka bulunmaktadır; [nafaka türleri arasındaki farklar](https://adanaailehukuku.com/makaleler/nafaka-turleri-nelerdir-adana/) ayrı bir rehberde özetlenmiştir:
 
 1. **Tedbir Nafakası:** Boşanma davası devam ederken, eşlerden birinin veya çocukların geçimini sağlamak amacıyla mahkeme tarafından geçici olarak hükmedilen nafakadır. Mahkeme, davanın başında veya herhangi bir aşamasında resen (kendiliğinden) veya talep üzerine bu nafakaya hükmedebilir.
 2. **Yoksulluk Nafakası:** Boşanma yüzünden yoksulluğa düşecek olan tarafa, diğer tarafın kusuru daha ağır olmamak şartıyla, geçimi için ödenen nafakadır. Bu nafaka, boşanma kararının kesinleşmesiyle başlar ve süresiz olarak hükmedilebileceği gibi, belirli bir süre için de belirlenebilir.
 3. **İştirak Nafakası:** Boşanma sonucunda velayeti kendisine verilmeyen eşin, müşterek çocukların bakım ve eğitim giderlerine gücü oranında katılması için ödediği nafakadır. Çocuğun üstün yararı ilkesi gereği, bu nafaka çocuğun ergin olmasına kadar devam eder ve ergin olduktan sonra da eğitimi devam ediyorsa "yardım nafakası" olarak talep edilebilir. [İştirak Nafakası](https://adanaailehukuku.com/makaleler/istirak-nafakasi-rehberi/) hakkında daha detaylı bilgiye ilgili makalemizden ulaşabilirsiniz.
 
-Nafaka miktarı, tarafların ekonomik ve sosyal durumları, çocukların yaşı, eğitim durumu ve ihtiyaçları gibi birçok faktör değerlendirilerek belirlenir.
+Nafaka miktarı, tarafların ekonomik ve sosyal durumları, çocukların yaşı, eğitim durumu ve ihtiyaçları gibi birçok faktör değerlendirilerek belirlenir. [Nafaka miktarının belirlenmesi](https://adanaailehukuku.com/makaleler/nafaka-nasil-hesaplanir/) hakkında daha ayrıntılı bilgilendirme için ilgili makaleye bakabilirsiniz.
 
 ## Kimler başvurabilir?
 
@@ -120,7 +120,7 @@ Nafaka miktarı, tarafların ekonomik ve sosyal durumları, yaşam standartları
 Nafaka kararına rağmen ödeme yapılmaması durumunda, icra takibi başlatılabilir. Ayrıca, nafaka borcunu ödemeyen taraf hakkında İcra ve İflas Kanunu uyarınca tazyik hapsi gibi yaptırımlar uygulanabilir.
 
 ### Nafaka artırılabilir veya azaltılabilir mi?
-Evet, tarafların ekonomik durumlarında veya çocukların ihtiyaçlarında esaslı bir değişiklik olması halinde, nafakanın artırılması, azaltılması veya kaldırılması için yeniden dava açılabilir.
+Evet, tarafların ekonomik durumlarında veya çocukların ihtiyaçlarında esaslı bir değişiklik olması halinde, [nafakanın artırılması süreci](https://adanaailehukuku.com/makaleler/adanada-nafaka-davasi-ve-nafaka-artirim-sureci/) kapsamında nafakanın artırılması, azaltılması veya kaldırılması için yeniden dava açılabilir.
 
 ### Tedbir nafakası ne zamana kadar ödenir?
 Tedbir nafakası, boşanma davası devam ettiği sürece ödenir. Boşanma kararının kesinleşmesiyle birlikte tedbir nafakası sona erer ve yerine yoksulluk veya iştirak nafakası hükmedilmişse, bu nafakalar işlemeye başlar.

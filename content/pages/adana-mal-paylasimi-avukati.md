@@ -26,7 +26,7 @@ Mal paylaşımı, evlilik birliği içinde edinilen malların, evliliğin sona e
 
 Mal paylaşımı davası, genellikle [Boşanma Davaları](https://adanaailehukuku.com/adana-bosanma-avukati/) ile birlikte veya boşanma kararının kesinleşmesinden sonra açılır. Bu süreçte, eşlerin kişisel malları (evlenmeden önce sahip olunan mallar, miras yoluyla edinilen mallar, karşılıksız kazandırmalar, manevi tazminatlar vb.) mal paylaşımına dahil edilmez. Ancak, kişisel malların gelirleri veya bu malların yerine geçen değerler edinilmiş mal olarak kabul edilebilir.
 
-Mal paylaşımı sürecinde, evlilik birliği içinde alınan taşınmazlar (ev, arsa), araçlar, banka hesapları, ziynet eşyaları, şirket hisseleri, emeklilik ikramiyeleri gibi birçok farklı malvarlığı kalemi değerlendirmeye alınır. Amaç, evlilik birliği devam ederken eşlerin ortak çabalarıyla oluşan ekonomik değerin, yasalara uygun ve adil bir şekilde tasfiye edilmesidir. Bu konuda daha detaylı bilgi için [Mal Paylaşımı](https://adanaailehukuku.com/makaleler/bosanmada-mal-paylasimi/) makalemizi inceleyebilirsiniz.
+Mal paylaşımı sürecinde, evlilik birliği içinde alınan taşınmazlar (ev, arsa), araçlar, banka hesapları, ziynet eşyaları, şirket hisseleri, emeklilik ikramiyeleri gibi birçok farklı malvarlığı kalemi değerlendirmeye alınır. Amaç, evlilik birliği devam ederken eşlerin ortak çabalarıyla oluşan ekonomik değerin, yasalara uygun ve adil bir şekilde tasfiye edilmesidir. Bu konuda daha detaylı bilgi için [edinilmiş malların tasfiyesi](https://adanaailehukuku.com/makaleler/bosanmada-mal-paylasimi/) makalemizi inceleyebilirsiniz.
 
 ## Kimler başvurabilir?
 

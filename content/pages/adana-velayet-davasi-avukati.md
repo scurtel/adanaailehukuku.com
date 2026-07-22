@@ -21,7 +21,7 @@ Velayet, reşit olmayan çocukların bakımı, eğitimi, korunması ve temsil ed
 
 ## Bu süreç nedir?
 
-Velayet davası, evli olmayan ebeveynler arasında veya boşanma davasından ayrı olarak, çocuğun velayetinin kime verileceği ya da mevcut velayet kararının değiştirilmesi talebiyle açılan bir davadır. Bu süreç, çocuğun fiziksel, ruhsal, ahlaki ve sosyal gelişimini etkileyen tüm faktörlerin mahkeme tarafından değerlendirildiği kapsamlı bir incelemeyi içerir. Mahkeme, pedagog, psikolog gibi uzmanlardan rapor alarak çocuğun yaşını, olgunluk derecesini, ebeveynlerin yaşam koşullarını, eğitim durumlarını, ekonomik yeterliliklerini ve çocuğa gösterebilecekleri ilgi ve şefkati göz önünde bulundurur. Amaç, çocuğun geleceği için en uygun yaşam ortamını ve ebeveynlik düzenini sağlamaktır.
+Velayet davası, evli olmayan ebeveynler arasında veya boşanma davasından ayrı olarak, çocuğun velayetinin kime verileceği ya da mevcut velayet kararının değiştirilmesi talebiyle açılan bir davadır. Bu süreç, çocuğun fiziksel, ruhsal, ahlaki ve sosyal gelişimini etkileyen tüm faktörlerin mahkeme tarafından değerlendirildiği kapsamlı bir incelemeyi içerir. Mahkeme; [mahkemenin değerlendirdiği ölçütler](https://adanaailehukuku.com/makaleler/velayet-davasinda-hakim-neye-dikkat-eder/) kapsamında pedagog, psikolog gibi uzmanlardan rapor alarak çocuğun yaşını, olgunluk derecesini, ebeveynlerin yaşam koşullarını, eğitim durumlarını, ekonomik yeterliliklerini ve çocuğa gösterebilecekleri ilgi ve şefkati göz önünde bulundurur. Amaç, çocuğun geleceği için en uygun yaşam ortamını ve ebeveynlik düzenini sağlamaktır.
 
 ## Kimler başvurabilir?
 
@@ -113,7 +113,7 @@ Evet, velayet kararı kesinleştikten sonra, çocuğun menfaatinde önemli bir d
 Türk hukukunda ortak velayet uygulaması, boşanma davası ile birlikte talep edildiğinde ve taraflar bu konuda anlaştığında mahkemece uygun görülebilir. Ancak uygulamada tek velayet daha yaygındır.
 
 ### Velayeti annede olan çocuk babasını ne sıklıkla görebilir?
-Mahkeme, velayeti alan taraf dışında kalan ebeveyn ile çocuk arasında kişisel ilişki kurulmasına karar verir. Bu kişisel ilişki (görüşme) günleri, çocuğun yaşına, okul durumuna ve tarafların yaşam koşullarına göre belirlenir ve genellikle hafta sonları, resmi tatiller ve yaz tatillerini kapsar.
+Mahkeme, velayeti alan taraf dışında kalan ebeveyn ile çocuk arasında kişisel ilişki kurulmasına karar verir. Bu kişisel ilişki (görüşme) günleri, çocuğun yaşına, okul durumuna ve tarafların yaşam koşullarına göre belirlenir ve genellikle hafta sonları, resmi tatiller ve yaz tatillerini kapsar. Kişisel ilişki kararının uygulanmaması halinde [çocuk gösterilmediğinde izlenebilecek yollar](https://adanaailehukuku.com/makaleler/cocugu-gostermeme-halinde-ne-yapilir/) ayrıca değerlendirilir.
 
 Adana'da aile hukuku süreciniz hakkında hukuki değerlendirme almak için [iletişim sayfasından](https://adanaailehukuku.com/iletisim/) randevu talebi oluşturabilirsiniz.
 

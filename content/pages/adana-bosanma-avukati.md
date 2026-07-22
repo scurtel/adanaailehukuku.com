@@ -56,7 +56,7 @@ Bu belgelerin eksiksiz ve doğru bir şekilde hazırlanması, davanın hızlı v
 
 ## Mahkeme süreci nasıl işler?
 
-Boşanma davası süreci, dava dilekçesinin mahkemeye sunulmasıyla başlar ve kararın kesinleşmesiyle sona erer. Genel hatlarıyla süreç şu adımları içerir:
+Boşanma davası süreci, dava dilekçesinin mahkemeye sunulmasıyla başlar ve kararın kesinleşmesiyle sona erer. Genel hatlarıyla [dava açma adımları](https://adanaailehukuku.com/makaleler/adanada-bosanma-davasi-nasil-acilir/) şu aşamaları içerir:
 
 1. **Dava Dilekçesi ve Tebligat:** Davacı eş, dava dilekçesini yetkili aile mahkemesine sunar. Dilekçe karşı tarafa tebliğ edilir.
 2. **Cevap ve Cevaba Cevap Dilekçeleri:** Davalı eş, tebligat sonrası yasal süre içinde cevap dilekçesini sunar. Davacı da bu cevaba karşı cevaba cevap dilekçesi verebilir.
@@ -65,7 +65,7 @@ Boşanma davası süreci, dava dilekçesinin mahkemeye sunulmasıyla başlar ve 
 5. **Sözlü Yargılama ve Karar:** Tahkikat tamamlandıktan sonra sözlü yargılama duruşması yapılır ve mahkeme kararını açıklar.
 6. **Kanun Yolları:** Mahkeme kararına karşı istinaf ve temyiz yollarına başvurma hakkı bulunmaktadır. Karar, tüm kanun yolları tüketildiğinde veya yasal süreler içinde itiraz edilmediğinde kesinleşir.
 
-Bu süreç, [çekişmeli boşanma](https://adanaailehukuku.com/makaleler/cekismeli-bosanma-sebepleri/) davalarında genellikle daha uzun ve karmaşık olabilirken, [anlaşmalı boşanma](https://adanaailehukuku.com/makaleler/adana-anlasmali-bosanma/) davaları çok daha kısa sürede sonuçlanabilmektedir.
+Bu süreç, [çekişmeli boşanma](https://adanaailehukuku.com/makaleler/cekismeli-bosanma-sebepleri/) davalarında genellikle daha uzun ve karmaşık olabilirken, [anlaşmalı boşanma](https://adanaailehukuku.com/makaleler/adana-anlasmali-bosanma/) davaları çok daha kısa sürede sonuçlanabilmektedir. Sürenin dosyadan dosyaya değişmesinde delil durumu, fer'i talepler ve [süreye etki eden faktörler](https://adanaailehukuku.com/makaleler/cekismeli-bosanma-davasi-ne-kadar-surer/) birlikte değerlendirilir.
 
 ## Adana aile mahkemelerinde süreç nasıl ilerler?
 

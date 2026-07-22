@@ -41,7 +41,7 @@ secondaryKeywords:
 
 ## Avukat Ceren Sümer Cilli
 
-**Avukat Ceren Sümer Cilli**, Adana merkezli olarak aile hukuku alanında danışmanlık ve dava takibi sunar. Çalışma odağı; boşanma (anlaşmalı ve çekişmeli), velayet, nafaka, mal paylaşımı, ziynet alacağı, aile konutu ve koruma tedbirleridir. Hedef, abartılı vaatler değil; somut dosyada hukuki çerçevenin doğru kurulması ve hak kaybı riskinin azaltılmasıdır.
+**Avukat Ceren Sümer Cilli**, Adana merkezli olarak aile hukuku alanında danışmanlık ve dava takibi sunar. Çalışma odağı; boşanma (anlaşmalı ve çekişmeli), velayet, nafaka, mal paylaşımı, ziynet alacağı, aile konutu ve [6284 sayılı Kanun kapsamındaki koruma tedbirleri](https://adanaailehukuku.com/uzaklastirma-karari-avukati/)dir. Hedef, abartılı vaatler değil; somut dosyada hukuki çerçevenin doğru kurulması ve hak kaybı riskinin azaltılmasıdır.
 
 Seyhan, Çukurova, Yüreğir ve Sarıçam başta olmak üzere Adana genelinde dosyalar, yetkili aile mahkemeleri nezdinde takip edilir.
 

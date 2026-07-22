@@ -11,6 +11,7 @@ import {
   SITE_NAME,
   SITE_TAGLINE,
   SITE_URL,
+  WEBSITE_ENTITY_ID,
 } from '../consts';
 
 export interface RelatedLink {
@@ -295,6 +296,20 @@ export function buildLocalBusinessSchema() {
   };
 }
 
+export function buildWebSiteSchema() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': WEBSITE_ENTITY_ID,
+    name: SITE_NAME,
+    alternateName: `${SITE_NAME} - ${SITE_TAGLINE}`,
+    url: SITE_URL,
+    inLanguage: 'tr-TR',
+    publisher: { '@id': LEGAL_SERVICE_ENTITY_ID },
+    about: { '@id': LEGAL_SERVICE_ENTITY_ID },
+  };
+}
+
 /** About page @graph: WebPage + Person + LegalService + BreadcrumbList */
 export function buildAboutPageGraph() {
   const webpageId = `${SITE_URL}/hakkimizda/#webpage`;
@@ -308,7 +323,7 @@ export function buildAboutPageGraph() {
         name: 'Avukat Ceren Sümer Cilli Hakkında',
         description:
           'Avukat Ceren Sümer Cilli’nin aile hukuku, boşanma, velayet, nafaka ve mal rejimi alanındaki çalışmaları, hukuki yayınları ve mesleki profili.',
-        isPartOf: { '@id': `${SITE_URL}/#website` },
+        isPartOf: { '@id': WEBSITE_ENTITY_ID },
         about: { '@id': PERSON_ENTITY_ID },
         mainEntity: { '@id': PERSON_ENTITY_ID },
         breadcrumb: { '@id': `${SITE_URL}/hakkimizda/#breadcrumb` },

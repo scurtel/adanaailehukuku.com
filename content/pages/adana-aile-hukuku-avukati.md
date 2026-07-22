@@ -22,7 +22,7 @@ Aile hukuku, hayatımızın en özel ve kişisel alanlarına dokunan, duygusal y
 
 ## Bu süreç nedir?
 
-Aile hukuku süreci, Türk Medeni Kanunu ve ilgili diğer mevzuat çerçevesinde yürütülen hukuki işlemler bütünüdür. Genellikle boşanma davalarıyla özdeşleşse de, nişanlanma, evlenme, evlat edinme, soybağının kurulması veya reddi, nafaka, velayet, kişisel ilişki kurulması, mal rejimleri ve aile içi şiddetin önlenmesi gibi pek çok farklı konuyu barındırır. Her bir konu kendi içinde özel hukuki düzenlemeler ve yargı uygulamaları gerektirir. Sürecin temel amacı, aile bireylerinin haklarını korumak, menfaatler dengesini sağlamak ve toplumsal düzeni muhafaza etmektir.
+Aile hukuku süreci, Türk Medeni Kanunu ve ilgili diğer mevzuat çerçevesinde yürütülen hukuki işlemler bütünüdür. Genellikle boşanma davalarıyla özdeşleşse de, nişanlanma, evlenme, evlat edinme, soybağının kurulması veya reddi, nafaka, velayet, kişisel ilişki kurulması, mal rejimleri ve aile içi şiddetin önlenmesi gibi pek çok farklı konuyu barındırır. [Aile hukukunda görülen dava türleri](https://adanaailehukuku.com/makaleler/aile-hukukunda-sik-acilan-davalar/) ayrı bir rehberde özetlenmiştir. Her bir konu kendi içinde özel hukuki düzenlemeler ve yargı uygulamaları gerektirir. Sürecin temel amacı, aile bireylerinin haklarını korumak, menfaatler dengesini sağlamak ve toplumsal düzeni muhafaza etmektir.
 
 ## Kimler başvurabilir?
 

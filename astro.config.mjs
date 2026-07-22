@@ -5,7 +5,6 @@ import { join } from 'node:path';
 
 const NOINDEX_PATH_SEGMENTS = [
   '/404',
-  '/makaleler/uludag-sozluk-pazar-degeri-eksi-sozluk/',
   '/makaleler/bosanma-davasi-nasil-acilir-adana/',
   '/makaleler/velayet-davasi-mahkeme-kriterleri/',
 ];

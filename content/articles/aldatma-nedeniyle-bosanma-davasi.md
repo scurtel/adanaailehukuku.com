@@ -74,7 +74,7 @@ Dava dilekçesi, boşanma sürecinin en kritik belgelerinden biridir. Aldatma ne
 
 "Deliller" başlığı altında, zina iddiasını ispatlamak için kullanılacak tüm delillerin (tanık listesi, yazılı belgeler, dijital kayıtlar, banka kayıtları, otel kayıtları, HTS kayıtları vb.) açıkça belirtilmesi gerekmektedir. Delillerin hukuka uygun yollarla elde edilmiş olması büyük önem taşır. Hukuka aykırı deliller mahkeme tarafından dikkate alınmayabilir ve hatta delili elde eden kişi hakkında hukuki veya cezai sorumluluk doğurabilir.
 
-Dilekçenin sonunda "Sonuç ve Talep" kısmında, mahkemeden boşanma kararı verilmesi, tazminat, nafaka ve velayet gibi fer'i taleplerin kabulü açıkça talep edilmelidir. Dilekçe, davacı veya vekili tarafından imzalanmalı ve ekleri ile birlikte mahkemeye sunulmalıdır. Adana'da bu tür davaların karmaşıklığı göz önüne alındığında, https://adanaailehukuku.com/adana-cekismeli-bosanma-avukati/ gibi bir uzmandan destek almak, dilekçenin eksiksiz ve hukuka uygun hazırlanmasını sağlayarak davanın başarılı bir şekilde yürütülmesine katkıda bulunacaktır.
+Dilekçenin sonunda "Sonuç ve Talep" kısmında, mahkemeden boşanma kararı verilmesi, tazminat, nafaka ve velayet gibi fer'i taleplerin kabulü açıkça talep edilmelidir. Dilekçe, davacı veya vekili tarafından imzalanmalı ve ekleri ile birlikte mahkemeye sunulmalıdır. Adana'da bu tür davaların karmaşıklığı göz önüne alındığında, [çekişmeli boşanma sürecinde hukuki destek](https://adanaailehukuku.com/adana-cekismeli-bosanma-avukati/) almak, dilekçenin eksiksiz ve hukuka uygun hazırlanmasına katkıda bulunabilir.
 
 ## Aldatma İspatında Hangi Deliller Kullanılır?
 

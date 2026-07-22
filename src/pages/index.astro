@@ -6,7 +6,7 @@ import AttorneyBox from '../components/AttorneyBox.astro';
 import CTA from '../components/CTA.astro';
 import { SERVICE_CARDS } from '../consts';
 import { getHomePage, getArticlesSorted } from '../utils/content';
-import { parseMarkdownBody, buildLegalServiceSchema, buildLocalBusinessSchema, buildBreadcrumbSchema, buildPersonSchema, mergeSchemas, stripHomeDisplaySections } from '../utils/markdown';
+import { parseMarkdownBody, buildLegalServiceSchema, buildLocalBusinessSchema, buildWebSiteSchema, buildBreadcrumbSchema, buildPersonSchema, mergeSchemas, stripHomeDisplaySections } from '../utils/markdown';
 import { NOINDEX_ARTICLE_SLUGS, SITE_URL } from '../consts';
 import { getArticleSlug } from '../utils/content';
 
@@ -29,10 +29,13 @@ const { html: mainHtml } = parseMarkdownBody(mainContent);
 const { html: faqHtml } = faqContent ? parseMarkdownBody(`## Sık Sorulan Sorular\n\n${faqContent}`) : { html: '' };
 const { relatedLinks, schemas: contentSchemas } = parseMarkdownBody(bodyForMeta);
 
+/** Prefer canonical LegalService (@id); drop duplicate LegalService from markdown body. */
+const contentSchemasWithoutDupLegal = contentSchemas.filter((s) => s['@type'] !== 'LegalService');
+
 const pageSchemas = mergeSchemas(
-  [buildLocalBusinessSchema(), buildPersonSchema()],
-  contentSchemas.length > 0
-    ? contentSchemas
+  [buildWebSiteSchema(), buildLocalBusinessSchema(), buildPersonSchema()],
+  contentSchemasWithoutDupLegal.length > 0
+    ? contentSchemasWithoutDupLegal
     : [
         buildLegalServiceSchema({
           title: 'Adana Aile Hukuku Avukatı',
