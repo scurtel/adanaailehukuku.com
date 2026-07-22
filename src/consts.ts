@@ -110,6 +110,7 @@ export const ARTICLE_SLUGS = [
   'nafaka-turleri-nelerdir-adana',
   'bosanma-davasinda-tanik-beyani',
   'cocugu-gostermeme-halinde-ne-yapilir',
+  'bosanma-davasinda-whatsapp-kayitlari',
 ] as const;
 
 export const PAGE_SLUGS = [
