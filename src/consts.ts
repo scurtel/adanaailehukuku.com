@@ -113,6 +113,7 @@ export const ARTICLE_SLUGS = [
   'bosanma-davasinda-tanik-beyani',
   'cocugu-gostermeme-halinde-ne-yapilir',
   'bosanma-davasinda-whatsapp-kayitlari',
+  'uzaklastirma-karari-nasil-alinir',
 ] as const;
 
 export const PAGE_SLUGS = [
