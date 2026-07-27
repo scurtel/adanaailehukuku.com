@@ -114,6 +114,7 @@ export const ARTICLE_SLUGS = [
   'cocugu-gostermeme-halinde-ne-yapilir',
   'bosanma-davasinda-whatsapp-kayitlari',
   'uzaklastirma-karari-nasil-alinir',
+  'cocukla-kisisel-iliski-duzenlemesi-adana',
 ] as const;
 
 export const PAGE_SLUGS = [
