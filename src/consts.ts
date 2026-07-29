@@ -115,6 +115,7 @@ export const ARTICLE_SLUGS = [
   'bosanma-davasinda-whatsapp-kayitlari',
   'uzaklastirma-karari-nasil-alinir',
   'cocukla-kisisel-iliski-duzenlemesi-adana',
+  'evlilik-birliginin-temelinden-sarsilmasi-bosanma',
 ] as const;
 
 export const PAGE_SLUGS = [
