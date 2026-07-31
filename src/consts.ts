@@ -116,6 +116,7 @@ export const ARTICLE_SLUGS = [
   'uzaklastirma-karari-nasil-alinir',
   'cocukla-kisisel-iliski-duzenlemesi-adana',
   'evlilik-birliginin-temelinden-sarsilmasi-bosanma',
+  'yurt-disinda-bosanma-kararinin-turkiyede-taninmasi',
 ] as const;
 
 export const PAGE_SLUGS = [
