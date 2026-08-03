@@ -54,7 +54,11 @@ jobs:
           md += '\n';
           if (Array.isArray(r.qualityWarnings) && r.qualityWarnings.length > 0) {
             md += '### Quality warnings\n\n';
-            for (const w of r.qualityWarnings) md += `- ${w}\n`;
+            for (const w of r.qualityWarnings) {
+              md += `- ${w}\n`;
+              console.warn(`::warning title=Makale kalite uyarısı::${w}`);
+            }
+            md += '\n_Kalite uyarıları commit/push’u engellemez._\n';
           } else {
             md += '### Quality warnings\n\n(yok)\n';
           }
@@ -73,9 +77,15 @@ jobs:
             exit 0
           fi
 
+          # Kalite uyarıları generate adımını başarıyla tamamlar; dosya geçerliyse commit devam.
           if [ -f .auto-article-report.json ]; then
             SLUG=$(node -e "console.log(JSON.parse(require('fs').readFileSync('.auto-article-report.json','utf8')).slug)")
             MSG="add article on ${SLUG}"
+            ART="content/articles/${SLUG}.md"
+            if [ -n "$SLUG" ] && [ ! -f "$ART" ]; then
+              echo "::error title=Teknik hata::Beklenen makale dosyası yok: ${ART}"
+              exit 1
+            fi
           else
             MSG="add auto-generated article"
           fi
