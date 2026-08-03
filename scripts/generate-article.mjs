@@ -101,7 +101,7 @@ const qualityWarnings = [];
 
 function warnQuality(message) {
   qualityWarnings.push(message);
-  console.warn(`UYARI (kalite): ${message}`);
+  console.warn(`::warning title=Makale kalite uyarısı::${message}`);
 }
 
 function printQualityWarnings() {
@@ -110,7 +110,12 @@ function printQualityWarnings() {
     return;
   }
   console.log('\n=== Quality warnings ===');
-  for (const w of qualityWarnings) console.log(`- ${w}`);
+  for (const w of qualityWarnings) {
+    console.log(`- ${w}`);
+  }
+  console.log(
+    `\nNot: ${qualityWarnings.length} kalite uyarısı raporlandı; makale yine de kaydedildi/commit edilebilir (exit 0).`,
+  );
 }
 
 function loadEnv() {
@@ -327,8 +332,17 @@ function validatePlanTechnical(plan, existingSlugs) {
     fail(`Slug zaten mevcut (çakışma): ${plan.slug}`);
   }
 
-  if (!plan.seoTitle?.trim()) fail('Plan: seoTitle eksik — meta üretilemedi');
-  if (!plan.metaDescription?.trim()) fail('Plan: metaDescription eksik — meta üretilemedi');
+  if (!plan.seoTitle?.trim()) {
+    plan.seoTitle = plan.h1.slice(0, 60);
+    warnQuality('seoTitle eksikti; h1’den türetildi (kalite; üretim devam).');
+  }
+  if (!plan.metaDescription?.trim()) {
+    plan.metaDescription = `${plan.h1} hakkında bilgilendirme. Adana aile hukuku süreçleri için genel bilgi.`.slice(
+      0,
+      160,
+    );
+    warnQuality('metaDescription eksikti; varsayılan metin atandı (kalite; üretim devam).');
+  }
 
   if (!Array.isArray(plan.sections) || plan.sections.length === 0) {
     fail('Plan: sections eksik — makale gövdesi üretilemedi');
@@ -374,7 +388,11 @@ function checkPlanQuality(plan) {
   const blob = JSON.stringify(plan);
   for (const re of BANNED_PHRASES) {
     if (re.test(blob)) {
-      warnQuality(`Planda reklam/vaat ifadesi benzeri içerik tespit edildi (${re}).`);
+      const phrase = re.source || String(re);
+      console.warn(
+        `::warning title=Yasaklı ifade uyarısı::Makalede kontrol listesindeki ifade bulundu: ${phrase}. İçerik değiştirilmeden yayınlanıyor.`,
+      );
+      qualityWarnings.push(`Yasaklı ifade (plan): ${phrase}`);
     }
   }
 }
@@ -397,7 +415,12 @@ function checkBodyQuality(body, plan, internalLinks) {
 
   for (const re of BANNED_PHRASES) {
     if (re.test(body)) {
-      warnQuality(`Gövdede reklam/vaat ifadesi benzeri içerik tespit edildi (${re}).`);
+      const phrase = re.source || String(re);
+      console.warn(
+        `::warning title=Yasaklı ifade uyarısı::Makalede kontrol listesindeki ifade bulundu: ${phrase}. İçerik değiştirilmeden yayınlanıyor.`,
+      );
+      qualityWarnings.push(`Yasaklı ifade (gövde): ${phrase}`);
+      // İçerik değiştirilmez / silinmez / yeniden üretilmez.
     }
   }
 
@@ -650,6 +673,9 @@ ${internalLinks.join('\n')}`;
 
   let bodyResult = await callGemini(apiKey, model, bodyPrompt, false, env);
   let body = bodyResult.text;
+  if (!body || !String(body).trim()) {
+    fail('Makale gövdesi boş üretildi — teknik hata');
+  }
   if (bodyResult.grounding?.sources?.length) {
     const lines = bodyResult.grounding.sources.map(
       (s, i) => `- [${s.title || `Kaynak ${i + 1}`}](${s.url})`
@@ -657,6 +683,11 @@ ${internalLinks.join('\n')}`;
     body = `${body.trim()}\n\n## Kaynaklar\n\n${lines.join('\n')}\n`;
   }
   checkBodyQuality(body, plan, internalLinks);
+
+  // Teknik: neredeyse boş çıktı (kalite alt sınırı uyarıdır; bu tamamen bozuk)
+  if (countWords(body) < 50) {
+    fail(`Makale gövdesi neredeyse boş (${countWords(body)} kelime) — teknik hata`);
+  }
 
   let faqPairs = extractFaqPairs(body);
   const faqFromBody = faqPairs.length;
