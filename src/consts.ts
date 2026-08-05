@@ -118,6 +118,7 @@ export const ARTICLE_SLUGS = [
   'evlilik-birliginin-temelinden-sarsilmasi-bosanma',
   'yurt-disinda-bosanma-kararinin-turkiyede-taninmasi',
   'bosanmada-maddi-manevi-tazminat-talepleri',
+  'cocugun-velayeti-nasil-belirlenir',
 ] as const;
 
 export const PAGE_SLUGS = [
