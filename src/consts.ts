@@ -119,6 +119,7 @@ export const ARTICLE_SLUGS = [
   'yurt-disinda-bosanma-kararinin-turkiyede-taninmasi',
   'bosanmada-maddi-manevi-tazminat-talepleri',
   'cocugun-velayeti-nasil-belirlenir',
+  'bosanma-sonrasi-soyadi-kullanimi',
 ] as const;
 
 export const PAGE_SLUGS = [
