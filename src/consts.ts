@@ -120,6 +120,7 @@ export const ARTICLE_SLUGS = [
   'bosanmada-maddi-manevi-tazminat-talepleri',
   'cocugun-velayeti-nasil-belirlenir',
   'bosanma-sonrasi-soyadi-kullanimi',
+  'sosyal-medya-bosanmada-delil-degeri',
 ] as const;
 
 export const PAGE_SLUGS = [
