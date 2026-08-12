@@ -121,6 +121,7 @@ export const ARTICLE_SLUGS = [
   'cocugun-velayeti-nasil-belirlenir',
   'bosanma-sonrasi-soyadi-kullanimi',
   'sosyal-medya-bosanmada-delil-degeri',
+  'ortak-velayet-nedir',
 ] as const;
 
 export const PAGE_SLUGS = [
