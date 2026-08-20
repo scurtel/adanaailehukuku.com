@@ -6,7 +6,7 @@ import AttorneyBox from '../components/AttorneyBox.astro';
 import CTA from '../components/CTA.astro';
 import { SERVICE_CARDS } from '../consts';
 import { getHomePage, getArticlesSorted } from '../utils/content';
-import { parseMarkdownBody, buildLegalServiceSchema, buildLocalBusinessSchema, buildBreadcrumbSchema, buildPersonSchema, mergeSchemas, stripHomeDisplaySections } from '../utils/markdown';
+import { parseMarkdownBody, buildLocalBusinessSchema, buildBreadcrumbSchema, buildPersonSchema, mergeSchemas, stripHomeDisplaySections } from '../utils/markdown';
 import { NOINDEX_ARTICLE_SLUGS, SITE_URL } from '../consts';
 import { getArticleSlug } from '../utils/content';
 
@@ -28,18 +28,11 @@ const faqContent = faqSplit[1]?.split(/^## /m)[0]?.trim() ?? '';
 const { html: mainHtml } = parseMarkdownBody(mainContent);
 const { html: faqHtml } = faqContent ? parseMarkdownBody(`## Sık Sorulan Sorular\n\n${faqContent}`) : { html: '' };
 const { relatedLinks, schemas: contentSchemas } = parseMarkdownBody(bodyForMeta);
+const extraSchemas = contentSchemas.filter((schema) => schema['@type'] !== 'LegalService');
 
 const pageSchemas = mergeSchemas(
   [buildLocalBusinessSchema(), buildPersonSchema()],
-  contentSchemas.length > 0
-    ? contentSchemas
-    : [
-        buildLegalServiceSchema({
-          title: 'Adana Aile Hukuku Avukatı',
-          description: home.data.description,
-          path: '/',
-        }),
-      ],
+  extraSchemas,
   [
     buildBreadcrumbSchema([
       { name: 'Ana Sayfa', url: `${SITE_URL}/` },

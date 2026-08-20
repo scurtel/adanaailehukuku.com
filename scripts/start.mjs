@@ -1,10 +1,14 @@
-import { spawn } from 'node:child_process';
+import { join } from 'node:path';
+import { listenDistServer } from './serve-dist.mjs';
 
-const port = process.env.PORT || '4321';
-const child = spawn(
-  'npx',
-  ['astro', 'preview', '--host', '0.0.0.0', '--port', String(port)],
-  { stdio: 'inherit', shell: true },
-);
+const port = Number(process.env.PORT || 4321);
+const distDir = join(process.cwd(), 'dist');
 
-child.on('exit', (code) => process.exit(code ?? 0));
+const server = await listenDistServer(distDir, port);
+console.log(`Serving dist/ on 0.0.0.0:${port}`);
+
+const shutdown = () => {
+  server.close(() => process.exit(0));
+};
+process.on('SIGINT', shutdown);
+process.on('SIGTERM', shutdown);

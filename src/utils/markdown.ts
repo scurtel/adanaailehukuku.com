@@ -3,6 +3,7 @@ import {
   ARTICLE_SLUGS,
   AUTHOR_PROFILE_URL,
   BUSINESS_NAP,
+  CANONICAL_ARTICLE_REPLACEMENTS,
   LEGAL_SERVICE_ENTITY_ID,
   OG_IMAGE_URL,
   PAGE_SLUGS,
@@ -69,8 +70,14 @@ const pageSlugSet = new Set<string>(PAGE_SLUGS);
 export function resolveInternalPath(pathname: string): string {
   const clean = pathname.replace(/^\/+|\/+$/g, '');
   if (!clean) return '/';
-  if (articleSlugSet.has(clean)) return `/makaleler/${clean}/`;
+
+  const articleSlug = clean.startsWith('makaleler/') ? clean.slice('makaleler/'.length) : clean;
+  const replacement = CANONICAL_ARTICLE_REPLACEMENTS[articleSlug];
+  if (replacement) return `/makaleler/${replacement}/`;
+
+  if (clean.startsWith('makaleler/')) return `/${clean}/`;
   if (pageSlugSet.has(clean)) return `/${clean}/`;
+  if (articleSlugSet.has(clean)) return `/makaleler/${clean}/`;
   return `/${clean}/`;
 }
 
@@ -416,9 +423,23 @@ export function buildBreadcrumbSchema(items: { name: string; url: string }[]) {
 export function mergeSchemas(...groups: Record<string, unknown>[][]): Record<string, unknown>[] {
   const seen = new Set<string>();
   const result: Record<string, unknown>[] = [];
+  let legalServiceIndex = -1;
+
   for (const group of groups) {
     for (const schema of group) {
-      const key = `${String(schema['@type'] ?? '')}:${String(schema['@id'] ?? schema.name ?? result.length)}`;
+      const type = String(schema['@type'] ?? '');
+      if (type === 'LegalService') {
+        if (legalServiceIndex >= 0) {
+          const existing = result[legalServiceIndex];
+          if (!existing['@id'] && schema['@id']) {
+            result[legalServiceIndex] = schema;
+          }
+          continue;
+        }
+        legalServiceIndex = result.length;
+      }
+
+      const key = `${type}:${String(schema['@id'] ?? schema.name ?? result.length)}`;
       if (seen.has(key)) continue;
       seen.add(key);
       result.push(schema);

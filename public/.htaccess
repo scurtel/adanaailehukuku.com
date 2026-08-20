@@ -1,0 +1,12 @@
+RewriteEngine On
+
+# Hostinger build artifacts
+RewriteRule ^\.builds - [F,L]
+
+# www → non-www canonical host (301). Path and query are preserved.
+# HTTPS apex is used explicitly so existing http→https CDN behavior is not weakened.
+RewriteCond %{HTTP_HOST} ^www\.adanaailehukuku\.com$ [NC]
+RewriteRule ^(.*)$ https://adanaailehukuku.com/$1 [R=301,L]
+
+# Serve the Astro 404 page with a real HTTP 404 (not a soft-404).
+ErrorDocument 404 /404.html

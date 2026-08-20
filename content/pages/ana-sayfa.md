@@ -24,7 +24,7 @@ secondaryKeywords:
 
 **CTA:**
 1. [Hukuki Danışmanlık Al](https://adanaailehukuku.com/iletisim/)
-2. [Aile Hukuku Yazılarını İncele](https://adanaailehukuku.com/adana-aile-hukuku-rehberi/)
+2. [Aile Hukuku Yazılarını İncele](https://adanaailehukuku.com/makaleler/adana-aile-hukuku-rehberi/)
 
 ## Hizmetler
 
@@ -49,20 +49,20 @@ Seyhan, Çukurova, Yüreğir ve Sarıçam başta olmak üzere Adana genelinde do
 
 Adana'da aile hukuku uyuşmazlıkları **aile mahkemelerinde** görülür. Süreç; dilekçe, harç, tebligat, duruşma ve gerektiğinde bilirkişi veya uzman raporlarıyla ilerler. Anlaşmalı boşanmada protokol hazırlığı, çekişmeli davalarda delil planı belirleyicidir.
 
-Detaylı rehber: [Adana Aile Hukuku Rehberi](https://adanaailehukuku.com/adana-aile-hukuku-rehberi/) · Mahkeme süreci: [Adana Aile Mahkemesi Süreci](https://adanaailehukuku.com/adana-aile-mahkemesi-sureci/)
+Detaylı rehber: [Adana Aile Hukuku Rehberi](https://adanaailehukuku.com/makaleler/adana-aile-hukuku-rehberi/) · Mahkeme süreci: [Adana Aile Mahkemesi Süreci](https://adanaailehukuku.com/makaleler/adana-aile-mahkemesi-sureci/)
 
 ## Son makaleler
 
-- [Adana Aile Hukuku Rehberi](https://adanaailehukuku.com/adana-aile-hukuku-rehberi/)
-- [Anlaşmalı Boşanma Rehberi](https://adanaailehukuku.com/adana-anlasmali-bosanma/)
-- [Boşanma Davası Nasıl Açılır?](https://adanaailehukuku.com/bosanma-davasi-nasil-acilir-adana/)
-- [Velayet Davaları](https://adanaailehukuku.com/velayet-davasi-mahkeme-kriterleri/)
-- [İştirak Nafakası](https://adanaailehukuku.com/istirak-nafakasi-rehberi/)
-- [Mal Paylaşımı](https://adanaailehukuku.com/bosanmada-mal-paylasimi/)
-- [Adana Aile Mahkemesi Süreci](https://adanaailehukuku.com/adana-aile-mahkemesi-sureci/)
-- [Çekişmeli Boşanma](https://adanaailehukuku.com/cekismeli-bosanma-sebepleri/)
-- [Aile Konutu Şerhi](https://adanaailehukuku.com/aile-konutu-serhi-bosanma/)
-- [Ziynet Alacağı Davası](https://adanaailehukuku.com/ziynet-alacagi-davasi/)
+- [Adana Aile Hukuku Rehberi](https://adanaailehukuku.com/makaleler/adana-aile-hukuku-rehberi/)
+- [Anlaşmalı Boşanma Rehberi](https://adanaailehukuku.com/makaleler/adana-anlasmali-bosanma/)
+- [Boşanma Davası Nasıl Açılır?](https://adanaailehukuku.com/makaleler/adanada-bosanma-davasi-nasil-acilir/)
+- [Velayet Davaları](https://adanaailehukuku.com/makaleler/adanada-velayet-davasi-ve-cocugun-ustun-yarari/)
+- [İştirak Nafakası](https://adanaailehukuku.com/makaleler/istirak-nafakasi-rehberi/)
+- [Mal Paylaşımı](https://adanaailehukuku.com/makaleler/bosanmada-mal-paylasimi/)
+- [Adana Aile Mahkemesi Süreci](https://adanaailehukuku.com/makaleler/adana-aile-mahkemesi-sureci/)
+- [Çekişmeli Boşanma](https://adanaailehukuku.com/makaleler/cekismeli-bosanma-sebepleri/)
+- [Aile Konutu Şerhi](https://adanaailehukuku.com/makaleler/aile-konutu-serhi-bosanma/)
+- [Ziynet Alacağı Davası](https://adanaailehukuku.com/makaleler/ziynet-alacagi-davasi/)
 
 ## Sık Sorulan Sorular
 
@@ -108,14 +108,14 @@ adanaailehukuku.com — Adana aile hukuku alanında bilgilendirici içerik. Avuk
 - **Focus keyword:** adana aile hukuku avukatı
 - **Secondary keywords:** adana boşanma avukatı, velayet avukatı, nafaka adana
 - **İç link önerileri:**
-  - [Adana Aile Hukuku Rehberi](https://adanaailehukuku.com/adana-aile-hukuku-rehberi/) — `adana-aile-hukuku-rehberi`
-  - [Anlaşmalı Boşanma Rehberi](https://adanaailehukuku.com/adana-anlasmali-bosanma/) — `adana-anlasmali-bosanma`
-  - [Boşanma Davası Nasıl Açılır?](https://adanaailehukuku.com/bosanma-davasi-nasil-acilir-adana/) — `bosanma-davasi-nasil-acilir-adana`
-  - [Velayet Davaları](https://adanaailehukuku.com/velayet-davasi-mahkeme-kriterleri/) — `velayet-davasi-mahkeme-kriterleri`
-  - [İştirak Nafakası](https://adanaailehukuku.com/istirak-nafakasi-rehberi/) — `istirak-nafakasi-rehberi`
-  - [Mal Paylaşımı](https://adanaailehukuku.com/bosanmada-mal-paylasimi/) — `bosanmada-mal-paylasimi`
-  - [Adana Aile Mahkemesi Süreci](https://adanaailehukuku.com/adana-aile-mahkemesi-sureci/) — `adana-aile-mahkemesi-sureci`
-  - [Çekişmeli Boşanma](https://adanaailehukuku.com/cekismeli-bosanma-sebepleri/) — `cekismeli-bosanma-sebepleri`
+  - [Adana Aile Hukuku Rehberi](https://adanaailehukuku.com/makaleler/adana-aile-hukuku-rehberi/) — `adana-aile-hukuku-rehberi`
+  - [Anlaşmalı Boşanma Rehberi](https://adanaailehukuku.com/makaleler/adana-anlasmali-bosanma/) — `adana-anlasmali-bosanma`
+  - [Boşanma Davası Nasıl Açılır?](https://adanaailehukuku.com/makaleler/adanada-bosanma-davasi-nasil-acilir/) — `adanada-bosanma-davasi-nasil-acilir`
+  - [Velayet Davaları](https://adanaailehukuku.com/makaleler/adanada-velayet-davasi-ve-cocugun-ustun-yarari/) — `adanada-velayet-davasi-ve-cocugun-ustun-yarari`
+  - [İştirak Nafakası](https://adanaailehukuku.com/makaleler/istirak-nafakasi-rehberi/) — `istirak-nafakasi-rehberi`
+  - [Mal Paylaşımı](https://adanaailehukuku.com/makaleler/bosanmada-mal-paylasimi/) — `bosanmada-mal-paylasimi`
+  - [Adana Aile Mahkemesi Süreci](https://adanaailehukuku.com/makaleler/adana-aile-mahkemesi-sureci/) — `adana-aile-mahkemesi-sureci`
+  - [Çekişmeli Boşanma](https://adanaailehukuku.com/makaleler/cekismeli-bosanma-sebepleri/) — `cekismeli-bosanma-sebepleri`
   - [Adana Boşanma Avukatı](https://adanaailehukuku.com/adana-bosanma-avukati/) — `adana-bosanma-avukati`
   - [Adana Aile Hukuku Avukatı](https://adanaailehukuku.com/adana-aile-hukuku-avukati/) — `adana-aile-hukuku-avukati`
   - [iletisim](https://adanaailehukuku.com/iletisim/) — `iletisim`
@@ -133,30 +133,6 @@ adanaailehukuku.com — Adana aile hukuku alanında bilgilendirici içerik. Avuk
     {"@type": "Question", "name": "İlk görüşmede neler hazırlanmalı?", "acceptedAnswer": {"@type": "Answer", "text": "Nüfus kaydı, evlilik belgesi, varsa protokol taslağı, gelir belgeleri ve olay özetini getirmek süreci hızlandırır."}},
     {"@type": "Question", "name": "Danışmanlık ücreti sabit mi?", "acceptedAnswer": {"@type": "Answer", "text": "Ücret dosya kapsamına göre belirlenir; somut değerlendirme için iletişime geçilmelidir."}}
   ]
-}
-```
-
-## Schema JSON-LD
-
-```json
-{
-  "@context": "https://schema.org",
-  "@type": "LegalService",
-  "name": "Avukat Ceren Sümer Cilli - Adana Aile Hukuku",
-  "url": "https://adanaailehukuku.com/",
-  "areaServed": [
-    {"@type": "City", "name": "Adana"},
-    {"@type": "Place", "name": "Seyhan"},
-    {"@type": "Place", "name": "Çukurova"},
-    {"@type": "Place", "name": "Yüreğir"},
-    {"@type": "Place", "name": "Sarıçam"}
-  ],
-  "serviceType": "Aile Hukuku",
-  "description": "Adana'da boşanma, velayet, nafaka ve mal paylaşımı. Aile mahkemesi süreçleri ve hukuki danışmanlık.",
-  "provider": {
-    "@type": "Person",
-    "name": "Avukat Ceren Sümer Cilli"
-  }
 }
 ```
 
