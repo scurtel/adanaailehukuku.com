@@ -27,10 +27,22 @@ const CONSTS_PATH = join(ROOT, 'src', 'consts.ts');
 const REPORT_PATH = join(ROOT, '.auto-article-report.json');
 const SITE_URL = 'https://adanaailehukuku.com';
 const MAX_TOPIC_ATTEMPTS = 3;
+const MAX_QUALITY_HEALS = 2;
 
-const MIN_WORDS = 900;
-const MAX_WORDS = 1200;
-const MIN_FAQ = 5;
+/** Soft target for generated body (excludes SEO meta tail). */
+const MIN_WORDS = 1000;
+const MAX_WORDS = 1250;
+/** Soft overage: warn only. Above this → one shorten attempt. */
+const WORD_SOFT_MAX = 1350;
+const WORD_HARD_MAX = 1450;
+
+const META_DESC_MIN = 145;
+const META_DESC_MAX = 160;
+const META_DESC_PREF_MIN = 150;
+const META_DESC_PREF_MAX = 158;
+
+const MIN_FAQ = 4;
+const TARGET_FAQ = 5;
 
 const LEGAL_DISCLAIMER =
   'Bu içerik genel bilgilendirme amaçlıdır. Somut olayın özelliklerine göre hukuki değerlendirme değişebilir.';
@@ -97,6 +109,7 @@ KURALLAR:
 - Adana aile mahkemeleri bağlamı
 - Keyword stuffing yok
 - Markdown tablo kullanma
+- Gereksiz tekrar ve dolgu yazma; net ve ölçülü ol
 - Yalnızca verilen iç link URL listesinden link ver; listede yoksa düz metin bırak`;
 
 function fail(message, code = 1) {
@@ -163,7 +176,15 @@ function loadEnv() {
     }
   }
   for (const [k, v] of Object.entries(process.env)) {
-    if (v && (k === 'GEMINI_API_KEY' || k === 'GEMINI_MODEL' || k === 'GOOGLE_GEMINI_API_KEY')) {
+    if (
+      v &&
+      (k === 'GEMINI_API_KEY' ||
+        k === 'GEMINI_MODEL' ||
+        k === 'GOOGLE_GEMINI_API_KEY' ||
+        k === 'AUTO_ARTICLE_DRY_RUN' ||
+        k === 'GEMINI_GOOGLE_SEARCH_ENABLED' ||
+        k === 'GEMINI_ENABLE_SEARCH_GROUNDING')
+    ) {
       env[k] = v;
     }
   }
@@ -203,7 +224,19 @@ function slugify(text) {
 }
 
 function countWords(text) {
-  return text.split(/\s+/).filter(Boolean).length;
+  return String(text || '')
+    .split(/\s+/)
+    .filter(Boolean).length;
+}
+
+/** Word count for quality targets — exclude grounding kaynak listesi. */
+function countBodyWords(body) {
+  let text = String(body || '');
+  const kaynak = text.indexOf('\n## Kaynaklar');
+  if (kaynak >= 0) text = text.slice(0, kaynak);
+  const seo = text.indexOf('\n## SEO Çıktıları');
+  if (seo >= 0) text = text.slice(0, seo);
+  return countWords(text);
 }
 
 function parseFrontmatterField(raw, field) {
@@ -419,6 +452,13 @@ async function pickTopic(existingArticles, apiKey, model, env) {
 }
 
 function isGoogleSearchEnabled(env) {
+  // Explicit disable from caller (e.g. quality heal / shorten) wins over process.env.
+  if (
+    env?.GEMINI_GOOGLE_SEARCH_ENABLED === 'false' ||
+    env?.GEMINI_ENABLE_SEARCH_GROUNDING === 'false'
+  ) {
+    return false;
+  }
   return (
     env.GEMINI_GOOGLE_SEARCH_ENABLED === 'true' ||
     process.env.GEMINI_GOOGLE_SEARCH_ENABLED === 'true' ||
@@ -443,11 +483,14 @@ function extractGroundingMetadata(data) {
   };
 }
 
-async function callGemini(apiKey, model, userPrompt, jsonMode = false, env = {}) {
+async function callGemini(apiKey, model, userPrompt, jsonMode = false, env = {}, options = {}) {
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
   // Prefer Google Search when enabled; JSON mime type is incompatible with grounding.
   const useGrounding = isGoogleSearchEnabled(env);
-  const generationConfig = { temperature: 0.45, maxOutputTokens: 8192 };
+  const generationConfig = {
+    temperature: options.temperature ?? 0.45,
+    maxOutputTokens: options.maxOutputTokens ?? 8192,
+  };
   if (jsonMode && !useGrounding) generationConfig.responseMimeType = 'application/json';
 
   const body = {
@@ -487,6 +530,373 @@ function extractJsonObject(text) {
   }
 }
 
+function clampMetaDescription(text, focusKeyword = '') {
+  let desc = String(text || '')
+    .replace(/\s+/g, ' ')
+    .replace(/^["'`]+|["'`]+$/g, '')
+    .trim();
+
+  // Önceki pad artıklarını temizle
+  desc = desc
+    .replace(/(\s*Adana aile hukuku çerçevesinde genel bilgilendirme sunar\.?)+/gi, '')
+    .replace(/(\s*Genel bilgilendirme amaçlıdır\.?)+/gi, '')
+    .replace(/(\s*Süreç mahkeme ve delillere göre değişebilir\.?)+/gi, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+
+  if (!desc) {
+    desc = `${focusKeyword || 'Aile hukuku'} konusunda Adana aile mahkemesi uygulamalarına dair genel bilgilendirme.`;
+  }
+
+  if (desc.length > META_DESC_MAX) {
+    const limit = META_DESC_PREF_MAX;
+    let cut = desc.slice(0, limit + 1);
+    const lastSpace = cut.lastIndexOf(' ');
+    if (lastSpace >= META_DESC_MIN - 5) {
+      cut = cut.slice(0, lastSpace);
+    } else {
+      cut = desc.slice(0, META_DESC_MAX);
+      const sp = cut.lastIndexOf(' ');
+      if (sp > META_DESC_MIN) cut = cut.slice(0, sp);
+    }
+    desc = cut.replace(/[,\s;:\-–—]+$/u, '').trim();
+    if (!/[.!?…]$/u.test(desc)) desc = `${desc}.`;
+  }
+
+  if (desc.length < META_DESC_MIN) {
+    const suffixes = [
+      ' Adana aile hukuku çerçevesinde genel bilgilendirme sunar.',
+      ' Genel bilgilendirme amaçlıdır.',
+      ' Süreç mahkeme ve delillere göre değişebilir.',
+    ];
+    for (const suffix of suffixes) {
+      if (desc.length >= META_DESC_MIN) break;
+      if (desc.length + suffix.length <= META_DESC_MAX) {
+        desc = `${desc.replace(/\.$/, '')}.${suffix}`.replace(/\.\./g, '.').replace(/\s+/g, ' ').trim();
+      }
+    }
+  }
+
+  if (desc.length > META_DESC_MAX) {
+    let cut = desc.slice(0, META_DESC_MAX);
+    const sp = cut.lastIndexOf(' ');
+    if (sp >= META_DESC_MIN) cut = cut.slice(0, sp);
+    desc = cut.replace(/[,\s;:\-–—]+$/u, '').trim();
+    if (!/[.!?…]$/u.test(desc)) desc = `${desc}.`;
+  }
+
+  return desc;
+}
+
+function isSensibleMetaDescription(desc) {
+  const t = String(desc || '').trim();
+  if (t.length < META_DESC_MIN || t.length > META_DESC_MAX) return false;
+  if ((t.match(/genel bilgilendirme/gi) || []).length >= 3) return false;
+  if (/\s[a-zçğıöşü]{1,2}\s+Adana/i.test(t)) return false;
+  if (!/[a-zçğıöşüA-ZÇĞİÖŞÜ]{4,}/.test(t)) return false;
+  return true;
+}
+
+async function rewriteMetaDescription(apiKey, model, plan, env) {
+  const original = plan.metaDescription || '';
+  const prompt = `Aşağıdaki konu için Türkçe meta description yaz.
+Kurallar:
+- Tam ${META_DESC_PREF_MIN}-${META_DESC_PREF_MAX} karakter (zorunlu aralık ${META_DESC_MIN}-${META_DESC_MAX})
+- Reklam dili yok; tek cümle veya iki kısa cümle
+- Tırnak, markdown, başlık yok
+- Yalnızca meta description metnini döndür
+
+Konu: ${plan.h1}
+Focus: ${plan.focusKeyword}
+Mevcut (uygunsuz): ${original}`;
+
+  try {
+    const envNoSearch = {
+      ...env,
+      GEMINI_GOOGLE_SEARCH_ENABLED: 'false',
+      GEMINI_ENABLE_SEARCH_GROUNDING: 'false',
+    };
+    const result = await callGemini(apiKey, model, prompt, false, envNoSearch, {
+      temperature: 0.25,
+      maxOutputTokens: 256,
+    });
+    const candidate = clampMetaDescription(
+      result.text.replace(/^["'`]+|["'`]+$/g, '').split('\n')[0],
+      plan.focusKeyword,
+    );
+    if (isSensibleMetaDescription(candidate)) return candidate;
+  } catch {
+    /* fall through */
+  }
+  return clampMetaDescription(original, plan.focusKeyword);
+}
+
+function buildFaqMarkdown(faqPairs) {
+  const lines = ['## Sık Sorulan Sorular', ''];
+  for (const { q, a } of faqPairs) {
+    lines.push(`### ${sanitizeFaqQuestionName(q)}`);
+    lines.push('');
+    lines.push(a.trim());
+    lines.push('');
+  }
+  return lines.join('\n').trimEnd();
+}
+
+function ensureFaqSectionInBody(body, faqPairs) {
+  if (!faqPairs.length) return { body, injected: false };
+
+  if (body.includes('## Sık Sorulan Sorular')) {
+    return { body, injected: false };
+  }
+
+  const faqMd = buildFaqMarkdown(faqPairs);
+  const warningIdx = body.indexOf('**Hukuki uyarı');
+  const kaynakIdx = body.indexOf('## Kaynaklar');
+  let insertAt = body.length;
+  if (warningIdx >= 0) insertAt = Math.min(insertAt, warningIdx);
+  if (kaynakIdx >= 0) insertAt = Math.min(insertAt, kaynakIdx);
+
+  const before = body.slice(0, insertAt).trimEnd();
+  const after = body.slice(insertAt).trimStart();
+  const next = `${before}\n\n${faqMd}\n\n${after}`.trim() + '\n';
+  return { body: next, injected: true };
+}
+
+function mergeFaqPairs(fromBody, planQuestions) {
+  const pairs = [...fromBody];
+  const defaultAnswer =
+    'Somut olayın koşullarına göre değerlendirme değişir; Adana aile mahkemelerinde delil ve tarafların durumu birlikte incelenir.';
+
+  for (const q of planQuestions || []) {
+    if (pairs.length >= TARGET_FAQ + 1) break;
+    const clean = sanitizeFaqQuestionName(q);
+    if (!clean) continue;
+    if (pairs.some((p) => sanitizeFaqQuestionName(p.q) === clean || p.q.includes(clean.slice(0, 24)))) {
+      continue;
+    }
+    pairs.push({ q: clean, a: defaultAnswer });
+  }
+
+  while (pairs.length < MIN_FAQ) {
+    pairs.push({
+      q: `Bu süreçte nelere dikkat edilmelidir? (${pairs.length + 1})`,
+      a: defaultAnswer,
+    });
+  }
+
+  return pairs.slice(0, 6);
+}
+
+async function shortenBodyOnce(apiKey, model, body, plan, env) {
+  let kaynakTail = '';
+  let main = body;
+  const kaynakIdx = body.indexOf('\n## Kaynaklar');
+  if (kaynakIdx >= 0) {
+    main = body.slice(0, kaynakIdx).trimEnd();
+    kaynakTail = body.slice(kaynakIdx);
+  }
+
+  const prompt = `Aşağıdaki makale gövdesini ölçülü kısalt.
+Kurallar:
+- Hedef yaklaşık ${MIN_WORDS}-${MAX_WORDS} kelime (tercihen 1050-1200)
+- Hukuki açıklamaları silme; yalnızca tekrar, dolgu ve aşırı uzatmayı azalt
+- H1, H2, H3 yapısını ve "## Sık Sorulan Sorular" + ### soru-cevapları koru
+- Blockquote uzman kutusunu ve hukuki uyarı satırını koru
+- Meta/JSON-LD/Kaynaklar ekleme
+- Özet değil; tam makale gövdesi döndür (asla 800 kelimenin altına inme)
+- Yalnızca markdown gövdeyi döndür
+
+Başlık: ${plan.h1}
+
+${main}`;
+
+  const envNoSearch = {
+    ...env,
+    GEMINI_GOOGLE_SEARCH_ENABLED: 'false',
+    GEMINI_ENABLE_SEARCH_GROUNDING: 'false',
+  };
+  const result = await callGemini(apiKey, model, prompt, false, envNoSearch, {
+    temperature: 0.3,
+    maxOutputTokens: 4096,
+  });
+  const shortened = result.text?.trim();
+  if (!shortened) return body;
+
+  const out = kaynakTail ? `${shortened.trimEnd()}\n${kaynakTail}` : shortened;
+  return out;
+}
+
+/**
+ * Deterministic trim when model shorten fails: drop excess prose paragraphs
+ * while keeping headings, FAQ, disclaimer, and expert box.
+ */
+function trimBodyLocally(body, targetMax = MAX_WORDS) {
+  let kaynakTail = '';
+  let main = body;
+  const kaynakIdx = body.indexOf('\n## Kaynaklar');
+  if (kaynakIdx >= 0) {
+    main = body.slice(0, kaynakIdx).trimEnd();
+    kaynakTail = body.slice(kaynakIdx);
+  }
+
+  if (countBodyWords(main) <= targetMax) {
+    return body;
+  }
+
+  const faqStart = main.indexOf('## Sık Sorulan Sorular');
+  const warningStart = main.indexOf('**Hukuki uyarı');
+  let protectedTail = '';
+  let editable = main;
+  const cutAt = [faqStart, warningStart].filter((i) => i >= 0).sort((a, b) => a - b)[0];
+  if (cutAt != null) {
+    editable = main.slice(0, cutAt).trimEnd();
+    protectedTail = main.slice(cutAt).trimStart();
+  }
+
+  const blocks = editable.split(/\n{2,}/).filter((b) => b.trim());
+  const isProtected = (b) => {
+    const t = b.trim();
+    return t.startsWith('#') || t.startsWith('>') || t.startsWith('**Hukuki');
+  };
+
+  // Prefer dropping long prose from the end of the article body (before FAQ)
+  const removableIdx = [];
+  for (let i = 0; i < blocks.length; i += 1) {
+    if (!isProtected(blocks[i])) removableIdx.push(i);
+  }
+
+  const keep = new Set(blocks.map((_, i) => i));
+  let current = countWords(`${editable}\n\n${protectedTail}`);
+
+  for (let r = removableIdx.length - 1; r >= 0 && current > targetMax; r -= 1) {
+    const i = removableIdx[r];
+    const w = countWords(blocks[i]);
+    // Keep at least one prose block after H1/intro if possible
+    if (keep.size <= 4) break;
+    keep.delete(i);
+    current -= w;
+  }
+
+  // Still over: truncate remaining long prose blocks
+  let keptBlocks = blocks.filter((_, i) => keep.has(i));
+  current = countWords(`${keptBlocks.join('\n\n')}\n\n${protectedTail}`);
+  for (let i = keptBlocks.length - 1; i >= 0 && current > targetMax; i -= 1) {
+    if (isProtected(keptBlocks[i])) continue;
+    const sentences = keptBlocks[i].split(/(?<=[.!?…])\s+/);
+    if (sentences.length < 3) continue;
+    const trimmed = sentences.slice(0, Math.ceil(sentences.length * 0.6)).join(' ');
+    const saved = countWords(keptBlocks[i]) - countWords(trimmed);
+    if (saved <= 0) continue;
+    keptBlocks[i] = trimmed;
+    current -= saved;
+  }
+
+  let next = keptBlocks.join('\n\n').trim();
+  if (protectedTail) next = `${next}\n\n${protectedTail}`.trim();
+  if (kaynakTail) next = `${next}\n${kaynakTail}`;
+
+  if (countBodyWords(next) < Math.min(MIN_WORDS - 100, Math.floor(countBodyWords(body) * 0.35))) {
+    return body;
+  }
+  return next;
+}
+
+/**
+ * Self-heal quality issues on the newly generated article only.
+ * Does not modify other files on disk.
+ */
+async function healGeneratedArticle({ apiKey, model, env, plan, body, internalLinks }) {
+  let heals = 0;
+  let nextBody = body;
+  const notes = [];
+
+  // Meta description
+  const beforeMeta = plan.metaDescription || '';
+  if (beforeMeta.length < META_DESC_MIN || beforeMeta.length > META_DESC_MAX) {
+    if (beforeMeta.length > META_DESC_MAX + 20 && heals < MAX_QUALITY_HEALS) {
+      plan.metaDescription = await rewriteMetaDescription(apiKey, model, plan, env);
+      heals += 1;
+      notes.push('metaDescription Gemini ile yeniden yazıldı');
+    } else {
+      plan.metaDescription = clampMetaDescription(beforeMeta, plan.focusKeyword);
+      notes.push('metaDescription kelime sınırında kısaltıldı/düzeltildi');
+    }
+  } else if (beforeMeta.length < META_DESC_PREF_MIN || beforeMeta.length > META_DESC_PREF_MAX) {
+    plan.metaDescription = clampMetaDescription(beforeMeta, plan.focusKeyword);
+    notes.push('metaDescription tercih aralığına yaklaştırıldı');
+  }
+
+  // FAQ pairs + body section
+  let faqPairs = extractFaqPairs(nextBody);
+  const faqFromBody = faqPairs.length;
+  faqPairs = mergeFaqPairs(faqPairs, plan.faqQuestions);
+
+  if (!nextBody.includes('## Sık Sorulan Sorular')) {
+    const ensured = ensureFaqSectionInBody(nextBody, faqPairs);
+    nextBody = ensured.body;
+    if (ensured.injected) notes.push('Gövdeye "## Sık Sorulan Sorular" bölümü eklendi');
+  } else if (faqFromBody < MIN_FAQ) {
+    const start = nextBody.indexOf('## Sık Sorulan Sorular');
+    let end = nextBody.length;
+    for (const marker of ['**Hukuki uyarı', '## Kaynaklar', '## SEO Çıktıları']) {
+      const idx = nextBody.indexOf(marker, start);
+      if (idx >= 0) end = Math.min(end, idx);
+    }
+    nextBody =
+      nextBody.slice(0, start).trimEnd() +
+      '\n\n' +
+      buildFaqMarkdown(faqPairs) +
+      '\n\n' +
+      nextBody.slice(end).trimStart();
+    notes.push('Eksik FAQ gövdesi plan sorularıyla tamamlandı');
+  }
+
+  faqPairs = mergeFaqPairs(extractFaqPairs(nextBody), plan.faqQuestions);
+  if (!nextBody.includes('## Sık Sorulan Sorular')) {
+    nextBody = ensureFaqSectionInBody(nextBody, faqPairs).body;
+  }
+
+  // Word count — yalnızca aşırı yüksekse bir kez kısalt; kötü kısaltmayı geri al
+  let words = countBodyWords(nextBody);
+  if (words > WORD_HARD_MAX && heals < MAX_QUALITY_HEALS) {
+    console.log(`Kelime sayısı ${words} — bir kez kısaltma isteniyor...`);
+    const before = nextBody;
+    const candidate = await shortenBodyOnce(apiKey, model, nextBody, plan, env);
+    heals += 1;
+    let afterWords = countBodyWords(candidate);
+    if (afterWords < MIN_WORDS || afterWords < Math.floor(words * 0.45)) {
+      const local = trimBodyLocally(before, MAX_WORDS);
+      const localWords = countBodyWords(local);
+      if (localWords < words && localWords >= Math.min(MIN_WORDS, 800)) {
+        nextBody = local;
+        notes.push(`Gemini kısaltması reddedildi; yerel trim uygulandı (${words} → ${localWords})`);
+      } else {
+        nextBody = before;
+        notes.push(
+          `Kısaltma reddedildi (önce ${words}, aday ${afterWords}); orijinal gövde korundu`,
+        );
+        warnQuality(
+          `Kelime sayısı aşırı yüksek (${words}); otomatik kısaltma güvenli olmadığı için uygulanmadı.`,
+        );
+      }
+    } else {
+      nextBody = candidate;
+      notes.push(`Aşırı uzun gövde kısaltıldı (${words} → ${afterWords})`);
+    }
+    faqPairs = mergeFaqPairs(extractFaqPairs(nextBody), plan.faqQuestions);
+    if (!nextBody.includes('## Sık Sorulan Sorular')) {
+      nextBody = ensureFaqSectionInBody(nextBody, faqPairs).body;
+    }
+  } else if (words > MAX_WORDS) {
+    notes.push(`Kelime sayısı biraz yüksek (${words}); yalnızca uyarı`);
+  }
+
+  checkBodyQuality(nextBody, plan, internalLinks);
+  checkFaqQuality(faqPairs, plan);
+
+  return { body: nextBody, faqPairs, healNotes: notes };
+}
+
 function validatePlanTechnical(plan, existingSlugs) {
   if (!plan.h1?.trim()) fail('Plan: h1 eksik — makale üretilemedi');
 
@@ -509,9 +919,9 @@ function validatePlanTechnical(plan, existingSlugs) {
     warnQuality('seoTitle eksikti; h1’den türetildi (kalite; üretim devam).');
   }
   if (!plan.metaDescription?.trim()) {
-    plan.metaDescription = `${plan.h1} hakkında bilgilendirme. Adana aile hukuku süreçleri için genel bilgi.`.slice(
-      0,
-      160,
+    plan.metaDescription = clampMetaDescription(
+      `${plan.h1} hakkında bilgilendirme. Adana aile hukuku süreçleri için genel bilgi.`,
+      plan.focusKeyword || plan.h1,
     );
     warnQuality('metaDescription eksikti; varsayılan metin atandı (kalite; üretim devam).');
   }
@@ -535,8 +945,10 @@ function checkPlanQuality(plan) {
   }
 
   const descLen = plan.metaDescription.length;
-  if (descLen < 145 || descLen > 160) {
-    warnQuality(`Meta description uzunluğu hedef dışı (${descLen} karakter; hedef 145-160).`);
+  if (descLen < META_DESC_MIN || descLen > META_DESC_MAX) {
+    warnQuality(
+      `Meta description uzunluğu hedef dışı (${descLen} karakter; hedef ${META_DESC_MIN}-${META_DESC_MAX}).`,
+    );
   }
 
   if (plan.faqQuestions.length < MIN_FAQ) {
@@ -570,10 +982,16 @@ function checkPlanQuality(plan) {
 }
 
 function checkBodyQuality(body, plan, internalLinks) {
-  const words = countWords(body);
+  const words = countBodyWords(body);
 
-  if (words < MIN_WORDS || words > MAX_WORDS) {
-    warnQuality(`Kelime sayısı hedef dışı (${words}; hedef ${MIN_WORDS}-${MAX_WORDS}).`);
+  if (words < MIN_WORDS) {
+    warnQuality(`Kelime sayısı hedef altı (${words}; hedef ${MIN_WORDS}-${MAX_WORDS}).`);
+  } else if (words > WORD_HARD_MAX) {
+    warnQuality(`Kelime sayısı aşırı yüksek (${words}; hedef ${MIN_WORDS}-${MAX_WORDS}).`);
+  } else if (words > WORD_SOFT_MAX) {
+    warnQuality(`Kelime sayısı biraz yüksek (${words}; hedef ${MIN_WORDS}-${MAX_WORDS}).`);
+  } else if (words > MAX_WORDS) {
+    warnQuality(`Kelime sayısı hedef üstü (${words}; hedef ${MIN_WORDS}-${MAX_WORDS}).`);
   }
 
   if (!body.includes('## Sık Sorulan Sorular')) {
@@ -592,7 +1010,6 @@ function checkBodyQuality(body, plan, internalLinks) {
         `::warning title=Yasaklı ifade uyarısı::Makalede kontrol listesindeki ifade bulundu: ${phrase}. İçerik değiştirilmeden yayınlanıyor.`,
       );
       qualityWarnings.push(`Yasaklı ifade (gövde): ${phrase}`);
-      // İçerik değiştirilmez / silinmez / yeniden üretilmez.
     }
   }
 
@@ -807,12 +1224,12 @@ JSON şeması:
 {
   "h1": "string — makale başlığı",
   "seoTitle": "string — 55-60 karakter SEO title",
-  "metaDescription": "string — 145-160 karakter meta description",
+  "metaDescription": "string — ${META_DESC_PREF_MIN}-${META_DESC_PREF_MAX} karakter meta description (zorunlu ${META_DESC_MIN}-${META_DESC_MAX})",
   "slug": "string — benzersiz kebab-case slug (Türkçe karakter yok)",
   "focusKeyword": "string",
   "secondaryKeywords": ["4-6 adet string"],
   "sections": ["7-9 adet H2 başlık metni"],
-  "faqQuestions": ["5-6 adet SSS sorusu"]
+  "faqQuestions": ["${TARGET_FAQ}-6 adet SSS sorusu"]
 }
 
 Mevcut sluglar (bunları kullanma): ${[...existingSlugs].join(', ')}`;
@@ -838,25 +1255,30 @@ Sonra:
 
 Giriş paragrafı arama niyetine doğrudan cevap versin; focus keyword doğal geçsin.
 
-H2 bölümleri (her birinde en az bir H3):
+H2 bölümleri (her birinde en az bir H3; her H2 altında en fazla 2 kısa paragraf — dolgu yok):
 ${plan.sections.map((s) => `- ## ${s}`).join('\n')}
 
 ## Sonuç
 Kısa özet ve doğal danışma çağrısı; [İletişim](${SITE_URL}/iletisim/) linki.
 
+ZORUNLU — gövdede birebir şu başlık olmalı:
 ## Sık Sorulan Sorular
+Altında ${MIN_FAQ}-6 adet gerçek soru-cevap; her soru ### ile:
 ${plan.faqQuestions.map((q) => `- ### ${q}`).join('\n')}
-(Her soruya kısa cevap paragrafı)
+(Her soruya 2-4 cümlelik net cevap; bu sorular JSON-LD FAQ ile aynı olacak)
 
 Son satır:
 **Hukuki uyarı:** ${LEGAL_DISCLAIMER}
 
-Kelime hedefi: ${MIN_WORDS}-${MAX_WORDS} kelime (bu aralığın dışına çıkma).
+Kelime hedefi: ${MIN_WORDS}-${MAX_WORDS} kelime (tercihen 1050-1180). Gereksiz tekrar/dolgu yazma; önemli hukuki açıklamaları kesme. 1400 kelimeyi geçme. Kısa ve net yaz.
 
 İç linkler — YALNIZCA şu URL'lerden kullan (yoksa düz metin):
 ${internalLinks.join('\n')}`;
 
-  let bodyResult = await callGemini(apiKey, model, bodyPrompt, false, env);
+  let bodyResult = await callGemini(apiKey, model, bodyPrompt, false, env, {
+    temperature: 0.4,
+    maxOutputTokens: 4096,
+  });
   let body = bodyResult.text;
   if (!body || !String(body).trim()) {
     fail('Makale gövdesi boş üretildi — teknik hata');
@@ -867,30 +1289,36 @@ ${internalLinks.join('\n')}`;
     );
     body = `${body.trim()}\n\n## Kaynaklar\n\n${lines.join('\n')}\n`;
   }
-  checkBodyQuality(body, plan, internalLinks);
 
   // Teknik: neredeyse boş çıktı (kalite alt sınırı uyarıdır; bu tamamen bozuk)
-  if (countWords(body) < 50) {
-    fail(`Makale gövdesi neredeyse boş (${countWords(body)} kelime) — teknik hata`);
+  if (countBodyWords(body) < 50) {
+    fail(`Makale gövdesi neredeyse boş (${countBodyWords(body)} kelime) — teknik hata`);
   }
 
-  let faqPairs = extractFaqPairs(body);
-  const faqFromBody = faqPairs.length;
-  if (faqPairs.length < MIN_FAQ) {
-    for (const q of plan.faqQuestions) {
-      if (faqPairs.length >= MIN_FAQ) break;
-      if (!faqPairs.some((p) => p.q === q)) {
-        faqPairs.push({
-          q,
-          a: 'Somut olayın koşullarına göre değerlendirme değişir; Adana aile mahkemelerinde delil ve tarafların durumu birlikte incelenir.',
-        });
-      }
-    }
-    if (faqFromBody < MIN_FAQ && faqPairs.length >= MIN_FAQ) {
-      warnQuality('FAQ cevapları gövdeden eksikti; plan sorularından tamamlayıcı metin eklendi.');
-    }
+  const healed = await healGeneratedArticle({
+    apiKey,
+    model,
+    env,
+    plan,
+    body,
+    internalLinks,
+  });
+  body = healed.body;
+  const faqPairs = healed.faqPairs;
+  for (const note of healed.healNotes) {
+    console.log(`Self-heal: ${note}`);
   }
-  checkFaqQuality(faqPairs, plan);
+
+  // Final meta length must be in range after healing
+  plan.metaDescription = clampMetaDescription(plan.metaDescription, plan.focusKeyword);
+  if (
+    plan.metaDescription.length < META_DESC_MIN ||
+    plan.metaDescription.length > META_DESC_MAX
+  ) {
+    warnQuality(
+      `Meta description heal sonrası hâlâ hedef dışı (${plan.metaDescription.length}).`,
+    );
+  }
 
   const meta = buildMetaSection(plan, faqPairs.slice(0, 6), internalLinks);
   const fullContent = buildFrontmatter(plan) + body + '\n\n' + meta;
@@ -909,15 +1337,52 @@ ${internalLinks.join('\n')}`;
     fail('Build başarısız — dosya yazılmadı (rollback yapıldı)');
   }
 
+  const wordCount = countBodyWords(body);
+  const dryRun = String(env.AUTO_ARTICLE_DRY_RUN || '').toLowerCase() === 'true' || env.AUTO_ARTICLE_DRY_RUN === '1';
+  if (dryRun) {
+    rollback(articlePath, constsBackup);
+    console.log('\n=== DRY RUN BAŞARILI (dosya yazılmadı / rollback) ===');
+    console.log(`Slug (test): ${plan.slug}`);
+    console.log(`Kelime: ${wordCount}`);
+    console.log(`Meta description: ${plan.metaDescription.length} karakter`);
+    console.log(`FAQ: ${faqPairs.length}`);
+    console.log(`FAQ heading: ${body.includes('## Sık Sorulan Sorular') ? 'yes' : 'no'}`);
+    setGithubOutput('article_generated', 'false');
+    writeFileSync(
+      REPORT_PATH,
+      JSON.stringify(
+        {
+          dryRun: true,
+          article_generated: false,
+          slug: plan.slug,
+          wordCount,
+          faqCount: faqPairs.length,
+          metaDescriptionLength: plan.metaDescription.length,
+          metaDescription: plan.metaDescription,
+          hasFaqHeading: body.includes('## Sık Sorulan Sorular'),
+          healNotes: healed.healNotes,
+          qualityWarnings: [...qualityWarnings],
+          generatedAt: new Date().toISOString(),
+        },
+        null,
+        2,
+      ),
+      'utf8',
+    );
+    printQualityWarnings();
+    return;
+  }
+
   const report = {
     slug: plan.slug,
     title: plan.seoTitle,
     path: `content/articles/${plan.slug}.md`,
     topic: topicEntry.topic,
-    wordCount: countWords(body),
+    wordCount,
     faqCount: faqPairs.length,
     metaTitleLength: plan.seoTitle.length,
     metaDescriptionLength: plan.metaDescription.length,
+    healNotes: healed.healNotes,
     qualityWarnings: [...qualityWarnings],
     article_generated: true,
     skipped: false,
@@ -931,6 +1396,7 @@ ${internalLinks.join('\n')}`;
   console.log(`Slug: ${report.slug}`);
   console.log(`Kelime: ${report.wordCount}`);
   console.log(`FAQ: ${report.faqCount}`);
+  console.log(`Meta description: ${report.metaDescriptionLength} karakter`);
   console.log(`Commit mesajı önerisi: ${report.commitMessage}`);
   printQualityWarnings();
 }
