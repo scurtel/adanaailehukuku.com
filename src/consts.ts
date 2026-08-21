@@ -123,6 +123,7 @@ export const ARTICLE_SLUGS = [
   'sosyal-medya-bosanmada-delil-degeri',
   'ortak-velayet-nedir',
   'bosanma-kararinin-kesinlesmesi-nedir',
+  'bosanma-sonrasi-nufus-kaydi-duzeltme',
 ] as const;
 
 export const PAGE_SLUGS = [
