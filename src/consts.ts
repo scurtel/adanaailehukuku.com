@@ -124,6 +124,7 @@ export const ARTICLE_SLUGS = [
   'ortak-velayet-nedir',
   'bosanma-kararinin-kesinlesmesi-nedir',
   'bosanma-sonrasi-nufus-kaydi-duzeltme',
+  'bosanma-sonrasi-nufus-kayit-duzenlemeleri',
 ] as const;
 
 export const PAGE_SLUGS = [
