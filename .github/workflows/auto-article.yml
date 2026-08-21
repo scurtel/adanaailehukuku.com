@@ -26,6 +26,7 @@ jobs:
         run: npm ci
 
       - name: Generate article
+        id: generate
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GEMINI_MODEL: gemini-2.5-flash
@@ -35,7 +36,7 @@ jobs:
         if: always()
         run: |
           if [ ! -f .auto-article-report.json ]; then
-            echo "Rapor dosyası yok (üretim adımı başarısız olmuş olabilir)."
+            echo "Rapor dosyası yok (üretim atlandı veya teknik hata)."
             exit 0
           fi
           node <<'NODE'
@@ -44,23 +45,27 @@ jobs:
           if (!fs.existsSync(reportPath)) process.exit(0);
           const r = JSON.parse(fs.readFileSync(reportPath, 'utf8'));
           let md = '## Auto Article Report\n\n';
-          md += `- **Slug:** \`${r.slug}\`\n`;
-          md += `- **Title:** ${r.title}\n`;
-          md += `- **Path:** \`${r.path}\`\n`;
-          md += `- **Words:** ${r.wordCount}\n`;
-          md += `- **FAQ count:** ${r.faqCount}\n`;
-          if (r.metaTitleLength != null) md += `- **Meta title length:** ${r.metaTitleLength}\n`;
-          if (r.metaDescriptionLength != null) md += `- **Meta description length:** ${r.metaDescriptionLength}\n`;
-          md += '\n';
-          if (Array.isArray(r.qualityWarnings) && r.qualityWarnings.length > 0) {
-            md += '### Quality warnings\n\n';
-            for (const w of r.qualityWarnings) {
-              md += `- ${w}\n`;
-              console.warn(`::warning title=Makale kalite uyarısı::${w}`);
-            }
-            md += '\n_Kalite uyarıları commit/push’u engellemez._\n';
+          if (r.skipped || r.article_generated === false) {
+            md += `**Skipped:** ${r.reason || 'No safe unused topic found.'}\n`;
           } else {
-            md += '### Quality warnings\n\n(yok)\n';
+            md += `- **Slug:** \`${r.slug}\`\n`;
+            md += `- **Title:** ${r.title}\n`;
+            md += `- **Path:** \`${r.path}\`\n`;
+            md += `- **Words:** ${r.wordCount}\n`;
+            md += `- **FAQ count:** ${r.faqCount}\n`;
+            if (r.metaTitleLength != null) md += `- **Meta title length:** ${r.metaTitleLength}\n`;
+            if (r.metaDescriptionLength != null) md += `- **Meta description length:** ${r.metaDescriptionLength}\n`;
+            md += '\n';
+            if (Array.isArray(r.qualityWarnings) && r.qualityWarnings.length > 0) {
+              md += '### Quality warnings\n\n';
+              for (const w of r.qualityWarnings) {
+                md += `- ${w}\n`;
+                console.warn(`::warning title=Makale kalite uyarısı::${w}`);
+              }
+              md += '\n_Kalite uyarıları commit/push’u engellemez._\n';
+            } else {
+              md += '### Quality warnings\n\n(yok)\n';
+            }
           }
           const summaryFile = process.env.GITHUB_STEP_SUMMARY;
           if (summaryFile) fs.appendFileSync(summaryFile, md);
@@ -68,6 +73,7 @@ jobs:
           NODE
 
       - name: Commit and push
+        if: steps.generate.outputs.article_generated == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -77,9 +83,8 @@ jobs:
             exit 0
           fi
 
-          # Kalite uyarıları generate adımını başarıyla tamamlar; dosya geçerliyse commit devam.
           if [ -f .auto-article-report.json ]; then
-            SLUG=$(node -e "console.log(JSON.parse(require('fs').readFileSync('.auto-article-report.json','utf8')).slug)")
+            SLUG=$(node -e "const r=JSON.parse(require('fs').readFileSync('.auto-article-report.json','utf8')); if(r.skipped||r.article_generated===false) process.exit(2); console.log(r.slug)")
             MSG="add article on ${SLUG}"
             ART="content/articles/${SLUG}.md"
             if [ -n "$SLUG" ] && [ ! -f "$ART" ]; then

@@ -12,10 +12,12 @@ import {
   mkdirSync,
   readdirSync,
   unlinkSync,
+  appendFileSync,
 } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { spawnSync } from 'node:child_process';
+import { TOPIC_POOL, FALLBACK_TOPIC_POOL } from './article-topics.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
@@ -24,6 +26,7 @@ const PAGES_DIR = join(ROOT, 'content', 'pages');
 const CONSTS_PATH = join(ROOT, 'src', 'consts.ts');
 const REPORT_PATH = join(ROOT, '.auto-article-report.json');
 const SITE_URL = 'https://adanaailehukuku.com';
+const MAX_TOPIC_ATTEMPTS = 3;
 
 const MIN_WORDS = 900;
 const MAX_WORDS = 1200;
@@ -47,37 +50,42 @@ const BANNED_PHRASES = [
   /%100 başarı/i,
 ];
 
-const TOPIC_POOL = [
-  { topic: 'Aile hukuku nedir?', category: 'Aile Hukuku', practiceArea: 'Aile Hukuku' },
-  { topic: 'Aile hukukunda en sık açılan davalar', category: 'Aile Hukuku', practiceArea: 'Aile Hukuku' },
-  { topic: 'Ortak velayet nedir?', category: 'Velayet', practiceArea: 'Aile Hukuku, Velayet' },
-  { topic: 'Velayet değişikliği davası', category: 'Velayet', practiceArea: 'Aile Hukuku, Velayet' },
-  { topic: 'Çocuğu göstermeme halinde ne yapılır?', category: 'Çocukla Kişisel İlişki', practiceArea: 'Aile Hukuku, Velayet' },
-  { topic: 'Çocukla kişisel ilişki düzenlemesi', category: 'Çocukla Kişisel İlişki', practiceArea: 'Aile Hukuku, Velayet' },
-  { topic: 'Nafaka türleri nelerdir?', category: 'Nafaka', practiceArea: 'Aile Hukuku, Nafaka' },
-  { topic: 'Tedbir nafakası nedir?', category: 'Nafaka', practiceArea: 'Aile Hukuku, Nafaka' },
-  { topic: 'Yoksulluk nafakası şartları', category: 'Nafaka', practiceArea: 'Aile Hukuku, Nafaka' },
-  { topic: 'Nafaka azaltma davası', category: 'Nafaka', practiceArea: 'Aile Hukuku, Nafaka' },
-  { topic: 'Boşanmada maddi ve manevi tazminat', category: 'Boşanma Hukuku', practiceArea: 'Aile Hukuku, Boşanma Hukuku' },
-  { topic: 'Boşanma davasında kusur nedir?', category: 'Boşanma Hukuku', practiceArea: 'Aile Hukuku, Boşanma Hukuku' },
-  { topic: 'Boşanma davasında tanık beyanı', category: 'Boşanma Hukuku', practiceArea: 'Aile Hukuku, Boşanma Hukuku' },
-  { topic: 'Boşanma davasında WhatsApp kayıtları', category: 'Boşanma Hukuku', practiceArea: 'Aile Hukuku, Boşanma Hukuku' },
-  { topic: 'Boşanma davasında telefon kayıtları', category: 'Boşanma Hukuku', practiceArea: 'Aile Hukuku, Boşanma Hukuku' },
-  { topic: 'Sosyal medya paylaşımları boşanmada delil olur mu?', category: 'Boşanma Hukuku', practiceArea: 'Aile Hukuku, Boşanma Hukuku' },
-  { topic: 'Şiddet nedeniyle boşanma', category: 'Boşanma Hukuku', practiceArea: 'Aile Hukuku, Boşanma Hukuku' },
-  { topic: 'Terk nedeniyle boşanma', category: 'Boşanma Hukuku', practiceArea: 'Aile Hukuku, Boşanma Hukuku' },
-  { topic: 'Evlilik birliğinin temelinden sarsılması', category: 'Boşanma Hukuku', practiceArea: 'Aile Hukuku, Boşanma Hukuku' },
-  { topic: 'Uzaklaştırma kararı nasıl alınır?', category: 'Koruma Tedbirleri', practiceArea: 'Aile Hukuku, Koruma Tedbirleri' },
-  { topic: 'Aile içi şiddet ve koruma tedbirleri', category: 'Koruma Tedbirleri', practiceArea: 'Aile Hukuku, Koruma Tedbirleri' },
-  { topic: 'Anlaşmalı boşanma protokolü', category: 'Boşanma Hukuku', practiceArea: 'Aile Hukuku, Boşanma Hukuku' },
-  { topic: 'Boşanma sonrası soyadı kullanımı', category: 'Boşanma Hukuku', practiceArea: 'Aile Hukuku, Boşanma Hukuku' },
-  { topic: 'Tanıma ve tenfiz davası', category: 'Tanıma ve Tenfiz', practiceArea: 'Aile Hukuku, Tanıma ve Tenfiz' },
-  { topic: 'Yurt dışında boşanma kararının Türkiye\'de tanınması', category: 'Tanıma ve Tenfiz', practiceArea: 'Aile Hukuku, Tanıma ve Tenfiz' },
-  { topic: 'Çocuğun velayeti nasıl belirlenir?', category: 'Velayet', practiceArea: 'Aile Hukuku, Velayet' },
-  { topic: 'Mal paylaşımı davası nedir?', category: 'Mal Paylaşımı', practiceArea: 'Aile Hukuku, Mal Rejimi' },
-  { topic: 'Boşanmada edinilmiş mallara katılma', category: 'Mal Paylaşımı', practiceArea: 'Aile Hukuku, Mal Rejimi' },
-  { topic: 'Adana aile hukuku avukatı ne zaman gerekir?', category: 'Aile Hukuku', practiceArea: 'Aile Hukuku' },
-];
+/** Common tokens that should not alone mark topics as duplicates. */
+const TOPIC_STOPWORDS = new Set([
+  'nedir',
+  'nasil',
+  'hangi',
+  'icin',
+  'veya',
+  'ile',
+  'olan',
+  'olur',
+  'eder',
+  'davasi',
+  'davalar',
+  'hukuku',
+  'hakkinda',
+  'adana',
+  'turkiye',
+  'turkiyede',
+  'sureci',
+  'surec',
+  'sartlari',
+  'sartlar',
+  'nelerdir',
+  'ne',
+  'mi',
+  'mu',
+  'midir',
+  'mudur',
+  'halinde',
+  'sonrasi',
+  'oncesi',
+  'uzerine',
+  'ilgili',
+  'genel',
+  'aile',
+]);
 
 const SYSTEM = `Sen kıdemli Türk aile hukuku editörüsün. Site: adanaailehukuku.com — Avukat Ceren Sümer Cilli.
 
@@ -93,7 +101,32 @@ KURALLAR:
 
 function fail(message, code = 1) {
   console.error(`HATA: ${message}`);
+  setGithubOutput('article_generated', 'false');
   process.exit(code);
+}
+
+function skipGeneration(reason) {
+  console.log(`No safe unused topic found. Skipping article generation.`);
+  console.log(`Sebep: ${reason}`);
+  const report = {
+    skipped: true,
+    article_generated: false,
+    reason,
+    generatedAt: new Date().toISOString(),
+  };
+  writeFileSync(REPORT_PATH, JSON.stringify(report, null, 2), 'utf8');
+  setGithubOutput('article_generated', 'false');
+  process.exit(0);
+}
+
+function setGithubOutput(key, value) {
+  const out = process.env.GITHUB_OUTPUT;
+  if (!out) return;
+  try {
+    appendFileSync(out, `${key}=${value}\n`, 'utf8');
+  } catch {
+    /* ignore local runs */
+  }
 }
 
 /** Kalite uyarıları — workflow'u durdurmaz. */
@@ -219,31 +252,170 @@ function discoverInternalLinks() {
   return [...new Set(links)].sort();
 }
 
+function significantTokens(text) {
+  return normalizeTr(text)
+    .split(' ')
+    .filter((w) => w.length > 3 && !TOPIC_STOPWORDS.has(w));
+}
+
+function jaccard(aTokens, bTokens) {
+  if (aTokens.length === 0 || bTokens.length === 0) return 0;
+  const a = new Set(aTokens);
+  const b = new Set(bTokens);
+  let inter = 0;
+  for (const t of a) if (b.has(t)) inter += 1;
+  const union = a.size + b.size - inter;
+  return union === 0 ? 0 : inter / union;
+}
+
+/**
+ * Duplicate detection: exact slug/title/focus matches, or high Jaccard on
+ * significant tokens. Avoids marking related-but-distinct intents as covered
+ * (e.g. "nafaka artırım" vs "nafaka azaltma").
+ */
 function topicIsCovered(topicEntry, existingArticles) {
   const topicNorm = normalizeTr(topicEntry.topic);
-  const topicTokens = topicNorm.split(' ').filter((w) => w.length > 3);
-  if (topicTokens.length === 0) return true;
+  const topicSlug = slugify(topicEntry.topic);
+  const topicTokens = significantTokens(topicEntry.topic);
 
   for (const art of existingArticles) {
-    const overlap = topicTokens.filter((t) => art.normalized.includes(t)).length;
-    const ratio = overlap / topicTokens.length;
-    if (ratio >= 0.6) return true;
+    const titleNorm = normalizeTr(art.title);
+    const focusNorm = normalizeTr(art.focusKeyword);
+    const artSlug = art.slug;
 
-    const topicSlug = slugify(topicEntry.topic);
-    if (art.slug === topicSlug || art.slug.includes(topicSlug) || topicSlug.includes(art.slug)) {
+    if (artSlug === topicSlug) return true;
+    if (titleNorm && titleNorm === topicNorm) return true;
+    if (focusNorm && focusNorm === topicNorm) return true;
+
+    // Near-exact title containment for short topics
+    if (topicNorm.length >= 18 && (titleNorm.includes(topicNorm) || topicNorm.includes(titleNorm))) {
+      if (Math.abs(topicNorm.length - titleNorm.length) <= 12) return true;
+    }
+
+    const artTokens = significantTokens(`${art.slug} ${art.title} ${art.focusKeyword}`);
+    const jac = jaccard(topicTokens, artTokens);
+    if (jac >= 0.72) return true;
+
+    const slugTokens = significantTokens(artSlug.replace(/-/g, ' '));
+    if (jaccard(topicTokens, slugTokens) >= 0.8) return true;
+
+    // Strong overlap only when many distinctive tokens match
+    const inter = topicTokens.filter((t) => artTokens.includes(t));
+    if (topicTokens.length >= 3 && inter.length / topicTokens.length >= 0.85 && inter.length >= 3) {
       return true;
     }
   }
   return false;
 }
 
-function pickTopic(existingArticles) {
-  const available = TOPIC_POOL.filter((t) => !topicIsCovered(t, existingArticles));
-  if (available.length === 0) {
-    fail('Konu havuzunda uygun yeni konu kalmadı. TOPIC_POOL genişletilmeli.');
-  }
+function pickFromPool(pool, existingArticles) {
+  const available = pool.filter((t) => !topicIsCovered(t, existingArticles));
+  if (available.length === 0) return null;
   const dayIndex = new Date().getUTCDay();
-  return available[dayIndex % available.length];
+  const hourSalt = new Date().getUTCHours();
+  return available[(dayIndex + hourSalt) % available.length];
+}
+
+async function generateTopicsViaGemini(apiKey, model, existingArticles, env) {
+  const existingTitles = existingArticles
+    .map((a) => a.title)
+    .filter(Boolean)
+    .slice(0, 80);
+  const prompt = `Türk aile hukuku için 10 özgün evergreen makale konusu öner.
+
+KURALLAR:
+- Yalnızca Türkiye hukuku (TMK, HMK, 6284 vb.)
+- Uydurma mevzuat üretme
+- Bilgilendirici, search-intent odaklı başlıklar
+- "en iyi avukat", yıl varyasyonu (2026/2027), şehir+anahtar kelime spamı YASAK
+- Aşağıdaki mevcut başlıklarla aynı veya çok benzer konu önerme
+
+Mevcut başlıklar:
+${existingTitles.map((t) => `- ${t}`).join('\n')}
+
+Yalnızca JSON döndür:
+{"topics":[{"topic":"...","category":"Aile Hukuku|Boşanma Hukuku|Velayet|Nafaka|Mal Paylaşımı|Çocukla Kişisel İlişki|Koruma Tedbirleri|Tanıma ve Tenfiz","practiceArea":"..."}]}`;
+
+  // Force JSON mode (no grounding) for structured topic list
+  const envNoSearch = {
+    ...env,
+    GEMINI_GOOGLE_SEARCH_ENABLED: 'false',
+    GEMINI_ENABLE_SEARCH_GROUNDING: 'false',
+  };
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      systemInstruction: { parts: [{ text: SYSTEM }] },
+      contents: [{ role: 'user', parts: [{ text: prompt }] }],
+      generationConfig: {
+        temperature: 0.5,
+        maxOutputTokens: 4096,
+        responseMimeType: 'application/json',
+      },
+    }),
+  });
+  if (!res.ok) {
+    throw new Error(`Gemini topic HTTP ${res.status}`);
+  }
+  const data = await res.json();
+  const text = data.candidates?.[0]?.content?.parts?.map((p) => p.text).join('')?.trim();
+  if (!text) throw new Error('Gemini topic boş yanıt');
+
+  let parsed;
+  try {
+    parsed = JSON.parse(text);
+  } catch {
+    const match = text.match(/\{[\s\S]*\}/);
+    if (!match) throw new Error('Gemini topic JSON parse edilemedi');
+    parsed = JSON.parse(match[0]);
+  }
+
+  const list = Array.isArray(parsed.topics) ? parsed.topics : [];
+  return list
+    .filter((t) => t && typeof t.topic === 'string' && t.topic.trim())
+    .map((t) => ({
+      topic: t.topic.trim(),
+      category: t.category?.trim() || 'Aile Hukuku',
+      practiceArea: t.practiceArea?.trim() || 'Aile Hukuku',
+    }));
+}
+
+/**
+ * A) TOPIC_POOL → B) FALLBACK_TOPIC_POOL → C) Gemini topics (max attempts)
+ * Returns topic entry or null (caller should clean-skip).
+ */
+async function pickTopic(existingArticles, apiKey, model, env) {
+  let chosen = pickFromPool(TOPIC_POOL, existingArticles);
+  if (chosen) {
+    console.log(`Konu kaynağı: TOPIC_POOL (${TOPIC_POOL.length} konu)`);
+    return chosen;
+  }
+  console.log('TOPIC_POOL tükendi — FALLBACK_TOPIC_POOL deneniyor...');
+
+  chosen = pickFromPool(FALLBACK_TOPIC_POOL, existingArticles);
+  if (chosen) {
+    console.log(`Konu kaynağı: FALLBACK_TOPIC_POOL (${FALLBACK_TOPIC_POOL.length} konu)`);
+    return chosen;
+  }
+  console.log('FALLBACK_TOPIC_POOL tükendi — Gemini ile yeni konular üretiliyor...');
+
+  for (let attempt = 1; attempt <= MAX_TOPIC_ATTEMPTS; attempt++) {
+    console.log(`Gemini konu üretimi denemesi ${attempt}/${MAX_TOPIC_ATTEMPTS}...`);
+    try {
+      const generated = await generateTopicsViaGemini(apiKey, model, existingArticles, env);
+      const safe = generated.filter((t) => !topicIsCovered(t, existingArticles));
+      if (safe.length > 0) {
+        console.log(`Konu kaynağı: Gemini (${safe.length} güvenli aday)`);
+        return safe[0];
+      }
+      console.log(`Deneme ${attempt}: güvenli unused konu bulunamadı.`);
+    } catch (err) {
+      console.warn(`Gemini konu üretimi uyarısı: ${err.message || err}`);
+    }
+  }
+  return null;
 }
 
 function isGoogleSearchEnabled(env) {
@@ -591,7 +763,16 @@ function runBuild() {
   const result = spawnSync(npmCmd, ['run', 'build'], {
     cwd: ROOT,
     stdio: 'inherit',
+    shell: process.platform === 'win32',
+    env: process.env,
   });
+  if (result.error) {
+    console.error(`Build spawn hatası: ${result.error.message}`);
+    return false;
+  }
+  if (result.status !== 0) {
+    console.error(`Build exit code: ${result.status}`);
+  }
   return result.status === 0;
 }
 
@@ -606,11 +787,15 @@ async function main() {
 
   const existing = loadExistingArticles();
   const existingSlugs = new Set(existing.map((a) => a.slug));
-  const topicEntry = pickTopic(existing);
+  const topicEntry = await pickTopic(existing, apiKey, model, env);
+  if (!topicEntry) {
+    skipGeneration('TOPIC_POOL, FALLBACK_TOPIC_POOL ve Gemini fallback içinde güvenli unused konu bulunamadı.');
+  }
   const internalLinks = discoverInternalLinks();
 
   console.log(`Konu: ${topicEntry.topic}`);
   console.log(`Mevcut makale sayısı: ${existing.length}`);
+  console.log(`Havuz: TOPIC_POOL=${TOPIC_POOL.length}, FALLBACK=${FALLBACK_TOPIC_POOL.length}`);
 
   const planPrompt = `Aşağıdaki konu için makale planı üret. Yalnızca geçerli JSON döndür.
 
@@ -734,10 +919,13 @@ ${internalLinks.join('\n')}`;
     metaTitleLength: plan.seoTitle.length,
     metaDescriptionLength: plan.metaDescription.length,
     qualityWarnings: [...qualityWarnings],
+    article_generated: true,
+    skipped: false,
     commitMessage: `add article on ${plan.slug}`,
     generatedAt: new Date().toISOString(),
   };
   writeFileSync(REPORT_PATH, JSON.stringify(report, null, 2), 'utf8');
+  setGithubOutput('article_generated', 'true');
 
   console.log('\n=== BAŞARILI ===');
   console.log(`Slug: ${report.slug}`);

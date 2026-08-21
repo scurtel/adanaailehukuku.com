@@ -122,6 +122,7 @@ export const ARTICLE_SLUGS = [
   'bosanma-sonrasi-soyadi-kullanimi',
   'sosyal-medya-bosanmada-delil-degeri',
   'ortak-velayet-nedir',
+  'bosanma-kararinin-kesinlesmesi-nedir',
 ] as const;
 
 export const PAGE_SLUGS = [
@@ -138,6 +139,9 @@ export const PAGE_SLUGS = [
   'adana-ilce-aile-hukuku-avukati',
   'hakkimizda',
   'iletisim',
+  'cerez-politikasi',
+  'gizlilik-politikasi',
+  'kvkk-aydinlatma-metni',
 ] as const;
 
 export const NAV_ITEMS = [
