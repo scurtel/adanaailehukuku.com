@@ -126,6 +126,7 @@ export const ARTICLE_SLUGS = [
   'bosanma-sonrasi-nufus-kaydi-duzeltme',
   'bosanma-sonrasi-nufus-kayit-duzenlemeleri',
   'cocugun-ustun-yarari-ilkesi-nedir',
+  'nisanin-bozulmasi-halinde-haklar',
 ] as const;
 
 export const PAGE_SLUGS = [
