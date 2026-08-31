@@ -128,6 +128,7 @@ export const ARTICLE_SLUGS = [
   'cocugun-ustun-yarari-ilkesi-nedir',
   'nisanin-bozulmasi-halinde-haklar',
   'bosanmada-ayri-yasama-karari',
+  'bosanma-davasi-gorevli-yetkili-mahkeme',
 ] as const;
 
 export const PAGE_SLUGS = [
