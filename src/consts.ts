@@ -129,6 +129,7 @@ export const ARTICLE_SLUGS = [
   'nisanin-bozulmasi-halinde-haklar',
   'bosanmada-ayri-yasama-karari',
   'bosanma-davasi-gorevli-yetkili-mahkeme',
+  'bosanma-dilekcesi-nasil-hazirlanir',
 ] as const;
 
 export const PAGE_SLUGS = [
