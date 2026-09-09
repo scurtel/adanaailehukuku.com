@@ -132,6 +132,7 @@ export const ARTICLE_SLUGS = [
   'bosanma-dilekcesi-nasil-hazirlanir',
   'bosanma-sonrasi-yeniden-evlenme-sartlari',
   'evlat-edinme-sureci-adana',
+  'bosanma-kararinin-kesinlesme-sureci-ve-sonuclari',
 ] as const;
 
 export const PAGE_SLUGS = [
