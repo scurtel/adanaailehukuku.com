@@ -113,6 +113,20 @@ function normalizeExtractedSchema(schema: Record<string, unknown>): Record<strin
       mep['@id'] = `${SITE_URL}/makaleler/${slugMatch[1]}/`;
     }
   }
+  if (schema['@type'] === 'Article') {
+    schema.author = {
+      '@type': 'Person',
+      '@id': PERSON_ENTITY_ID,
+      name: SITE_NAME,
+      url: AUTHOR_PROFILE_URL,
+      sameAs: PROFILE_LINKS.map((l) => l.href),
+    };
+    schema.publisher = {
+      '@type': 'Organization',
+      '@id': LEGAL_SERVICE_ENTITY_ID,
+      name: SITE_NAME,
+    };
+  }
   return sanitizeFaqSchema(schema);
 }
 
@@ -192,6 +206,7 @@ export function buildArticleSchema(input: {
       '@id': PERSON_ENTITY_ID,
       name: input.author ?? SITE_NAME,
       url: AUTHOR_PROFILE_URL,
+      sameAs: PROFILE_LINKS.map((l) => l.href),
     },
     publisher: {
       '@type': 'Organization',

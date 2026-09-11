@@ -36,8 +36,12 @@ export const BUSINESS_NAP = {
 /** Verified official profiles (exact URLs from existing about page + NAP). Do not invent. */
 export const PROFILE_LINKS = [
   {
-    label: 'Avukat Ceren Sümer Cilli Resmî Web Sitesi',
-    href: 'https://www.cerensumer.av.tr/adana-bosanma-avukati-ceren-sumer-cilli-kimdir/',
+    label: 'Avukat Ceren Sümer Cilli Resmî Web Sitesi & Profil',
+    href: 'https://www.cerensumer.av.tr/av-ceren-sumer-cilli/',
+  },
+  {
+    label: 'Milliyet Blog Köşe Yazıları',
+    href: 'https://blog.milliyet.com.tr/avcerensumercilli',
   },
   {
     label: 'Google Maps İşletme Profili',

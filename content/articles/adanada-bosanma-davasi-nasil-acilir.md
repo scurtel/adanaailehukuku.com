@@ -184,7 +184,7 @@ Adana'da boşanma, nafaka, velayet ve mal paylaşımı gibi aile hukuku konular�
 
 ### Av. Ceren Sümer Cilli'nin Rolü
 
-Av. Ceren Sümer Cilli, Adana'da aile hukuku alanında geniş bir tecrübeye sahiptir. Müvekkillerine, boşanma davası sürecinin her aşamasında kapsamlı hukuki danışmanlık ve temsil hizmeti sunmaktadır. Dava dilekçesinin hazırlanmasından delillerin toplanmasına, mahkeme duruşmalarında müvekkillerini temsil etmekten karar sonrası süreçlerin takibine kadar titizlikle çalışır. Özellikle Adana aile mahkemelerindeki uygulamalara hakimiyeti sayesinde, müvekkillerinin en iyi sonuca ulaşması için stratejik adımlar atar. Av. Ceren Sümer Cilli, müvekkillerinin haklarını korumak ve adil bir sonuca ulaşmak adına özverili bir şekilde çalışmaktadır.
+Av. Ceren Sümer Cilli, Adana'da aile hukuku alanında geniş bir tecrübeye sahiptir. Müvekkillerine, boşanma davası sürecinin her aşamasında kapsamlı hukuki danışmanlık ve temsil hizmeti sunmaktadır. Dava dilekçesinin hazırlanmasından delillerin toplanmasına, mahkeme duruşmalarında müvekkillerini temsil etmekten karar sonrası süreçlerin takibine kadar titizlikle çalışır. Adana Aile Mahkemeleri nezdinde dava açılış prosedürleri, yetki ve görev kuralları hakkında kapsamlı kurumsal bilgi için [Avukat Ceren Sümer Cilli'nin Adana boşanma avukatı rehberine](https://www.cerensumer.av.tr/adana-bosanma-avukati/) başvurabilirsiniz.
 
 ### İletişim ve Danışmanlık
 
