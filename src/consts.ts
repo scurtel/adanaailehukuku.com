@@ -139,6 +139,7 @@ export const ARTICLE_SLUGS = [
   'bosanma-kararinin-kesinlesme-sureci-ve-sonuclari',
   'kadinin-bosanma-sonrasi-soyadi-secimi',
   'evlat-edinme-hukuki-asamalari',
+  'bosanma-kararinin-kesinlesmesi-anlami-ve-onemi',
 ] as const;
 
 export const PAGE_SLUGS = [
