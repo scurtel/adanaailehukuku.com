@@ -141,6 +141,7 @@ export const ARTICLE_SLUGS = [
   'evlat-edinme-hukuki-asamalari',
   'bosanma-kararinin-kesinlesmesi-anlami-ve-onemi',
   'bosanma-davasinda-istinaf-sureci',
+  'evlat-edinme-sureci-nasil-isler',
 ] as const;
 
 export const PAGE_SLUGS = [
