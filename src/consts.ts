@@ -4,8 +4,9 @@ export const SITE_TAGLINE = 'Adana Aile Hukuku';
 export const OG_IMAGE_URL = `${SITE_URL}/og-default.svg`;
 
 /** Canonical Person entity for E-E-A-T / author graph */
-export const PERSON_ENTITY_ID = `${SITE_URL}/#ceren-sumer-cilli`;
-export const LEGAL_SERVICE_ENTITY_ID = `${SITE_URL}/#legal-service`;
+export const PERSON_ENTITY_ID = 'https://www.cerensumer.av.tr/#ceren-sumer-cilli';
+export const LEGAL_SERVICE_ENTITY_ID = 'https://www.cerensumer.av.tr/#sumer-hukuk';
+export const CANONICAL_AUTHOR_URL = 'https://www.cerensumer.av.tr/av-ceren-sumer-cilli/';
 export const AUTHOR_PROFILE_PATH = '/hakkimizda/';
 export const AUTHOR_PROFILE_URL = `${SITE_URL}${AUTHOR_PROFILE_PATH}`;
 
@@ -45,7 +46,7 @@ export const PROFILE_LINKS = [
   },
   {
     label: 'Google Maps İşletme Profili',
-    href: 'https://www.google.com/maps/search/?api=1&query=Avukat+Ceren+S%C3%BCmer+Cilli+Adana',
+    href: 'https://www.google.com/maps/place/Adana+Avukat+Ceren+S%C3%BCmer+Cilli+%7C+Adana+Bo%C5%9Fanma+Avukat%C4%B1/@36.9917146,35.3294433,17z/data=!3m1!4b1!4m6!3m5!1s0x15288f6f3764072f:0x51c862d3a8658c0d!8m2!3d36.9917146!4d35.3294433!16s%2Fg%2F11c209qv9m',
   },
   {
     label: 'LinkedIn Mesleki Profili',

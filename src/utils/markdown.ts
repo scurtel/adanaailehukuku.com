@@ -4,6 +4,7 @@ import {
   AUTHOR_PROFILE_URL,
   BUSINESS_NAP,
   CANONICAL_ARTICLE_REPLACEMENTS,
+  CANONICAL_AUTHOR_URL,
   LEGAL_SERVICE_ENTITY_ID,
   OG_IMAGE_URL,
   PAGE_SLUGS,
@@ -117,14 +118,15 @@ function normalizeExtractedSchema(schema: Record<string, unknown>): Record<strin
     schema.author = {
       '@type': 'Person',
       '@id': PERSON_ENTITY_ID,
-      name: SITE_NAME,
-      url: AUTHOR_PROFILE_URL,
+      name: 'Avukat Ceren Sümer Cilli',
+      url: CANONICAL_AUTHOR_URL,
       sameAs: PROFILE_LINKS.map((l) => l.href),
     };
     schema.publisher = {
-      '@type': 'Organization',
+      '@type': 'LegalService',
       '@id': LEGAL_SERVICE_ENTITY_ID,
-      name: SITE_NAME,
+      name: 'Sümer Hukuk Bürosu',
+      url: 'https://www.cerensumer.av.tr/',
     };
   }
   return sanitizeFaqSchema(schema);
@@ -204,14 +206,15 @@ export function buildArticleSchema(input: {
     author: {
       '@type': 'Person',
       '@id': PERSON_ENTITY_ID,
-      name: input.author ?? SITE_NAME,
-      url: AUTHOR_PROFILE_URL,
+      name: input.author ?? 'Avukat Ceren Sümer Cilli',
+      url: CANONICAL_AUTHOR_URL,
       sameAs: PROFILE_LINKS.map((l) => l.href),
     },
     publisher: {
-      '@type': 'Organization',
+      '@type': 'LegalService',
       '@id': LEGAL_SERVICE_ENTITY_ID,
-      name: SITE_NAME,
+      name: 'Sümer Hukuk Bürosu',
+      url: 'https://www.cerensumer.av.tr/',
     },
     datePublished: iso,
     dateModified: iso,
@@ -230,7 +233,8 @@ export function buildLegalServiceSchema(input: {
   return {
     '@context': 'https://schema.org',
     '@type': 'LegalService',
-    name: `${SITE_NAME} - ${input.title}`,
+    '@id': LEGAL_SERVICE_ENTITY_ID,
+    name: `Sümer Hukuk Bürosu - ${input.title}`,
     url: `${SITE_URL}${input.path}`,
     telephone: BUSINESS_NAP.telephone,
     areaServed: [
@@ -245,8 +249,16 @@ export function buildLegalServiceSchema(input: {
     provider: {
       '@type': 'Person',
       '@id': PERSON_ENTITY_ID,
-      name: SITE_NAME,
-      url: AUTHOR_PROFILE_URL,
+      name: 'Avukat Ceren Sümer Cilli',
+      url: CANONICAL_AUTHOR_URL,
+    },
+    founder: {
+      '@type': 'Person',
+      '@id': PERSON_ENTITY_ID,
+    },
+    employee: {
+      '@type': 'Person',
+      '@id': PERSON_ENTITY_ID,
     },
   };
 }
@@ -256,15 +268,15 @@ export function buildPersonSchema() {
     '@context': 'https://schema.org',
     '@type': 'Person',
     '@id': PERSON_ENTITY_ID,
-    name: BUSINESS_NAP.personName,
+    name: 'Avukat Ceren Sümer Cilli',
     honorificPrefix: BUSINESS_NAP.honorificPrefix,
-    alternateName: SITE_NAME,
     jobTitle: 'Avukat',
-    url: AUTHOR_PROFILE_URL,
+    url: CANONICAL_AUTHOR_URL,
     worksFor: {
       '@type': 'LegalService',
       '@id': LEGAL_SERVICE_ENTITY_ID,
-      name: SITE_NAME,
+      name: 'Sümer Hukuk Bürosu',
+      url: 'https://www.cerensumer.av.tr/',
     },
     knowsAbout: [
       'Aile Hukuku',
@@ -274,6 +286,7 @@ export function buildPersonSchema() {
       'Mal Rejiminin Tasfiyesi',
       'Aile Konutu',
       'Ziynet Alacağı',
+      '6284 Sayılı Kanun',
     ],
     sameAs: PROFILE_LINKS.map((l) => l.href),
   };
@@ -284,8 +297,9 @@ export function buildLocalBusinessSchema() {
     '@context': 'https://schema.org',
     '@type': 'LegalService',
     '@id': LEGAL_SERVICE_ENTITY_ID,
-    name: BUSINESS_NAP.name,
-    url: SITE_URL,
+    name: 'Sümer Hukuk Bürosu',
+    legalName: 'Sümer Hukuk Bürosu',
+    url: 'https://www.cerensumer.av.tr/',
     image: OG_IMAGE_URL,
     telephone: BUSINESS_NAP.telephone,
     email: BUSINESS_NAP.email,
@@ -311,8 +325,17 @@ export function buildLocalBusinessSchema() {
       latitude: BUSINESS_NAP.latitude,
       longitude: BUSINESS_NAP.longitude,
     },
-    openingHours: BUSINESS_NAP.openingHours,
+    openingHoursSpecification: [
+      {
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+        opens: '09:00',
+        closes: '18:00',
+      },
+    ],
     sameAs: PROFILE_LINKS.map((l) => l.href),
+    provider: { '@id': PERSON_ENTITY_ID },
+    founder: { '@id': PERSON_ENTITY_ID },
     employee: { '@id': PERSON_ENTITY_ID },
   };
 }
@@ -326,7 +349,7 @@ export function buildAboutPageGraph() {
       {
         '@type': 'WebPage',
         '@id': webpageId,
-        url: AUTHOR_PROFILE_URL,
+        url: `${SITE_URL}/hakkimizda/`,
         name: 'Avukat Ceren Sümer Cilli Hakkında',
         description:
           'Avukat Ceren Sümer Cilli’nin aile hukuku, boşanma, velayet, nafaka ve mal rejimi alanındaki çalışmaları, hukuki yayınları ve mesleki profili.',
@@ -339,11 +362,11 @@ export function buildAboutPageGraph() {
       {
         '@type': 'Person',
         '@id': PERSON_ENTITY_ID,
-        name: BUSINESS_NAP.personName,
+        name: 'Avukat Ceren Sümer Cilli',
         honorificPrefix: BUSINESS_NAP.honorificPrefix,
-        alternateName: SITE_NAME,
         jobTitle: 'Avukat',
-        url: AUTHOR_PROFILE_URL,
+        url: CANONICAL_AUTHOR_URL,
+        mainEntityOfPage: `${SITE_URL}/hakkimizda/`,
         image: OG_IMAGE_URL,
         worksFor: { '@id': LEGAL_SERVICE_ENTITY_ID },
         knowsAbout: [
@@ -354,6 +377,7 @@ export function buildAboutPageGraph() {
           'Mal Rejiminin Tasfiyesi',
           'Aile Konutu',
           'Ziynet Alacağı',
+          '6284 Sayılı Kanun',
         ],
         sameAs: PROFILE_LINKS.map((l) => l.href),
         address: {
@@ -370,9 +394,10 @@ export function buildAboutPageGraph() {
       {
         '@type': 'LegalService',
         '@id': LEGAL_SERVICE_ENTITY_ID,
-        name: SITE_NAME,
+        name: 'Sümer Hukuk Bürosu',
+        legalName: 'Sümer Hukuk Bürosu',
         alternateName: `${SITE_NAME} - ${SITE_TAGLINE}`,
-        url: SITE_URL,
+        url: 'https://www.cerensumer.av.tr/',
         telephone: BUSINESS_NAP.telephone,
         email: BUSINESS_NAP.email,
         image: OG_IMAGE_URL,
@@ -389,6 +414,14 @@ export function buildAboutPageGraph() {
           latitude: BUSINESS_NAP.latitude,
           longitude: BUSINESS_NAP.longitude,
         },
+        openingHoursSpecification: [
+          {
+            '@type': 'OpeningHoursSpecification',
+            dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+            opens: '09:00',
+            closes: '18:00',
+          },
+        ],
         areaServed: [
           { '@type': 'City', name: 'Adana' },
           { '@type': 'Place', name: 'Seyhan' },
@@ -397,6 +430,8 @@ export function buildAboutPageGraph() {
           { '@type': 'Place', name: 'Sarıçam' },
         ],
         serviceType: 'Aile Hukuku',
+        provider: { '@id': PERSON_ENTITY_ID },
+        founder: { '@id': PERSON_ENTITY_ID },
         employee: { '@id': PERSON_ENTITY_ID },
         sameAs: PROFILE_LINKS.map((l) => l.href),
       },
@@ -414,7 +449,7 @@ export function buildAboutPageGraph() {
             '@type': 'ListItem',
             position: 2,
             name: 'Hakkımızda',
-            item: AUTHOR_PROFILE_URL,
+            item: `${SITE_URL}/hakkimizda/`,
           },
         ],
       },

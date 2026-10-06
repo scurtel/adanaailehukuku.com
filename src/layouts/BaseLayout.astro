@@ -33,7 +33,7 @@ const {
   canonicalPath,
   articlePublishedTime,
   articleModifiedTime,
-  articleAuthor = 'Av. Ceren Sümer Cilli',
+  articleAuthor = 'Avukat Ceren Sümer Cilli',
 } = Astro.props;
 
 const fullTitle = formatPageTitle(title, path);
@@ -77,6 +77,8 @@ const twitterCard = ogImage.includes('favicon') ? 'summary' : 'summary_large_ima
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
+    <link rel="dns-prefetch" href="https://images.unsplash.com" />
     {
       schemas.map((schema) => (
         <script type="application/ld+json" set:html={JSON.stringify(schema)} />

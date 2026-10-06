@@ -529,7 +529,7 @@ def generate_service(
 def main() -> int:
     env = load_env()
     api_key = get_api_key(env)
-    model = env.get("GEMINI_MODEL", "gemini-2.5-flash")
+    model = env.get("GEMINI_MODEL", "gemini-3.8-flash")
     if not api_key:
         print("GEMINI_API_KEY veya GOOGLE_GEMINI_API_KEY .env içinde bulunamadı", file=sys.stderr)
         return 1
