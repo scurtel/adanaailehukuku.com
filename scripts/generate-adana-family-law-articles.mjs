@@ -350,7 +350,7 @@ async function generateArticle(apiKey, model, article) {
 async function main() {
   const env = loadEnv();
   const apiKey = getApiKey(env);
-  const model = env.GEMINI_MODEL || 'gemini-3.8-flash';
+  const model = env.GEMINI_MODEL || 'gemini-2.5-flash';
   const force = process.env.FORCE === '1';
 
   if (!apiKey) {

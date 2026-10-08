@@ -280,7 +280,7 @@ def generate_article(api_key: str, model: str, article: dict, env: dict | None =
 def main() -> int:
     env = load_env()
     api_key = env.get("GEMINI_API_KEY")
-    model = env.get("GEMINI_MODEL", "gemini-3.8-flash")
+    model = env.get("GEMINI_MODEL", "gemini-2.5-flash")
     if not api_key:
         print("GEMINI_API_KEY missing", file=sys.stderr)
         return 1

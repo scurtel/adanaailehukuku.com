@@ -2,7 +2,7 @@
 /**
  * Otomatik tek makale üretimi (GitHub Actions cron veya yerel).
  * Usage: node scripts/generate-article.mjs
- * Env: GEMINI_API_KEY, optional GEMINI_MODEL (default gemini-3.8-flash)
+ * Env: GEMINI_API_KEY, optional GEMINI_MODEL (default gemini-2.5-flash)
  */
 
 import {
@@ -1098,18 +1098,8 @@ ${JSON.stringify(
     '@type': 'Article',
     headline: article.seoTitle,
     description: article.metaDescription,
-    author: {
-      '@type': 'Person',
-      '@id': 'https://www.cerensumer.av.tr/#ceren-sumer-cilli',
-      name: 'Avukat Ceren Sümer Cilli',
-      url: 'https://www.cerensumer.av.tr/av-ceren-sumer-cilli/',
-    },
-    publisher: {
-      '@type': 'LegalService',
-      '@id': 'https://www.cerensumer.av.tr/#sumer-hukuk',
-      name: 'Sümer Hukuk Bürosu',
-      url: 'https://www.cerensumer.av.tr/',
-    },
+    author: { '@type': 'Person', name: 'Av. Ceren Sümer Cilli' },
+    publisher: { '@type': 'Organization', name: 'adanaailehukuku.com' },
     datePublished: today,
     dateModified: today,
     image: `${SITE_URL}/og/article-default.svg`,
@@ -1154,8 +1144,8 @@ title: "${escapeYamlDoubleQuoted(article.seoTitle)}"
 description: "${escapeYamlDoubleQuoted(article.metaDescription)}"
 slug: ${article.slug}
 date: "${today}"
-author: "Avukat Ceren Sümer Cilli"
-reviewer: "Avukat Ceren Sümer Cilli"
+author: "Av. Ceren Sümer Cilli"
+reviewer: "Av. Ceren Sümer Cilli"
 category: "${escapeYamlDoubleQuoted(article.category)}"
 focusKeyword: "${escapeYamlDoubleQuoted(article.focusKeyword)}"
 practiceArea: "${escapeYamlDoubleQuoted(article.practiceArea)}"
@@ -1206,7 +1196,7 @@ function runBuild() {
 async function main() {
   const env = loadEnv();
   const apiKey = getApiKey(env);
-  const model = env.GEMINI_MODEL || 'gemini-3.8-flash';
+  const model = env.GEMINI_MODEL || 'gemini-2.5-flash';
 
   if (!apiKey) fail('GEMINI_API_KEY ortam değişkeni tanımlı değil');
 
