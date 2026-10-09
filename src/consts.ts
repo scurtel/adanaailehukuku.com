@@ -149,6 +149,7 @@ export const ARTICLE_SLUGS = [
   'anlasmali-bosanma-protokolu-hazirlama-adana',
   'bosanma-kararinin-hukuken-kesinlesmesi',
   'bosanma-davasinda-feragat-ve-kabul-hukuki-sonuclari',
+  'anlasmali-bosanmada-protokol-degisikligi-mumkun-mu',
 ] as const;
 
 export const PAGE_SLUGS = [
