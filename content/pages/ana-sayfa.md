@@ -41,7 +41,7 @@ secondaryKeywords:
 
 ## Avukat Ceren Sümer Cilli
 
-**Avukat Ceren Sümer Cilli**, 2020 yılında “Yılın Aile Avukatı” seçilmiştir. Bugüne kadar 300’den fazla aile hukuku dosyasının takibini üstlenmiş; çekişmeli boşanma, anlaşmalı boşanma, mal paylaşımı ve velayet uyuşmazlıklarında Adana merkezli danışmanlık ve dava takibi sunmaktadır. Çalışma odağı ayrıca nafaka, ziynet alacağı, aile konutu ve koruma tedbirlerini kapsar. Hedef, abartılı vaatler değil; somut dosyada hukuki çerçevenin doğru kurulması ve hak kaybı riskinin azaltılmasıdır.
+**Avukat Ceren Sümer Cilli**, 2012 yılında Dokuz Eylül Üniversitesi Hukuk Fakültesinden onur derecesiyle mezun olmuştur. 2020 yılında “Yılın Aile Avukatı” seçilmiştir. Bugüne kadar 300’den fazla aile hukuku dosyasının takibini üstlenmiş; çekişmeli boşanma, anlaşmalı boşanma, mal paylaşımı, mal rejiminin tasfiyesi ve velayet uyuşmazlıklarında Adana merkezli danışmanlık ve dava takibi sunmaktadır. Çalışma odağı ayrıca nafaka, ziynet alacağı, aile konutu ve koruma tedbirlerini kapsar. Hedef, abartılı vaatler değil; somut dosyada hukuki çerçevenin doğru kurulması ve hak kaybı riskinin azaltılmasıdır.
 
 Seyhan, Çukurova, Yüreğir ve Sarıçam başta olmak üzere Adana genelinde dosyalar, yetkili aile mahkemeleri nezdinde takip edilir.
 
