@@ -50,6 +50,36 @@ const fullAddress = `${BUSINESS_NAP.streetAddress}, ${BUSINESS_NAP.postalCode} $
         <!-- TODO: Doğrulanmış profesyonel portre fotoğrafı eklenecek (width/height + açıklayıcı alt metin ile). -->
       </header>
 
+      <section class="about-section" aria-labelledby="dosya-deneyimi">
+        <h2 id="dosya-deneyimi">Aile Hukukunda 300’den Fazla Dosya Deneyimi</h2>
+        <p>
+          Avukat Ceren Sümer Cilli, aile hukuku alanındaki çalışmaları kapsamında 2020 yılında
+          “Yılın Aile Avukatı” seçilmiştir. Bugüne kadar 300’den fazla aile hukuku dosyasının
+          takibini üstlenerek çekişmeli boşanma, anlaşmalı boşanma, eşler arasındaki mal rejiminin
+          tasfiyesi ve çocukların velayetine ilişkin uyuşmazlıklarda dava pratiği edinmiştir.
+        </p>
+        <p>
+          Her uyuşmazlık kendi koşulları içinde ele alınır. Müvekkillerin hak ve menfaatlerinin
+          korunmasına yönelik süreçler bu çerçevede yürütülür. Özellikle boşanmanın mali sonuçları,
+          velayet düzenlemeleri ve mal paylaşımından doğan ihtilaflarda değerlendirme, mevzuat ve
+          yargı uygulamalarına göre somut olaya uygun biçimde yapılır.
+        </p>
+        <div class="grid-3 experience-grid">
+          <article class="card">
+            <h3>2020</h3>
+            <p>Yılın Aile Avukatı</p>
+          </article>
+          <article class="card">
+            <h3>300+</h3>
+            <p>Takibi üstlenilen aile hukuku dosyası</p>
+          </article>
+          <article class="card">
+            <h3>Aile Hukuku</h3>
+            <p>Boşanma, mal paylaşımı ve velayet</p>
+          </article>
+        </div>
+      </section>
+
       <section class="about-section" aria-labelledby="mesleki-profil">
         <h2 id="mesleki-profil">Mesleki Profil</h2>
         <dl class="profile-grid">
@@ -321,6 +351,21 @@ const fullAddress = `${BUSINESS_NAP.streetAddress}, ${BUSINESS_NAP.postalCode} $
 
   .about-section {
     margin-top: 2.25rem;
+  }
+
+  .experience-grid {
+    margin-top: 0.5rem;
+  }
+
+  .experience-grid h3 {
+    margin: 0 0 0.35rem;
+    color: var(--navy);
+    font-size: 1.45rem;
+  }
+
+  .experience-grid p {
+    margin: 0;
+    max-width: none;
   }
 
   .about-section h2 {

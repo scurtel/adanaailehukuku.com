@@ -74,6 +74,34 @@ const pageSchemas = mergeSchemas(
       ))}
     </div>
 
+    <section class="experience section-spaced" aria-labelledby="deneyim-baslik">
+      <h2 id="deneyim-baslik" class="section-title">Aile Hukukunda Deneyim ve Mesleki Birikim</h2>
+      <p>
+        2020 yılında “Yılın Aile Avukatı” seçilen Avukat Ceren Sümer Cilli, Adana’da aile hukuku
+        dosyalarında edindiği birikimle çalışmalarını sürdürmektedir. Bugüne kadar 300’den fazla
+        aile hukuku dosyasının takibi üstlenilmiştir.
+      </p>
+      <p>
+        Çekişmeli boşanma ve anlaşmalı boşanma davaları, boşanmada mal paylaşımı ve çocukların
+        velayeti bu çalışmaların başlıca konularıdır. Hukuki danışmanlık ve dava takibi, her
+        uyuşmazlığın kendi koşullarına göre planlanır.
+      </p>
+      <div class="grid-3 experience-grid">
+        <article class="card">
+          <h3>2020</h3>
+          <p>Yılın Aile Avukatı</p>
+        </article>
+        <article class="card">
+          <h3>300+</h3>
+          <p>Takibi üstlenilen aile hukuku dosyası</p>
+        </article>
+        <article class="card">
+          <h3>Aile Hukuku</h3>
+          <p>Boşanma, mal paylaşımı ve velayet</p>
+        </article>
+      </div>
+    </section>
+
     <h2 class="section-title section-spaced">Son Makaleler</h2>
     <div class="grid-2">
       {recentArticles.map((article) => {
@@ -142,5 +170,22 @@ const pageSchemas = mergeSchemas(
 <style>
   .section-spaced {
     margin-top: 2rem;
+  }
+
+  .experience p {
+    max-width: 68ch;
+  }
+
+  .experience-grid {
+    margin-top: 1.25rem;
+  }
+
+  .experience-grid h3 {
+    font-size: 1.45rem;
+    letter-spacing: 0.01em;
+  }
+
+  .experience-grid p {
+    margin: 0;
   }
 </style>
