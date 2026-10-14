@@ -151,6 +151,7 @@ export const ARTICLE_SLUGS = [
   'bosanma-davasinda-feragat-ve-kabul-hukuki-sonuclari',
   'anlasmali-bosanmada-protokol-degisikligi-mumkun-mu',
   'bosanma-kararinin-kesinlesmesi-nedir-adana',
+  'bosanma-sonrasi-kimlik-bilgileri-guncelleme',
 ] as const;
 
 export const PAGE_SLUGS = [
