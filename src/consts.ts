@@ -152,6 +152,7 @@ export const ARTICLE_SLUGS = [
   'anlasmali-bosanmada-protokol-degisikligi-mumkun-mu',
   'bosanma-kararinin-kesinlesmesi-nedir-adana',
   'bosanma-sonrasi-kimlik-bilgileri-guncelleme',
+  'bosanma-davasi-harc-gider-avansi',
 ] as const;
 
 export const PAGE_SLUGS = [
