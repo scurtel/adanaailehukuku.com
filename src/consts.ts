@@ -153,6 +153,7 @@ export const ARTICLE_SLUGS = [
   'bosanma-kararinin-kesinlesmesi-nedir-adana',
   'bosanma-sonrasi-kimlik-bilgileri-guncelleme',
   'bosanma-davasi-harc-gider-avansi',
+  'bosanma-dilekcesinde-neler-yazilmalidir',
 ] as const;
 
 export const PAGE_SLUGS = [
