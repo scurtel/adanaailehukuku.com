@@ -155,6 +155,7 @@ export const ARTICLE_SLUGS = [
   'bosanma-davasi-harc-gider-avansi',
   'bosanma-dilekcesinde-neler-yazilmalidir',
   'anlasmali-bosanma-protokolu-hazirlama-rehberi',
+  'cekismeli-bosanmada-delil-stratejisi',
 ] as const;
 
 export const PAGE_SLUGS = [
