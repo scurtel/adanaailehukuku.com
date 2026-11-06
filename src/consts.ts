@@ -161,6 +161,7 @@ export const ARTICLE_SLUGS = [
   'cekismeli-bosanmada-sulh-uzlasma',
   'anlasmali-bosanma-tek-celsede-biter-mi',
   'anlasmali-bosanma-cekismeliye-donusur-mu',
+  'hayata-kast-nedeniyle-bosanma-davasi',
 ] as const;
 
 export const PAGE_SLUGS = [
