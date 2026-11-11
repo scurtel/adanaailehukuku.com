@@ -163,6 +163,7 @@ export const ARTICLE_SLUGS = [
   'anlasmali-bosanma-cekismeliye-donusur-mu',
   'hayata-kast-nedeniyle-bosanma-davasi',
   'cekismeli-bosanma-davasi-nasil-ilerler',
+  'terk-nedeniyle-bosanma-sartlari',
 ] as const;
 
 export const PAGE_SLUGS = [
