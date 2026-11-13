@@ -164,6 +164,7 @@ export const ARTICLE_SLUGS = [
   'hayata-kast-nedeniyle-bosanma-davasi',
   'cekismeli-bosanma-davasi-nasil-ilerler',
   'terk-nedeniyle-bosanma-sartlari',
+  'akil-hastaligi-nedeniyle-bosanma-davasi',
 ] as const;
 
 export const PAGE_SLUGS = [
