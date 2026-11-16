@@ -165,6 +165,7 @@ export const ARTICLE_SLUGS = [
   'cekismeli-bosanma-davasi-nasil-ilerler',
   'terk-nedeniyle-bosanma-sartlari',
   'akil-hastaligi-nedeniyle-bosanma-davasi',
+  'zina-nedeniyle-bosanma-davasi',
 ] as const;
 
 export const PAGE_SLUGS = [
