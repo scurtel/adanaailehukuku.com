@@ -168,6 +168,7 @@ export const ARTICLE_SLUGS = [
   'zina-nedeniyle-bosanma-davasi',
   'suc-isleme-haysiyetsiz-hayat-nedeniyle-bosanma',
   'sadakatsizlik-bosanma-davasinda-degerlendirme',
+  'pek-kotu-onur-kirici-davranis-nedeniyle-bosanma',
 ] as const;
 
 export const PAGE_SLUGS = [
