@@ -170,6 +170,7 @@ export const ARTICLE_SLUGS = [
   'sadakatsizlik-bosanma-davasinda-degerlendirme',
   'pek-kotu-onur-kirici-davranis-nedeniyle-bosanma',
   'sadakatsizlik-bosanma-davasi-degerlendirme',
+  'esit-kusur-bosanma-hukuki-sonuclari',
 ] as const;
 
 export const PAGE_SLUGS = [
